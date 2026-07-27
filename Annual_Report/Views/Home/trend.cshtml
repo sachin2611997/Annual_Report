@@ -1,0 +1,566 @@
+﻿@model  Annual_Report.Models.final_analysis
+
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Admin Dashboard Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN P~EVEL PLUGIN STYLES -->
+    <link href="~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+    <!-- END PAG~EL PLUGIN STYLES -->
+    <!-- BEGIN P~TYLES -->
+    <link href="~/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
+    <!-- END PAG~LES -->
+    <!-- BEGIN T~STYLES -->
+    <!-- DOC: To~'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .hnd {
+            font-weight: bold !important;
+            background-color: #EB5B00 !important;
+            padding: 20px;
+            color: white !important;
+            font-size: xx-large !important;
+        }
+
+        .trend {
+            background-color: #ff9a9a !important;
+        }
+
+        .ptt {
+            background: #FF9A9A !important;
+        }
+
+        .con {
+            padding: 0px 0px 0px 200px !important;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse !important;
+        }
+
+            .custom-table,
+            .custom-table th,
+            .custom-table td {
+                border: 1.5px solid #000 !important;
+            }
+
+                .custom-table th,
+                .custom-table td {
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 12px;
+                }
+
+        @@media print {
+
+            .col-md-6 {
+                width: 50%;
+                float: left;
+            }
+
+            .col-lg-4 {
+                width: 33.3%;
+                float: left;
+            }
+
+            .total {
+                background-color: #cb5a5e !important;
+            }
+
+            .male {
+                background-color: #c49f47 !important;
+            }
+
+            .female {
+                background-color: #8e5fa2 !important;
+            }
+
+            .ma {
+                background-color: #26a69a !important;
+            }
+
+            .ta {
+                background-color: #cb5a5e !important;
+            }
+
+            table tr td .active {
+                background-color: #a6c8e6 !important;
+            }
+
+            .mem {
+                box-shadow: 5px 10px 5px black !important;
+                font-size: 15px;
+            }
+
+            body {
+                background-color: #e9ecf3 !important;
+            }
+
+            .light {
+                background-color: #fff !important;
+            }
+
+            .portlet-body {
+                background-color: #fff !important;
+                font-size: 25px !important;
+            }
+
+            .page-title {
+                position: fixed !important;
+            }
+
+            .portlet {
+            }
+
+            table tr th {
+                font-size: 28px !important;
+            }
+
+            table td {
+                font-size: 28px !important;
+            }
+
+            .caption {
+                font-size: 30px !important;
+            }
+
+            .caption-subject {
+                font-size: 28px !important;
+            }
+
+            .well {
+                display: none;
+            }
+
+            .hnd {
+                font-weight: bold !important;
+                background-color: #EB5B00 !important;
+                padding: 20px;
+                color: white !important;
+                font-size: xx-large !important;
+            }
+
+            .trend {
+                background-color: #ff9a9a !important;
+            }
+
+            .con {
+                padding: 0px 500px 0px 500px !important;
+            }
+
+            .ptt {
+                background: #FF9A9A !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+   
+
+    <div class="page-container">
+
+        <div class="page-content-wrapper">
+            <div>
+
+
+
+                <br />
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN CHART PORTLET-->
+                        <div class="portlet light">
+                            <div class="trend">
+                                <div style="text-align:center;font-size:25px;padding:10px">
+
+                                    <span class="caption-subject bold uppercase">TREND 1985-2024</span>
+                                    <span class="caption-helper"></span>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="portlet-body">
+                                <div id="chart_3" class="chart" style="height: 700px;">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CHART PORTLET-->
+                    </div>
+                </div>
+
+
+
+           
+
+            </div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
+
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/global/plugins/respond.min.js"></script>
+    <script src="../../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE~INS -->
+    <!-- BEGIN PA~VEL PLUGINS -->
+
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+    <!-- IMPORTAN~llcalendar depends on jquery-ui.min.js for drag & drop support -->
+    <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/charts-amcharts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/plugins/exporting.js"></script>
+
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+            Demo.init(); // init demo features
+            ChartsAmallcharts.init();
+            QuickSidebar.init(); // init quick sidebar
+            Index.init(); // init index page
+            Tasks.initDashboardWidget(); // init tash dashboard widget
+
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
+
+
+
+
+<script>
+    var ChartsAmallcharts = function () {
+        
+
+       
+
+        var initChartSample3 = function () {
+            var chart = AmCharts.makeChart("chart_3", {
+                "type": "serial",
+                "theme": "light",
+
+                "fontFamily": 'Open Sans',
+                "color":    '#000000',
+
+
+                "pathToImages": "/HBCR_REPORT/assets/global/plugins/amcharts/amcharts/images/",
+
+                "dataProvider": [{
+                    //  "lineColor": "#b7e021",
+                    
+                    "date": "1985-89",
+                    "male": 50,
+                    "maleLabel": "50 (16.78%)",
+                    "female": 248,
+                    "femaleLabel": "248 (83.22%)"
+                    },
+                   {
+                       "date": "1990-94",
+                       "male": 45,
+                       "maleLabel": "45 (12.30%)",
+                       "female": 321,
+                       "femaleLabel": "321 (87.70%)"
+                   },
+                   {
+                       "date": "1995-99",
+                       "male": 78,
+                       "maleLabel": "78 (16.42%)",
+                       "female": 397,
+                       "femaleLabel": "248 (83.58%)"
+                   
+                   },
+                   {
+                       "date": "2000-04",
+                       "male": 93,
+                       "maleLabel": "93 (15.82%)",
+                       "female": 495,
+                       "femaleLabel": "495 (84.18%)"
+                   },
+                   {
+                       "date": "2005-08",
+                       "male": 142,
+                       "maleLabel": "50 (19.80%)",
+                       "female": 575,
+                       "femaleLabel": "248 (80.20%)"
+
+                   },
+                    {
+                        "date": "2012-14",
+                        "male": 215,
+                        "maleLabel": "215 (19.42%)",
+                        "female": 892,
+                        "femaleLabel": "892 (80.58%)"
+
+                    },
+                   {
+                       "date": "2017-21",
+                       "male": 709,
+                       "maleLabel": "709 (21.15%)",
+                       "female": 2644,
+                       "femaleLabel": "2644 (78.85%)"
+                   },
+                   {
+                       "date": "2022-24",
+                       "male": 599,
+                       "maleLabel": "599 (22.63%)",
+                       "female": 2048,
+                       "femaleLabel": "2048 (77.37%)"
+
+                   },
+                ],
+                "balloon": {
+                    "cornerRadius": 6,
+
+                },
+
+
+                "graphs": [{
+                    //"bullet": "square",
+                    //"labelText": "[[duration]]",
+                    //"bulletBorderAlpha": 1,
+                    //"bulletBorderThickness": 1,
+                    //"fillAlphas": 0,
+                    //"fillColorsField": "lineColor",
+                    //"legendValueText": "[[value]]",
+                    //"lineColor": "#a72d2d", 
+                    //"lineColorField": "lineColor",
+                    //"lineThickness": 5,              
+                    //"title": "duration",
+                    //"valueField": "duration",
+                    //"fontSize":15,
+                    //"labelRotation": 45,
+                    //"labelOffset": 15, 
+
+                    "title": "Male",
+                    "valueField": "male",
+                    "bullet": "round",
+                    "lineThickness": 4,
+                    "lineColor": "#1E88E5",
+                    "bulletBorderAlpha": 1,
+                    "labelText": "[[maleLabel]]",
+                    "fontSize": 16
+                },
+                {
+                    "title": "Female",
+                    "valueField": "female",
+                    "bullet": "square",
+                    "lineThickness": 4,
+                    "lineColor": "#E91E63",
+                    "bulletBorderAlpha": 1,
+                    "labelText": "[[femaleLabel]]",
+                    "fontSize": 16
+                }
+                
+
+
+                ],
+
+
+
+
+                //     "chartScrollbar": {},
+                "chartCursor": {
+                    "categoryBalloonDateFormat": "YYYY MMM DD",
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryAxis": {
+
+                    "gridThickness": 0,
+                    "fontSize":20,
+                    "labelRotation": 90,
+                    "title": "YEAR",
+                    "titleFontSize": 20
+                },
+
+
+
+
+                "valueAxes": [
+                {
+                    "titleFontSize": 20  ,
+                    "title": "NUMBER",
+                    "gridThickness": 0,
+                    "fontSize":17,
+                    //   "axisColor":'red',
+                    //  "color":'red',
+                },],
+
+
+
+                //"dataDateFormat": "YYYY-MM-DD",
+                "categoryField": "date",
+                //"categoryAxis": {
+                //    "dateFormats": [{
+                //        "period": "DD",
+                //        "format": "DD"
+                //    }, {
+                //        "period": "WW",
+                //        "format": "MMM DD"
+                //    }, {
+                //        "period": "MM",
+                //        "format": "MMM"
+                //    }, {
+                //        "period": "YYYY",
+                //        "format": "YYYY"
+                //    }],
+                //    "parseDates": true,
+                //    "autoGridCount": false,
+                //    "axisColor": "#555555",
+                //    "gridAlpha": 0,
+                //    "gridCount": 50
+                //}
+
+
+
+
+
+            });
+
+
+
+            $('#chart_3').closest('.portlet').find('.fullscreen').click(function () {
+                chart.invalidateSize();
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+        return {
+
+
+            init: function () {
+
+                initChartSample3();
+                initChartSample5();
+                initChartSample7();
+
+            }
+
+        };
+    }();
+
+
+
+
+
+</script>
+
+
+
+

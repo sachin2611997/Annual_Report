@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Annual_Report.Models.StateData>
+
+@{
+    ViewBag.Title = "Listmap";
+}
+
+<h2>Listmap</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TooltipText)
+        </th>      
+        <th>
+            @Html.DisplayNameFor(model => model.BackgroundColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelFontSize)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TooltipText)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.BackgroundColor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabelText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabelFontSize)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "getdata", new { id=item.Abbreviation }) |
+                     
+        </td>
+    </tr>
+}
+
+</table>

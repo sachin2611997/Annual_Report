@@ -1,0 +1,258 @@
+﻿@model Annual_Report.Models.OverviewTmcRegistration
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>editoverviewregTMC</title>
+    <style>
+         /* Metronic uses light-info / light-primary utility bg's; these two
+        custom tones match the exact light-blue shades used in the source table */
+         .tmc-table {
+             border: 1px solid #b7dbe8;
+         }
+
+             .tmc-table th,
+             .tmc-table td {
+                 border: 1px solid #b7dbe8 !important;
+                 vertical-align: middle;
+                 padding: 10px 14px;
+             }
+
+         .tmc-header {
+             background-color: #ffffff;
+             font-weight: 700;
+             text-align: center;
+         }
+
+         .tmc-row-light {
+             background-color: #dcf1f7; /* light blue band rows */
+         }
+
+         .tmc-row-white {
+             background-color: #ffffff;
+         }
+
+         .tmc-bold {
+             font-weight: 700;
+         }
+
+         .tmc-center {
+             text-align: center;
+         }
+
+         .tmc-title {
+             text-decoration: underline;
+             font-weight: 700;
+             text-align: center;
+         }
+
+
+     
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("saveoverviewregTMC", "TMH2022", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-body p-6">
+
+                <h3 class="tmc-title mb-6">
+                    Edit Overview Tmc Registration
+                </h3>
+          
+            <div class="table-responsive">
+
+                <table class="table table-row-bordered align-middle gs-0 gy-0 tmc-table mb-0">
+
+                    <thead>
+                        <tr class="tmc-header">
+                            <th class="tmc-center" style="width:6%">Sr.No</th>
+                            <th style="width:38%">Summary</th>
+                            <th class="tmc-center" style="width:16%">TMH, Mumbai</th>
+                            <th class="tmc-center" style="width:14%">ACTREC</th>
+                            <th class="tmc-center" style="width:26%">Total (TMH + ACTREC)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- Registration -->
+
+                        <tr class="tmc-row-white">
+                            <td class="tmc-center tmc-bold">1</td>
+                            <td class="tmc-bold">Registrations</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Case File Registrations</td>
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.CaseFileReg_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CaseFileReg_TMH, "", new { @class = "text-danger" })
+
+                            </td>
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.CaseFileReg_ACTREC, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CaseFileReg_ACTREC, "", new { @class = "text-danger" })
+
+                            </td>
+
+                        </tr>
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Referral Card Registrations</td>
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.ReferralCardReg_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ReferralCardReg_TMH, "", new { @class = "text-danger" })
+                            </td>
+
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.ReferralCardReg_ACTREC, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ReferralCardReg_ACTREC, "", new { @class = "text-danger" })
+                            </td>
+
+
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Preventive Registrations</td>
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.PreventiveReg_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PreventiveReg_TMH, "", new { @class = "text-danger" })
+                            </td>
+
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Teleconsultation</td>
+                            <td class="tmc-center">
+                                @Html.EditorFor(model => model.Teleconsultation_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Teleconsultation_TMH, "", new { @class = "text-danger" })
+                            </td>
+
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td class="tmc-bold">Total Registrations</td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.HiddenFor(model => model.TotalReg_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TotalReg_TMH, "", new { @class = "text-danger" })
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.HiddenFor(model => model.TotalReg_ACTREC, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TotalReg_ACTREC, "", new { @class = "text-danger" })
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.HiddenFor(model => model.TotalReg_Total, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TotalReg_Total, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                        <!-- Cancer Cases -->
+
+
+                        <tr class="tmc-row-white">
+                            <td class="tmc-center tmc-bold">2</td>
+                            <td class="tmc-bold">Cancer Cases</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td>Total Cancer Cases - From Case File Registrations</td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.EditorFor(model => model.CancerFromCaseFile_TMH, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CancerFromCaseFile_TMH, "", new { @class = "text-danger" })
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.EditorFor(model => model.CancerFromCaseFile_ACTREC, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CancerFromCaseFile_ACTREC, "", new { @class = "text-danger" })
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.HiddenFor(model => model.CancerFromCaseFile_Total, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CancerFromCaseFile_Total, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Total Cancer Cases - From Referral Card Registrations</td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.EditorFor(model => model.CancerFromReferralCard_Total, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CancerFromReferralCard_Total, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td class="tmc-bold">Total Cancer Cases in TMC</td>
+                            <td></td>
+                            <td></td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.HiddenFor(model => model.TotalCancerCasesTMC_Total, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TotalCancerCasesTMC_Total, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+                        <tr class="tmc-row-white">
+                            <td colspan="4">
+                                Estimated Number of Cancer Cases in India (Source: Globocan 2022)
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.EditorFor(model => model.EstimatedCancerCasesIndia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EstimatedCancerCasesIndia, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td colspan="4">
+                                % of Cancer Patients Attending TMC Mumbai Centres
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @Html.EditorFor(model => model.PercentAttendingTMC, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PercentAttendingTMC, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    </table>
+</div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            }
+
+
+</body>
+</html>

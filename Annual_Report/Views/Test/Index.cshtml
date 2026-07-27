@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Annual_Report.Models.testmodel.testViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>System4</th>
+        <th>System3</th>
+        <th>Total Count</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.System4</td>
+            <td>@item.System3</td>
+            <td>@item.count</td>
+        </tr>
+    }
+</table>
+

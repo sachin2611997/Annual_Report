@@ -1,0 +1,311 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Data Tables - Responsive Datatables</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN T~STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+    <style>
+        .table th {
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Horizontally centers the button */
+            align-items: center; /* Vertically centers the button */
+        }
+
+        .texthead {
+            font-size: x-large !important;
+            color: white !important;
+            font-weight: bold !important;
+        }
+
+        @@media print {
+
+            .button-container {
+                display: none !important;
+            }
+
+            .portlet-title {
+                background-color: #cb67b0 !important;
+                border: 1px solid #30d0c1 !important;
+            }
+
+            .texthead {
+                font-size: x-large !important;
+                color: white !important;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="portlet box green" style="text-align: center;">
+        <div class="portlet-title">
+            <div class="texthead">
+                Table 8(b) &nbsp;     Type of Treatment given at TMC, Mumbai for all cases  &nbsp;&nbsp;&nbsp;&nbsp;     Sex: Female  &nbsp;&nbsp;&nbsp;&nbsp;  Year: 2021
+            </div>
+
+        </div>
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content" style="text-align: center;">
+                    <tr id="header-row">
+                        <th width="5%" class="active">
+                            ICD-10
+                        </th>
+
+                        <th width="10%" class="active">Site</th>
+                        <th class="active">S</th>
+                        <th class="active">R  </th>
+                        <th class="active">C </th>
+                        <th class="active">SR</th>
+                        <th class="active">SC  </th>
+                        <th class="active">RC </th>
+                        <th class="active">SRC </th>
+                        <th class="active">HT </th>
+                        <th class="active">SH </th>
+                        <th class="active">RH </th>
+                        <th class="active">CH  </th>
+                        <th class="active">SRH  </th>
+                        <th class="active">SCH  </th>
+                        <th class="active">RCH</th>
+                        <th class="active">SRCH </th>
+                        <th class="active">BMT</th>
+                        <th class="active">TOTAL</th>
+                        <th class="active">%</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Year5AgeCounts != null)
+                    {
+                        var year5AgeCounts = Json.Decode<List<Dictionary<string, object>>>(Json.Encode(ViewBag.Year5AgeCounts));
+
+                        var totalCount = ViewBag.TotalCount;  // Get the total count from ViewBag
+
+
+                        // Initialize the sums for each age group
+                        var ageGroupSums = new Dictionary<string, int>
+        {
+            { "S", 0 },
+            { "R", 0 },
+            { "C",  0 },
+            { "SR", 0 },
+            { "SC", 0 },
+            { "RC", 0 },
+            { "SRC", 0 },
+            { "HT", 0 },
+            { "SH", 0 },
+            { "RH", 0 },
+            { "CH", 0 },
+            { "SRH", 0 },
+            { "SCH",  0 },
+            { "RCH", 0 },
+            { "SRCH", 0 },
+            { "BMT", 0 },
+        };
+
+
+
+
+                        foreach (var row in year5AgeCounts)
+                        {
+                            var ageGroups = row["AgeGroups"] as Dictionary<string, object>;
+
+                            <tr>
+                                <td class="active">@row["SysValue"]</td>
+                                <td class="active">@row["SiteName"]</td>
+                                <td>@(ageGroups.ContainsKey("S") ? ageGroups["S"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("R") ? ageGroups["R"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("C") ? ageGroups["C"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SR") ? ageGroups["SR"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SC") ? ageGroups["SC"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("RC") ? ageGroups["RC"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SRC") ? ageGroups["SRC"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("HT") ? ageGroups["HT"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SH") ? ageGroups["SH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("RH") ? ageGroups["RH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("CH") ? ageGroups["CH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SRH") ? ageGroups["SRH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SCH") ? ageGroups["SCH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("RCH") ? ageGroups["RCH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("SRCH") ? ageGroups["SRCH"] : 0)</td>
+                                <td>@(ageGroups.ContainsKey("BMT") ? ageGroups["BMT"] : 0)</td>
+                                <td class="active">@(ageGroups.Values.Cast<int?>().Sum(x => x ?? 0)) </td>  <!-- Sum all the values and handle nulls by using ?? 0 -->
+                                <td class="active">
+                                    @(totalCount > 0 ? ((double)(ageGroups.Values.Cast<int?>().Sum(x => x ?? 0)) / totalCount * 100).ToString("F1") : "0.0")%
+                                </td>
+                            </tr>
+                            // Update the sum for each age group
+                            ageGroupSums["S"] += ageGroups.ContainsKey("S") ? (int)ageGroups["S"] : 0;
+                            ageGroupSums["R"] += ageGroups.ContainsKey("R") ? (int)ageGroups["R"] : 0;
+                            ageGroupSums["C"] += ageGroups.ContainsKey("C") ? (int)ageGroups["C"] : 0;
+                            ageGroupSums["SR"] += ageGroups.ContainsKey("SR") ? (int)ageGroups["SR"] : 0;
+                            ageGroupSums["SC"] += ageGroups.ContainsKey("SC") ? (int)ageGroups["SC"] : 0;
+                            ageGroupSums["RC"] += ageGroups.ContainsKey("RC") ? (int)ageGroups["RC"] : 0;
+                            ageGroupSums["SRC"] += ageGroups.ContainsKey("SRC") ? (int)ageGroups["SRC"] : 0;
+                            ageGroupSums["HT"] += ageGroups.ContainsKey("HT") ? (int)ageGroups["HT"] : 0;
+                            ageGroupSums["SH"] += ageGroups.ContainsKey("SH") ? (int)ageGroups["SH"] : 0;
+                            ageGroupSums["RH"] += ageGroups.ContainsKey("RH") ? (int)ageGroups["RH"] : 0;
+                            ageGroupSums["CH"] += ageGroups.ContainsKey("CH") ? (int)ageGroups["CH"] : 0;
+                            ageGroupSums["SRH"] += ageGroups.ContainsKey("SRH") ? (int)ageGroups["SRH"] : 0;
+                            ageGroupSums["SCH"] += ageGroups.ContainsKey("SCH") ? (int)ageGroups["SCH"] : 0;
+                            ageGroupSums["RCH"] += ageGroups.ContainsKey("RCH") ? (int)ageGroups["RCH"] : 0;
+                            ageGroupSums["SRCH"] += ageGroups.ContainsKey("SRCH") ? (int)ageGroups["SRCH"] : 0;
+                            ageGroupSums["BMT"] += ageGroups.ContainsKey("BMT") ? (int)ageGroups["BMT"] : 0;
+                        }
+
+                    <tfoot>
+                        <tr class="active">
+                            <td colspan="2"><strong>Total</strong></td>
+                          
+                            <td>@ageGroupSums["S"] </td>
+                            <td>@ageGroupSums["R"]  </td>
+                            <td>@ageGroupSums["C"] </td>
+                            <td>@ageGroupSums["SR"]</td>
+                            <td>@ageGroupSums["SC"] </td>
+                            <td>@ageGroupSums["RC"] </td>
+                            <td>@ageGroupSums["SRC"] </td>
+                            <td>@ageGroupSums["HT"] </td>
+                            <td>@ageGroupSums["SH"] </td>
+                            <td>@ageGroupSums["RH"] </td>
+                            <td>@ageGroupSums["CH"] </td>
+                            <td>@ageGroupSums["SRH"] </td>
+                            <td>@ageGroupSums["SCH"] </td>
+                            <td>@ageGroupSums["RCH"] </td>
+                            <td>@ageGroupSums["SRCH"]</td>
+                            <td> @ageGroupSums["BMT"] </td>
+                            <!-- Total Count (Sum of all columns) -->
+                            <td>@ageGroupSums.Values.Sum()</td>
+                            <!-- Total Percentage (One Decimal Place) -->
+                            <td>
+                                @(totalCount > 0 ? ((double)ageGroupSums.Values.Sum() / totalCount * 100).ToString("F1") : "0.0")%
+                            </td>
+                        </tr>
+                        <!-- Second Row for Percentages -->
+                        <tr class="active">
+                            <td colspan="2"><strong>%</strong></td>
+                           
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["S"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["R"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["C"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SR"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SC"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["RC"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SRC"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["HT"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["RH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["CH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SRH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SCH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["RCH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["SRCH"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)ageGroupSums["BMT"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <!-- Empty cell for Total count -->
+                    </tfoot>
+                    }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+
+
+
+        </div>
+
+
+    </body>
+</html>
+<script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE~INS -->
+<script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+                        // initiate layout and plugins
+                        Metronic.init(); // init metronic core components
+                        Layout.init(); // init current layout
+                        Demo.init(); // init demo features
+                    });
+</script>
+
+
+<script>
+   $(document).ready(function () {
+    $('#exportBtn').click(function () {
+        // Get the table element
+        var table = $('table.table-bordered');
+
+        // Use SheetJS to export the table to an Excel file
+        var wb = XLSX.utils.table_to_book(table[0], { sheet: "Sheet1" });
+
+        // Create a Blob from the workbook and trigger a download
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) {
+                view[i] = s.charCodeAt(i) & 0xFF;
+            }
+            return buf;
+        }
+
+        // Trigger download of the Excel file
+        var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Age_Site_Distribution.xlsx"; // Set the filename here
+        link.click();
+    });
+});
+
+</script>
+
+
+

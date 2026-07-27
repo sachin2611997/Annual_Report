@@ -1,0 +1,740 @@
+﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Provisional Report | 2024</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    @*
+        <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    *@
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .col-md-6 {
+            width: 50% !important;
+            float: left !important;
+        }
+
+        .col-lg-4 {
+            width: 33.3%;
+            float: left;
+        }
+
+        .table {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .total {
+            background-color: #cb5a5e !important;
+        }
+
+        .male {
+            background-color: #c49f47 !important;
+        }
+
+        .female {
+            background-color: #8e5fa2 !important;
+        }
+
+        .ma {
+            background-color: #66bb66 !important;
+        }
+
+        .ta {
+            background-color: #cb5a5e !important;
+            margin: 0 20px 0 0 !important;
+        }
+
+        table tr td .active {
+            background-color: #a6c8e6 !important;
+        }
+
+        .mem {
+            box-shadow: 5px 10px 5px black !important;
+            font-size: 15px;
+        }
+
+        .well {
+            display: none;
+        }
+
+        body {
+            background-color: #e9ecf3 !important;
+        }
+
+        .light {
+            background-color: #fff !important;
+        }
+
+        .portlet-body {
+            background-color: #fff !important;
+            font-size: 25px !important;
+        }
+
+        .portlet-title {
+            /*background: #80C4E9 !important;*/
+            /*background: #F6995C !important;*/
+            /*background:#ff8923 !important;*/
+            /*background:#1066cd !important;*/
+            /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
+            background: #3da9ab !important;
+        }
+
+        .page-title {
+            /*position: fixed !important;*/
+            height: 80px !important;
+        }
+
+        .font-green-haze {
+            color: black !important;
+        }
+
+        .geo {
+            background-color: #26a69a !important;
+            margin: 0 20px 0 0 !important;
+        }
+
+        .tre {
+            margin: 0 10px 0 0 !important;
+        }
+
+        table tr th {
+            font-size: 28px !important;
+        }
+
+
+        table td {
+            font-size: 28px !important;
+        }
+
+        table, tr, td, th {
+            border-top: thin solid !important;
+            border-bottom: thin solid !important;
+        }
+
+        .table-scrollable {
+            /*margin: 20px 0 0 0 !important;*/
+            width: auto !important;
+            /*width: -webkit-fill-available !important;*/
+        }
+
+        .caption {
+            font-size: 32px !important;
+            padding: 25px 0 9px 0 !important;
+        }
+
+        .caption-subject {
+            padding: 25px 0 9px 0 !important;
+        }
+
+        .btn {
+            display: none;
+        }
+
+        .caption-subject {
+            font-size: 28px !important;
+            color: #000000 !important;
+            font-weight: bold;
+        }
+
+        .alert-dismissable {
+            height: 70px !important;
+            font-size: 28px !important;
+            background-color: #d58fdf !important;
+        }
+
+        .head {
+            /*background-color: #0089ff !important;*/
+            /*background-color: #7E60BF !important;*/
+            background-color: #1066cd !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 10px;
+            font-size: 25px;
+        }
+
+        .imgb {
+            background-color: white !important;
+        }
+
+        table th tr {
+            background-color: #ffe4c4 !important;
+        }
+
+        table tr .coo {
+            background-color: bisque !important;
+        }
+
+        @@media print {
+            table tr .coo {
+                background-color: bisque !important;
+            }
+
+            .col-md-6 {
+                width: 50% !important;
+                float: left !important;
+            }
+
+            .thead {
+                background: #C4D7FF !important;
+            }
+
+            .col-lg-4 {
+                width: 33.3%;
+                float: left;
+            }
+
+            .total {
+                background-color: #cb5a5e !important;
+            }
+
+            .male {
+                background-color: #c49f47 !important;
+            }
+
+            .female {
+                background-color: #8e5fa2 !important;
+            }
+
+            .ma {
+                background-color: #66bb66 !important;
+            }
+
+            .ta {
+                background-color: #cb5a5e !important;
+                margin: 0 20px 0 0 !important;
+            }
+
+            table tr td .active {
+                background-color: #a6c8e6 !important;
+            }
+
+
+            .mem {
+                box-shadow: 5px 10px 5px black !important;
+                font-size: 15px;
+            }
+
+            .well {
+                display: none;
+            }
+
+            body {
+                background-color: #fff !important;
+            }
+
+            .light {
+                background-color: #fff !important;
+            }
+
+            .portlet-body {
+                background-color: #fff !important;
+                font-size: 25px !important;
+            }
+
+            .portlet-title {
+                /*background: #F6995C !important;*/
+                /*background:#ff8923 !important;*/
+                /*background:#1066cd !important;*/
+                /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
+                background: #3da9ab !important;
+            }
+
+            .page-title {
+                /*position: fixed !important;*/
+                height: 80px !important;
+            }
+
+            .font-green-haze {
+                color: black !important;
+            }
+
+            .geo {
+                background-color: #26a69a !important;
+                margin: 0 20px 0 0 !important;
+            }
+
+            .tre {
+                margin: 0 10px 0 0 !important;
+            }
+
+            table tr th {
+                font-size: 28px !important;
+            }
+
+            table td {
+                font-size: 28px !important;
+            }
+
+            table, tr, td, th {
+                border-top: thin solid !important;
+                border-bottom: thin solid !important;
+            }
+
+            .table-scrollable {
+                /*margin: 20px 30px !important;*/
+                /*width: 800px !important;*/
+                /*width: -webkit-fill-available !important;*/
+            }
+
+            .caption {
+                font-size: 32px !important;
+                padding: 25px 0 9px 0 !important;
+            }
+
+            .caption-subject {
+                padding: 25px 0 9px 0 !important;
+                font-weight: bold !important;
+            }
+
+            .btn {
+                display: none;
+            }
+
+            .caption-subject {
+                font-size: 28px !important;
+                color: #000000 !important;
+            }
+
+            .alert-dismissable {
+                height: 70px !important;
+                font-size: 28px !important;
+                background-color: #d58fdf !important;
+            }
+
+            .head {
+                /*background-color: #001A6E !important;*/
+                /*background-color:#0089ff !important;*/
+                /*background-color: #7E60BF !important;*/
+                background-color: #1066cd !important;
+                color: white !important;
+                font-weight: bold !important;
+                padding: 20px;
+                /*font-size: 45px;*/
+                font-size: xx-large !important;
+            }
+
+            h3 {
+                font-size: xx-large !important;
+                color:white !important;
+            }
+            h1{
+                font-size: 30px !important;
+            }
+            u{
+                 color:white !important;
+            }
+
+            .t {
+                padding: 30px !important;
+            }
+
+            .d {
+                padding: 30px !important;
+            }
+
+            .panel {
+                background-color: #428bca !important;
+                
+            }
+
+            .texthead {
+                color: white !important;
+            }
+
+            table tr .co {
+                background-color: aqua !important;
+            }
+            .headtr{
+                font-size:60px !important;
+            }
+            html{
+                 height: 100%;  /* Make sure the html element takes up the full viewport height */
+  margin: 0;     /* Remove default margin */
+  padding: 0;    /* Remove default padding */
+  border: 2px solid black; /* Add border around the entire page */
+            }
+        }
+
+        @@page {
+            /*margin-top: 10mm;
+                 margin-right: 10mm;
+                 margin-bottom: 10mm;
+                 margin-left: 10mm;*/
+        }
+    </style>
+
+
+
+
+
+</head>
+
+<body>
+
+    <div class="panel panel-primary" style="text-align: center;  color:white;background-color:#428bca">
+
+        <h1>
+            <b><u class="headtr"> TREATMENT</u> </b><br /><br />
+            
+        </h1>
+
+        <h3> <b><u>Table 17: Distribution of Treatment for cases registered in ACTREC  YEAR: @ViewBag.year </u></b></h3>
+
+    </div>
+    <br />
+    <br />
+
+
+    
+    <div class="row">
+
+
+
+        <div class="col-md-12">
+            <div class="portlet box blue">
+
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        Nos.
+                                    </th>
+                                    <th>
+                                        %
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        New Cases Treated in TMC-Mumbai from ACTREC registratons
+                                    </td>
+                                    <td>
+                                        @ViewBag.newactrigs
+                                    </td>
+                                    <td>
+                                        @ViewBag.newactrigsper
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Prior treated Cases treated in TMC-Mumbai from ACTREC registratons
+                                    </td>
+                                    <td>@ViewBag.prioractrigs</td>
+                                    <td>@ViewBag.prioractrigsper</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        ACTREC-Registered -Total Treated cases in TMC Mumbai
+                                    </td>
+                                    <td>@ViewBag.nos</td>
+                                    <td>100.0</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+
+        <div class="col-md-6">
+            <div class="portlet box blue">
+
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Treatment Modalities
+                                    </th>
+                                    <th>
+                                        Nos.
+                                    </th>
+                                    <th>
+                                        %
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.State)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Statecount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Percentage) %
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><b>Total Treated ACTREC registered cases</b></td>
+                                    <td><b>@ViewBag.nos</b></td>
+                                    <td><b>100 % </b></td>
+                                </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="row">
+
+
+        <div class="col-md-12">
+            <!-- BEGIN CHART PORTLET-->
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div>
+                        @*<i class="icon-bar-chart font-green-haze"></i>*@
+                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Fig 4: Distribution of Treatment Modalities of ACTREC registered cases for the YEAR: 2021</p>
+                        @*<span class="caption-helper">@ViewBag.System4</span>*@
+                    </div>
+
+                </div>
+                <div class="portlet-body" style="border:solid 0.5px">
+                    <div id="chart_treatment" class="chart" style="height: 1000px; width:100%">
+                    </div>
+
+                </div>
+            </div>
+            <!-- END CHART PORTLET-->
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+    <!-- IMPORTAN~llcalendar depends on jquery-ui.min.js for drag & drop support -->
+    <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/charts-amcharts.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            // initiate layout and plugins
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+            ChartsActreccharts.init();
+            //  ChartsAgecharts.init();
+            // ChartsTimecharts.init();
+        });
+    </script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
+
+
+<script>
+    var ChartsActreccharts = function () {
+    var initChartSample7 = function() {
+        var chart = AmCharts.makeChart("chart_treatment", {
+            "type": "pie",
+            "theme": "light",
+            "radius": 360,
+            "labelRadius":100,
+            "fontFamily": 'Arial',
+            "fontSize" :25,
+            "color":    '#000000',
+            "stroke": '#000000',
+
+            //"stroke-opacity":"1",
+            "align":"Left",
+            "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
+            "valueField": "Count",
+            "titleField": "Key",
+            "labelText":"[[Key]]:<br>[[Count]],[[percents]]%",
+            "outlineAlpha": 0.4,
+            "depth3D": 50,
+            "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+            "angle": 30,
+            //"borderAlpha":1,
+            "labelTickAlpha":1,
+            "exportConfig": {
+                menuItems: [{
+                    icon: '/lib/3/images/export.png',
+                    format: 'png'
+                }]
+            }
+        });
+
+
+        jQuery('.chart_7_chart_input').off().on('input change', function() {
+            var property = jQuery(this).data('property');
+            var target = chart;
+            var value = Number(this.value);
+            chart.startDuration = 0;
+
+            if (property == 'innerRadius') {
+                value += "%";
+            }
+
+            target[property] = value;
+            chart.validateNow();
+        });
+
+        $('#chart_treatment').closest('.portlet').find('.fullscreen').click(function() {
+            chart.invalidateSize();
+        });
+    }
+
+
+
+
+
+
+
+    return {
+
+
+        init: function () {
+
+     
+            initChartSample7();
+
+        }
+
+    };
+    }();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

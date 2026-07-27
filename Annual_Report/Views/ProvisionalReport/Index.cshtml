@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Provisional Report</title>
+    <style>
+        .page-break-after {
+                page-break-after: always;
+            }
+          .page-break {
+                page-break-before: always;
+            }
+          
+
+        @@media print {
+            body {
+                zoom: 43%;
+            }
+             .a{
+               border:solid 1px
+           }
+        }
+          @@page {
+           
+                margin-top: 50cm !important;
+                margin-right: 50cm !important;
+                margin-bottom: 30mm !important;
+                margin-left: 40mm !important;
+            
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div class="a">
+    @Html.Action("AllCenter", "ProvisionalReport")
+    </div>
+    <br />
+    <br />
+    <br />
+    <div class="a">
+        @Html.Action("HeadnNeck", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Lung", "ProvisionalReport")
+    </div><br />
+<br />
+<br /><br />
+<br />
+    <div class="a">
+        @Html.Action("Breast", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Gastrointestinal_ProTable", "ProvisionalReport")
+    </div>
+    <div class="a">
+        @Html.Action("Gastrointestinal", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Bone", "ProvisionalReport")
+    </div>
+    <div class="a">
+        @Html.Action("Peripheral_Nerves", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Female_Gynae", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Male_Reproductive", "ProvisionalReport")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Haemat", "ProvisionalReport")
+    </div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ICD_10TableIndex</title>
+    <style>
+         button {
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+        @@media print {
+           
+            body{
+            zoom: 50%;
+            }
+          
+           
+            .page-break {
+                page-break-before: always;
+            }
+
+            .page-break-after {
+                page-break-after: always;
+            }
+              @@page {
+            margin-top: 5mm !important;
+            margin-right: 4mm !important;
+            margin-bottom: 5mm !important;
+            margin-left: 8mm !important;
+        }
+        }
+    </style>
+</head>
+<body>
+  
+        <div>
+            @Html.Action("Age_Site_Distribution", "TMH2022")
+        </div>
+      <div class="page-break">
+      @Html.Action("Age_Site_Distribution_Female", "TMH2022")
+      </div>
+    <div class="page-break">
+      @Html.Action("Method_Dig_Male", "TMH2022")
+    </div>
+    <div class="page-break">
+      @Html.Action("Method_Dig_Female", "TMH2022")
+    </div>
+    @*<div class="page-break">
+         @Html.Action("MotherTongueSitewiseMale", "TMH2022")
+     </div>
+    <div class="page-break">
+         @Html.Action("MotherTongueSitewiseFemale", "TMH2022")
+     </div>*@
+    <div class="page-break">
+            @Html.Action("EducationSitewiseMale", "TMH2022")
+        </div>
+        <div class="page-break">
+            @Html.Action("EducationSitewiseFemale", "TMH2022")
+        </div>
+        <div class="page-break">
+            @Html.Action("ReligionSitewiseMale", "TMH2022")
+        </div>
+        <div class="page-break">
+            @Html.Action("ReligionSitewiseFemale", "TMH2022")
+        </div>
+    <div class="page-break">
+        @Html.Action("TreatmentReceivedBeforeRegisMale", "TMH2022")
+    </div>
+    <div class="page-break">
+        @Html.Action("TreatmentReceivedBeforeRegisFemale", "TMH2022")
+    </div>
+
+
+        <div class="page-break">
+            @Html.Action("TreatmentMumbaiNewCases", "TMH2022")
+        </div>
+        <div class="page-break">
+            @Html.Action("TreatmentMumbaiNewCasesFemale", "TMH2022")
+        </div>
+
+        <div class="page-break">
+            @Html.Action("TreatmentMumbaiAllCases", "TMH2022")
+        </div>
+        <div class="page-break">
+            @Html.Action("TreatmentMumbaiAllCasesFemale", "TMH2022")
+        </div>
+
+        <div class="button-container">
+
+            <a href="@Url.Action("Index", "TMH2022")" class="btn btn-success">
+                DMG Report
+            </a>
+        </div>
+    <div class="button-container">
+
+        <a href="@Url.Action("MotherTongueSitewiseMale", "TMH2022")" class="btn btn-default" target="_blank">
+            Mother Tongue Sitewise Male
+        </a>
+        <a href="@Url.Action("MotherTongueSitewiseFemale", "TMH2022")" class="btn btn-default" target="_blank">
+            Mother Tongue Sitewise Female
+        </a>
+    </div>
+
+
+    </body>
+    </html>

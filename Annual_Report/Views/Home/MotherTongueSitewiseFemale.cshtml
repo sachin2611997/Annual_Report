@@ -1,0 +1,377 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Data Tables - Responsive Datatables</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN T~STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+    <style>
+        .table th {
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Horizontally centers the button */
+            align-items: center; /* Vertically centers the button */
+        }
+
+        .texthead {
+            font-size: x-large !important;
+            color: white !important;
+            font-weight: bold !important;
+        }
+
+        @@media print {
+
+            body{
+            zoom: 65%;
+            }
+            .button-container {
+                display: none !important;
+            }
+
+            .portlet-title {
+                background-color: #cb67b0 !important;
+                border: 1px solid #30d0c1 !important;
+            }
+
+            .texthead {
+                font-size: x-large !important;
+                color: white !important;
+            }
+           table thead .active{
+                background-color:#a6c8e6 !important;
+            }
+           table tbody .active{
+                background-color:#a6c8e6 !important;
+           }
+            /*.table th{
+                background-color:#a6c8e6 !important;
+            }*/
+           
+           
+          
+        }
+    </style>
+
+</head>
+<body>
+    <div class="portlet box green" style="text-align: center;">
+        <div class="portlet-title">
+            <div class="texthead">
+                Table 3(b) &nbsp;    Mother Tongue and Site-wise distribution of Cancer Patients -TMC, Mumbai  &nbsp;&nbsp;&nbsp;&nbsp;     Sex: Female  &nbsp;&nbsp;&nbsp;&nbsp;  Year: 2021
+            </div>
+
+        </div>
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content" style="text-align: center;">
+                    <tr id="header-row">
+                        <th width="5%" class="active">
+                            ICD-10
+                        </th>
+
+                        <th width="10%" class="active">Site</th>
+                        <th class="active">Assamese   </th>
+                        <th class="active">Bengali    </th>
+                        <th class="active">Gujarathi  </th>
+                        <th class="active">Hindi     </th>
+                        <th class="active">Kannada     </th>
+                        <th class="active">Kashmiri   </th>
+                        <th class="active">Malayalam     </th>
+                        <th class="active">Marathi     </th>
+                        <th class="active">Oriya       </th>
+                        <th class="active">Punjabi          </th>
+                        <th class="active">Sanskrit           </th>
+                        <th class="active">Sindhi       </th>
+                        <th class="active">Tamil       </th>
+                        <th class="active">Telugu      </th>
+                        <th class="active">Urdu        </th>
+                        <th class="active">English    </th>
+
+                        <th class="active">Tulu       </th>
+                        <th class="active">Konkani     </th>
+                        <th class="active">Rajasthani     </th>
+                        <th class="active">Marwari       </th>
+                        <th class="active">Nepali       </th>
+                        <th class="active">Others      </th>
+                        <th class="active">Unknown    </th>
+                        <th class="active">TOTAL</th>
+                        <th class="active">%</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Year5AgeCounts != null)
+                    {
+                        var year5AgeCounts = Json.Decode<List<Dictionary<string, object>>>(Json.Encode(ViewBag.Year5AgeCounts));
+
+                        var totalCount = ViewBag.TotalCount;  // Get the total count from ViewBag
+
+
+                        // Initialize the sums for each age group
+                        var methodSums = new Dictionary<string, int>
+        {
+            { "Assamese", 0 },
+            { "Bengali",  0 },
+            { "Gujarathi", 0 },
+            { "Hindi", 0 },
+            { "Kannada", 0 },
+            { "Kashmiri", 0 },
+            { "Malayalam", 0 },
+            { "Marathi", 0 },
+            { "Oriya", 0 },
+            { "Punjabi", 0 },
+            { "Sanskrit", 0 },
+            { "Sindhi",  0 },
+            { "Tamil", 0 },
+            { "Telugu", 0 },
+            { "Urdu", 0 },
+            { "English", 0 },
+
+            { "Tulu"  , 0 },
+            { "Konkani"  , 0 },
+            { "Rajasthani" , 0 },
+            { "Marwari" , 0 },
+            { "Nepali" , 0 },
+              { "Others"  , 0 },
+            { "Unknown"  , 0 },
+        };
+
+
+
+
+                        foreach (var row in year5AgeCounts)
+                        {
+                            var methods = row["Methods"] as Dictionary<string, object>;
+
+                            <tr>
+                                <td class="active">@row["SysValue"]</td>
+                                <td class="active">@row["SiteName"]</td>
+                                <td>@(methods.ContainsKey("Assamese") ? methods["Assamese"] : 0)</td>
+                                <td>@(methods.ContainsKey("Bengali") ? methods["Bengali"] : 0)</td>
+                                <td>@(methods.ContainsKey("Gujarathi") ? methods["Gujarathi"] : 0)</td>
+                                <td>@(methods.ContainsKey("Hindi") ? methods["Hindi"] : 0)</td>
+                                <td>@(methods.ContainsKey("Kannada") ? methods["Kannada"] : 0)</td>
+                                <td>@(methods.ContainsKey("Kashmiri") ? methods["Kashmiri"] : 0)</td>
+                                <td>@(methods.ContainsKey("Malayalam") ? methods["Malayalam"] : 0)</td>
+                                <td>@(methods.ContainsKey("Marathi") ? methods["Marathi"] : 0)</td>
+                                <td>@(methods.ContainsKey("Oriya") ? methods["Oriya"] : 0)</td>
+                                <td>@(methods.ContainsKey("Punjabi") ? methods["Punjabi"] : 0)</td>
+                                <td>@(methods.ContainsKey("Sanskrit") ? methods["Sanskrit"] : 0)</td>
+                                <td>@(methods.ContainsKey("Sindhi") ? methods["Sindhi"] : 0)</td>
+                                <td>@(methods.ContainsKey("Tamil") ? methods["Tamil"] : 0)</td>
+                                <td>@(methods.ContainsKey("Telugu") ? methods["Telugu"] : 0)</td>
+                                <td>@(methods.ContainsKey("Urdu") ? methods["Urdu"] : 0)</td>
+                                <td>@(methods.ContainsKey("English") ? methods["English"] : 0)</td>
+
+                                <td>@(methods.ContainsKey("Tulu") ? methods["Tulu"] : 0)</td>
+                                <td>@(methods.ContainsKey("Konkani") ? methods["Konkani"] : 0)</td>
+                                <td>@(methods.ContainsKey("Rajasthani") ? methods["Rajasthani"] : 0)</td>
+                                <td>@(methods.ContainsKey("Marwari") ? methods["Marwari"] : 0)</td>
+                                <td>@(methods.ContainsKey("Nepali") ? methods["Nepali"] : 0)</td>
+                                <td>@(methods.ContainsKey("Others") ? methods["Others"] : 0)</td>
+                                <td>@(methods.ContainsKey("Unknown") ? methods["Unknown"] : 0)</td>
+
+                                <td class="active">@(methods.Values.Cast<int?>().Sum(x => x ?? 0)) </td>  <!-- Sum all the values and handle nulls by using ?? 0 -->
+                                <td class="active">
+                                    @(totalCount > 0 ? ((double)(methods.Values.Cast<int?>().Sum(x => x ?? 0)) / totalCount * 100).ToString("F1") : "0.0")%
+                                </td>
+                            </tr>
+                            // Update the sum for each age group
+                            methodSums["Assamese"] += methods.ContainsKey("Assamese") ? (int)methods["Assamese"] : 0;
+                            methodSums["Bengali"] += methods.ContainsKey("Bengali") ? (int)methods["Bengali"] : 0;
+                            methodSums["Gujarathi"] += methods.ContainsKey("Gujarathi") ? (int)methods["Gujarathi"] : 0;
+                            methodSums["Hindi"] += methods.ContainsKey("Hindi") ? (int)methods["Hindi"] : 0;
+                            methodSums["Kannada"] += methods.ContainsKey("Kannada") ? (int)methods["Kannada"] : 0;
+                            methodSums["Kashmiri"] += methods.ContainsKey("Kashmiri") ? (int)methods["Kashmiri"] : 0;
+                            methodSums["Malayalam"] += methods.ContainsKey("Malayalam") ? (int)methods["Malayalam"] : 0;
+                            methodSums["Marathi"] += methods.ContainsKey("Marathi") ? (int)methods["Marathi"] : 0;
+                            methodSums["Oriya"] += methods.ContainsKey("Oriya") ? (int)methods["Oriya"] : 0;
+                            methodSums["Punjabi"] += methods.ContainsKey("Punjabi") ? (int)methods["Punjabi"] : 0;
+                            methodSums["Sanskrit"] += methods.ContainsKey("Sanskrit") ? (int)methods["Sanskrit"] : 0;
+                            methodSums["Sindhi"] += methods.ContainsKey("Sindhi") ? (int)methods["Sindhi"] : 0;
+                            methodSums["Tamil"] += methods.ContainsKey("Tamil") ? (int)methods["Tamil"] : 0;
+                            methodSums["Telugu"] += methods.ContainsKey("Telugu") ? (int)methods["Telugu"] : 0;
+                            methodSums["Urdu"] += methods.ContainsKey("Urdu") ? (int)methods["Urdu"] : 0;
+                            methodSums["English"] += methods.ContainsKey("English") ? (int)methods["English"] : 0;
+
+                            methodSums["Tulu"] += methods.ContainsKey("Tulu") ? (int)methods["Tulu"] : 0;
+                            methodSums["Konkani"] += methods.ContainsKey("Konkani") ? (int)methods["Konkani"] : 0;
+                            methodSums["Rajasthani"] += methods.ContainsKey("Rajasthani") ? (int)methods["Rajasthani"] : 0;
+                            methodSums["Marwari"] += methods.ContainsKey("Marwari") ? (int)methods["Marwari"] : 0;
+                            methodSums["Nepali"] += methods.ContainsKey("Nepali") ? (int)methods["Nepali"] : 0;
+                            methodSums["Others"] += methods.ContainsKey("Others") ? (int)methods["Others"] : 0;
+
+                            methodSums["Unknown"] += methods.ContainsKey("Unknown") ? (int)methods["Unknown"] : 0;
+                        }
+
+                    <tfoot>
+                        <tr class="active">
+                            <td colspan="2"><strong>Total</strong></td>
+                           
+                            <td>@methodSums["Assamese"]</td>
+                            <td>@methodSums["Bengali"]</td>
+                            <td>@methodSums["Gujarathi"]</td>
+                            <td>@methodSums["Hindi"]</td>
+                            <td>@methodSums["Kannada"]</td>
+                            <td>@methodSums["Kashmiri"]</td>
+                            <td>@methodSums["Malayalam"]</td>
+                            <td>@methodSums["Marathi"]</td>
+                            <td>@methodSums["Oriya"]</td>
+                            <td>@methodSums["Punjabi"]</td>
+                            <td>@methodSums["Sanskrit"]</td>
+                            <td>@methodSums["Sindhi"]</td>
+                            <td>@methodSums["Tamil"]</td>
+                            <td>@methodSums["Telugu"]</td>
+                            <td>@methodSums["Urdu"]</td>
+                            <td>@methodSums["English"]</td>
+
+                            <td>@methodSums["Tulu"]</td>
+                            <td>@methodSums["Konkani"]</td>
+                            <td>@methodSums["Rajasthani"]</td>
+                            <td>@methodSums["Marwari"]</td>
+                            <td>@methodSums["Nepali"]</td>
+                            <td>@methodSums["Others"]</td>
+                            <td>@methodSums["Unknown"]</td>
+
+                            <!-- Total Count (Sum of all columns) -->
+                            <td>@methodSums.Values.Sum()</td>
+                            <!-- Total Percentage (One Decimal Place) -->
+                            <td>
+                                @(totalCount > 0 ? ((double)methodSums.Values.Sum() / totalCount * 100).ToString("F1") : "0.0")%
+                            </td>
+                        </tr>
+                        <!-- Second Row for Percentages -->
+                        <tr class="active sec">
+                            <td colspan="2"><strong>%</strong></td>
+                            
+                            <td>@(totalCount > 0 ? ((double)methodSums["Assamese"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Bengali"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Gujarathi"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Hindi"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Kannada"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Kashmiri"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Malayalam"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Marathi"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Oriya"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Punjabi"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Sanskrit"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Sindhi"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Tamil"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Telugu"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Urdu"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["English"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+
+                            <td>@(totalCount > 0 ? ((double)methodSums["Tulu"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Konkani"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Rajasthani"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Marwari"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Nepali"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Others"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Unknown"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <!-- Empty cell for Total count -->
+                    </tfoot>
+                    }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+
+
+
+        </div>
+       
+
+    </body>
+</html>
+<script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE~INS -->
+<script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+                        // initiate layout and plugins
+                        Metronic.init(); // init metronic core components
+                        Layout.init(); // init current layout
+                        Demo.init(); // init demo features
+                    });
+</script>
+
+
+<script>
+   $(document).ready(function () {
+    $('#exportBtn').click(function () {
+        // Get the table element
+        var table = $('table.table-bordered');
+
+        // Use SheetJS to export the table to an Excel file
+        var wb = XLSX.utils.table_to_book(table[0], { sheet: "Sheet1" });
+
+        // Create a Blob from the workbook and trigger a download
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) {
+                view[i] = s.charCodeAt(i) & 0xFF;
+            }
+            return buf;
+        }
+
+        // Trigger download of the Excel file
+        var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Age_Site_Distribution.xlsx"; // Set the filename here
+        link.click();
+    });
+});
+
+</script>
+
+
+

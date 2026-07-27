@@ -1,0 +1,583 @@
+﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>ACTREC | 2021</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    @*
+        <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    *@
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+   <style>
+        .trend {
+                background-color: #ff9a9a !important;
+            }
+          table, tr, td, th {
+            border-top: thin solid !important;
+            border-bottom: thin solid !important;
+        }
+           .table tr.regis{
+                 background-color: #d7c3ff !important;
+             }
+             .acp {
+               font-size: 22px !important;
+           }
+       @@media print {
+           body {
+               zoom: 53%;
+           }
+
+           .col-md-6 {
+               width: 50% !important;
+           }
+
+           .ac {
+               background-color: #8e5fa2 !important;
+               padding: 20px !important;
+           }
+
+           .accolor {
+               color: white !important;
+           }
+
+           .acr {
+               font-size: 22px !important;
+           }
+
+           .acp {
+               font-size: 22px !important;
+           }
+
+           .actred {
+               background-color: #3598dc !important;
+           }
+
+           th {
+               background-color: #d9edf7 !important;
+               -webkit-print-color-adjust: exact !important;
+               print-color-adjust: exact !important;
+           }
+
+          
+            tr.colur {
+                 background-color: #d9edf7 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+           @@page {
+               margin-top: 5mm !important;
+               margin-right: 4mm !important;
+               margin-bottom: 5mm !important;
+               margin-left: 8mm !important;
+           }
+       }
+   </style>
+
+
+
+
+</head>
+
+<body>
+
+    <div class="portlet box purple ">
+        <div class="portlet-title ac">
+            <div  style="text-align:center;font-size:40px">
+                <b class="accolor"> ACTREC</b>
+            </div>
+           
+        </div>
+        <div class="portlet-body">
+            <h4 class="acr">ACTREC Registrations</h4>
+            <br />
+            <!-- Button to trigger modal -->
+            <p class="acp">
+                Apart from TMH, ACTREC also started the case file and referral card registrations in the recent years and during 2021, the total registration figures showed a 38% increase in the case file registrations.Figures shows the registrations for last 8 years in ACTREC.
+            </p>
+            <!-- Modal -->
+            <div class="row">
+                <div class="col-md-9">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet">
+                        <div class="portlet box blue">
+                            <div class="actred" style="text-align:center;font-size:25px;padding:10px">
+
+                                <span class="caption-subject bold uppercase accolor">ACTREC Registrations Year : 2014-2021</span>
+                                <span class="caption-helper"></span>
+                            </div>
+
+
+
+
+
+                            <div class="portlet-body">
+                                <div id="chart_actrecregis" class="chart" style="height: 570px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END CHART PORTLET-->
+                </div>
+            </div>
+
+
+            <div class="portlet box blue" style="font-size:20px">
+                <div class="portlet-title actred">
+                    <b class="accolor"> <p class="caption-subject uppercase" style="text-align:center;font-size:25px;padding:10px"> Registrations and Cancer cases distribution - ACTREC Year: 2021</b></p>
+                </div>
+                
+                <div class="portlet-body">
+                    <div class="table-responsive">
+                        
+                            <table  border="1" style="table-layout:fixed;text-align:center;width:100%;">
+                                <colgroup>
+                                    <col style="width:60%;">
+                                    <col style="width:13.33%;">
+                                    <col style="width:13.33%;">
+                                    <col style="width:13.33%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+
+                                        <th colspan="4" style="text-align:center;padding:10px; font-size:20px; background-color:#d9edf7; color:#000; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+
+                                            Registrations for the year 2021
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+                                        <td colspan="2"></td>
+
+                                        <td>
+                                            <b>   NOS</b>
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <b>    New Case File Registrations</b>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            2087
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <b>   Referral Cases</b>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            2811
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                    <tr class="colur" style="background-color:#d9edf7; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+
+
+                                        <td></td>
+                                        <td><b>Gender</b></td>
+                                        <td>
+                                            <b>  NOS</b>
+                                        </td>
+                                        <td><b>%</b></td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td rowspan="3" style="vertical-align:middle"><b>Cancer Cases (Case Files)</b></td>
+                                        <td>Males</td>
+                                        <td>
+                                            @ViewBag.male
+                                        </td>
+                                        <td> @ViewBag.mper</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Females</td>
+                                        <td>
+                                            @ViewBag.female
+                                        </td>
+                                        <td> @ViewBag.feper</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total </td>
+                                        <td>
+                                            @ViewBag.total
+                                        </td>
+                                        <td> 100.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+
+            
+            <p class="acp">
+                Above table shows the number of patients registered in the hospital and diagnosed as cancer. Out of 2087 registered cases, 1779 cases are diagnsed with the cancer.
+            </p>
+
+           <br />
+            <div class="row">
+                <div class="col-md-6" style="margin: 0px 0px 0px 350px;">
+                    <div class="portlet box blue" style="font-size:20px">
+                        <div class="portlet-title actred">
+                            <b class="accolor"> <p class="caption-subject uppercase" style="text-align:center;font-size:20px;padding:10px"> residence-wise distribution of cancer - actrec year :2021</b></p>
+                        </div>
+
+                    </div>
+
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table class="table" border="1" style="table-layout:fixed">
+                                <thead class="thead" >
+                                    <tr >
+                                        <th scope="col" style="font-size:20px">
+
+                                            @Html.DisplayNameFor(model => model.State)
+                                        </th>
+                                        <th scope="col" style="text-align:center;font-size:20px">
+                                            @Html.DisplayNameFor(model => model.Statecount)
+                                        </th>
+                                        <th scope="col" style="text-align:center;font-size:20px">
+                                            @Html.DisplayNameFor(model => model.Percentage)
+                                        </th>
+
+
+                                    </tr>
+
+                                </thead>
+                                <tbody style="font-size:17px">
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.State)
+                                            </td>
+                                            <td style="text-align:center">
+                                                @Html.DisplayFor(modelItem => item.Statecount)
+                                            </td>
+                                            <td style="text-align:center">
+                                                @Html.DisplayFor(modelItem => item.Percentage)%
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                                <tfoot style="font-size:17px">
+                                    <tr>
+                                        <td>Other States</td>
+                                        <td style="text-align:center">@ViewBag.other</td>
+                                        <td style="text-align:center">@ViewBag.Otherper %</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <b>  Total</b>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <b>   @ViewBag.TotalCount</b>
+                                        </td>
+                                        <td style="text-align:center"><b> 100 %</b></td>
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+    <!-- IMPORTAN~llcalendar depends on jquery-ui.min.js for drag & drop support -->
+    <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/charts-amcharts.js"></script>
+    <script>
+        jQuery(document).ready(function () {
+            // initiate layout and plugins
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+            ChartsActrecregischarts.init();
+            //  ChartsAgecharts.init();
+            // ChartsTimecharts.init();
+        });
+    </script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
+
+<script>
+    var ChartsActrecregischarts = function () {
+     
+        var initChartSample3 = function () {
+            var chart = AmCharts.makeChart("chart_actrecregis", {
+                "type": "serial",
+                "theme": "light",
+
+                "fontFamily": 'Open Sans',
+                "color":    '#000000',
+
+
+                "pathToImages": "/HBCR_REPORT/assets/global/plugins/amcharts/amcharts/images/",
+
+                "dataProvider": [ {
+                    "date": "2014",
+                    "duration": 441
+                }, {
+                    "date": "2015",
+                    "duration": 588
+                }, {
+                    "date": "2016",
+                    "duration": 868
+                }, {
+                    "date": "2017",
+                    "duration": 997
+                }, {
+                    "date": "2018",
+                    "duration": 1219
+                }, {
+                    "date": "2019",
+                    "duration": 1576
+                }, {
+                    "date": "2020",
+                    "duration": 1509
+                },
+                {
+                    "date": "2021",
+                    "duration": 2087
+                },
+               
+                ],
+                "balloon": {
+                    "cornerRadius": 6,
+
+                },
+
+
+                "graphs": [{
+                    "bullet": "square",
+                    "labelText": "[[duration]]",
+
+                    "bulletBorderAlpha": 1,
+                    "bulletBorderThickness": 1,
+                    "fillAlphas": 0,
+                    "fillColorsField": "lineColor",
+                    "legendValueText": "[[value]]",
+                    "lineColor": "#a72d2d", // black or use a dark hex code
+                    "lineColorField": "lineColor",
+                    "lineThickness": 5,               // thicker/bolder line
+                    "title": "duration",
+                    "valueField": "duration",
+
+                    "fontSize":19,
+                    "labelRotation": 45,
+                    "labelOffset": 10,  // increase this number to move the label higher
+                }],
+                //     "chartScrollbar": {},
+                "chartCursor": {
+                    "categoryBalloonDateFormat": "YYYY MMM DD",
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryAxis": {
+
+                    "gridThickness": 0,
+                    "fontSize":20,
+                    "labelRotation": 90,
+                    "title": "YEAR",
+                    "titleFontSize": 20
+                },
+
+
+
+
+                "valueAxes": [
+                {
+                    "titleFontSize": 20  ,
+                    "title": "NUMBER",
+                    "gridThickness": 0,
+                    "fontSize":17,
+                    
+                },],
+
+
+
+                
+                "categoryField": "date",
+                
+
+
+
+
+
+            });
+
+
+
+            $('#chart_actrecregis').closest('.portlet').find('.fullscreen').click(function () {
+                chart.invalidateSize();
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+        return {
+
+
+            init: function () {
+
+                initChartSample3();  
+              
+
+            }
+
+        };
+    }();
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1003 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!-- Styles -->
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Male -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Lung",
+    "Complete Treatment": 67.18,
+    "No Treatment": 16.67,
+    "Advised not taken": 6.92,
+    "Partial Treatment": 9.23
+
+}, {
+    "year": "Prostate",
+    "Complete Treatment": 66.67,
+    "No Treatment": 0.00,
+    "Advised not taken": 0.00,
+    "Partial Treatment": 33.33
+}, {
+    "year": "Buccal Mucosa",
+    "Complete Treatment": 43.60,
+    "No Treatment": 17.55,
+    "Advised not taken": 30.02,
+    "Partial Treatment": 8.83
+}, {
+    "year": "Stomach",
+    "Complete Treatment": 58.36,
+    "No Treatment": 20.82,
+    "Advised not taken": 11.14,
+    "Partial Treatment": 9.68
+}, {
+    "year": "Oesophagus",
+    "Complete Treatment": 63.71,
+    "No Treatment": 16.94,
+    "Advised not taken": 12.10,
+    "Partial Treatment": 7.26
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName, color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv1");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Lung",
+    "Complete Treatment": 59.14,
+    "No Treatment": 17.53,
+    "Advised not taken": 11.03,
+    "Partial Treatment": 12.30
+
+}, {
+    "year": "Prostate",
+    "Complete Treatment": 74.77,
+    "No Treatment": 10.98,
+    "Advised not taken": 7.01,
+    "Partial Treatment": 7.24
+}, {
+    "year": "Buccal Mucosa",
+    "Complete Treatment": 46.19,
+    "No Treatment": 16.51,
+    "Advised not taken": 29.79,
+    "Partial Treatment": 7.51
+}, {
+    "year": "Stomach",
+    "Complete Treatment": 55.68,
+    "No Treatment": 20.43,
+    "Advised not taken": 13.25,
+    "Partial Treatment": 10.65
+}, {
+    "year": "Oesophagus",
+    "Complete Treatment": 56.96,
+    "No Treatment": 17.10,
+    "Advised not taken": 15.18,
+    "Partial Treatment": 10.76
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName,color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("chartdiv2");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Lung",
+    "Complete Treatment": 47.50,
+    "No Treatment": 21.57,
+    "Advised not taken": 13.95,
+    "Partial Treatment": 16.98
+
+}, {
+    "year": "Prostate",
+    "Complete Treatment": 67.89,
+    "No Treatment": 16.17,
+    "Advised not taken": 7.97,
+    "Partial Treatment": 7.97
+}, {
+    "year": "Buccal Mucosa",
+    "Complete Treatment": 38.80,
+    "No Treatment": 20.25,
+    "Advised not taken": 33.18,
+    "Partial Treatment": 7.78
+}, {
+    "year": "Stomach",
+    "Complete Treatment": 44.76,
+    "No Treatment": 27.99,
+    "Advised not taken": 15.77,
+    "Partial Treatment": 11.48
+}, {
+    "year": "Oesophagus",
+    "Complete Treatment": 43.63,
+    "No Treatment": 22.27,
+    "Advised not taken": 22.93,
+    "Partial Treatment": 11.18
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName,color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+
+<!-- Female -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("chartdivf1");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Breast",
+    "Complete Treatment": 73.22,
+    "No Treatment": 9.53,
+    "Advised not taken": 3.00,
+    "Partial Treatment": 14.25
+
+}, {
+    "year": "Cervix",
+    "Complete Treatment": 67.39,
+    "No Treatment": 12.77,
+    "Advised not taken": 14.95,
+    "Partial Treatment": 4.89
+}, {
+    "year": "Lung",
+    "Complete Treatment": 65.64,
+    "No Treatment": 18.15,
+    "Advised not taken": 5.41,
+    "Partial Treatment": 10.81
+}, {
+    "year": "Gall Bladder",
+    "Complete Treatment": 42.65,
+    "No Treatment": 34.87,
+    "Advised not taken": 16.14,
+    "Partial Treatment": 6.34
+}, {
+    "year": "Ovary",
+    "Complete Treatment": 84.11,
+    "No Treatment": 8.10,
+    "Advised not taken": 1.56,
+    "Partial Treatment": 6.23
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName,color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("chartdivf2");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Breast",
+    "Complete Treatment": 70.81,
+    "No Treatment": 9.81,
+    "Advised not taken": 4.58,
+    "Partial Treatment": 14.81
+
+}, {
+    "year": "Cervix",
+    "Complete Treatment": 65.87,
+    "No Treatment": 10.65,
+    "Advised not taken": 16.54,
+    "Partial Treatment": 6.94
+}, {
+    "year": "Lung",
+    "Complete Treatment": 64.38,
+    "No Treatment": 14.71,
+    "Advised not taken": 9.39,
+    "Partial Treatment": 11.53
+}, {
+    "year": "Gall Bladder",
+    "Complete Treatment": 37.16,
+    "No Treatment": 36.00,
+    "Advised not taken": 16.26,
+    "Partial Treatment": 10.58
+}, {
+    "year": "Ovary",
+    "Complete Treatment": 81.46,
+    "No Treatment": 5.18,
+    "Advised not taken": 5.33,
+    "Partial Treatment": 8.03
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName,color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+    var root = am5.Root.new("chartdivf3");
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panX",
+  wheelY: "zoomX",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarX", am5.Scrollbar.new(root, {
+  orientation: "horizontal"
+}));
+
+
+var data = [{
+    "year": "Breast",
+    "Complete Treatment": 63.70,
+    "No Treatment": 13.46,
+    "Advised not taken": 6.60,
+    "Partial Treatment": 16.24
+
+}, {
+    "year": "Cervix",
+    "Complete Treatment": 54.74,
+    "No Treatment": 15.45,
+    "Advised not taken": 23.37,
+    "Partial Treatment": 6.44
+}, {
+    "year": "Lung",
+    "Complete Treatment": 55.15,
+    "No Treatment": 20.10,
+    "Advised not taken": 11.86,
+    "Partial Treatment": 12.89
+}, {
+    "year": "Gall Bladder",
+    "Complete Treatment": 28.16,
+    "No Treatment": 41.99,
+    "Advised not taken": 19.90,
+    "Partial Treatment": 9.95
+}, {
+    "year": "Ovary",
+    "Complete Treatment": 71.47,
+    "No Treatment": 10.78,
+    "Advised not taken": 7.45,
+    "Partial Treatment": 10.30
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var xRenderer = am5xy.AxisRendererX.new(root, {
+  minorGridEnabled: true
+});
+var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: xRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+xRenderer.grid.template.setAll({
+  location: 1
+})
+
+xAxis.data.setAll(data);
+
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  renderer: am5xy.AxisRendererY.new(root, {
+    strokeOpacity: 0.1
+  })
+}));
+
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName,color) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    valueYField: fieldName,
+    categoryXField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryX}: {valueY}",
+    tooltipY: am5.percent(10),
+    strokeOpacity: 0,
+    fill: color,
+    stroke: color
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueY}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Complete Treatment", "Complete Treatment", am5.color(0x1769aa));
+makeSeries("No Treatment", "No Treatment", am5.color(0xff6d00));
+makeSeries("Advised not taken", "Advised not taken", am5.color(0x00a152));
+makeSeries("Partial Treatment", "Partial Treatment", am5.color(0xd500f9));
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+
+
+
+
+
+
+
+<!-- HTML -->
+<div style="display: flex; justify-content: center; gap: 80px; align-items: flex-start;">
+
+    <!-- Male Section -->
+    <div>
+        <h1 style="text-align:center"><b><u>Male</u></b></h1>
+
+        <div style="width: 660px; text-align:center; margin-bottom: 30px;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>20-39</b></div>
+            <div id="chartdiv" style="width: 660px; height:600px;"></div>
+        </div>
+
+        <div style="width: 660px; text-align:center; margin-bottom: 30px;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>40-59</b></div>
+            <div id="chartdiv1" style="width: 660px; height:600px;"></div>
+        </div>
+
+        <div style="width: 660px; text-align:center;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>60+</b></div>
+            <div id="chartdiv2" style="width: 660px; height:600px;"></div>
+        </div>
+    </div>
+
+    <!-- Female Section -->
+    <div>
+        <h1 style="text-align:center"><b><u>Female</u></b></h1>
+
+        <div style="width: 700px; text-align:center; margin-bottom: 30px;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>20-39</b></div>
+            <div id="chartdivf1" style="width: 700px; height:600px;"></div>
+        </div>
+
+        <div style="width: 700px; text-align:center; margin-bottom: 30px;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>40-59</b></div>
+            <div id="chartdivf2" style="width: 700px; height:600px;"></div>
+        </div>
+
+        <div style="width: 700px; text-align:center;">
+            <div style="font-size:30px; margin-bottom:10px;"><b>60+</b></div>
+            <div id="chartdivf3" style="width: 700px; height:600px;"></div>
+        </div>
+    </div>
+
+</div>

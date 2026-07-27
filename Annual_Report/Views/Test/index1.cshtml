@@ -1,0 +1,72 @@
+﻿@using Newtonsoft.Json
+@model List<Annual_Report.Controllers.TestController.CancerData>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Buccal Mucosa Cancer - Cylindrical Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
+    <style>
+        .chart-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+          /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .chart-title {
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        canvas {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body style="background: #f0f2f5; margin: 0; padding: 20px;">
+    <div class="chart-container">
+        <div class="chart-title">Buccal Mucosa Cancer Cases - City Comparison</div>
+        <canvas id="cylindricalChart"></canvas>
+    </div>
+
+    <script>
+const cancerData = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+console.log(cancerData);
+
+const ctx = document.getElementById('cylindricalChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: cancerData.map(item => item.City),
+        datasets: [{
+            label: 'Buccal Mucosa Cases',
+            data: cancerData.map(item => item.BuccalMucosaCases),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)'
+            ]
+        },
+         {
+             label: 'Lung Cancer Cases',
+             data: cancerData.map(item => item.LungCases),
+             backgroundColor: 'rgba(54, 162, 235, 0.8)'
+         }]
+    }
+});
+    </script>
+</body>
+</html>

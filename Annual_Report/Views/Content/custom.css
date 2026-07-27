@@ -1,0 +1,17 @@
+﻿.table {
+    width: 100%;
+    border-collapse: collapse !important;
+}
+
+.table,
+.table th,
+.table td {
+    border: 1.5px solid #000 !important;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+}

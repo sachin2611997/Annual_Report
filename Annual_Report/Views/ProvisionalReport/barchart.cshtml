@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+@using Newtonsoft.Json
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Horizontal Bar Chart with Percentages on the Bar</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Data Labels Plugin -->
+    <style>
+        .chart-container {
+            width: 80%;
+            height: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <script>
+        // Get data from ViewBag.Female
+        var femaleData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Female));
+
+        // Extract labels and values from ViewBag.Female
+        var labels = femaleData.map(item => item.Key); // Extract Lead_site as labels
+        var values = femaleData.map(item => item.Percentage); // Extract Percentage as values
+
+        var ctx = document.getElementById('barChart').getContext('2d');
+
+        // Create gradient for bar colors (simulating lighting effect)
+        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(54, 162, 235, 0.8)'); // Start color (lighter)
+        gradient.addColorStop(1, 'rgba(54, 162, 235, 0.4)'); // End color (darker)
+
+        var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels, // Categories (Lead_site)
+                datasets: [{
+                    label: 'Percentage',
+                    data: values, // Values (Percentage)
+                    backgroundColor: gradient, // Use gradient for bars
+                    borderColor: 'rgba(54, 162, 235, 1)', // Border color
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Make the bar chart horizontal
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'Percentage: ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    },
+                    // Add Data Labels Plugin to display percentages on the bar
+                    datalabels: {
+                        anchor: 'center',  // Position the label at the center of the bar
+                        align: 'center',   // Align the label inside the bar
+                        formatter: function(value) {
+                            return value + '%'; // Add '%' after the value
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        color: 'white',  // Color of the label text (to contrast with the bar color)
+                        clamp: true,     // Prevents the label from going outside the bar
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

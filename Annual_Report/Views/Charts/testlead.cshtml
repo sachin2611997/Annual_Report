@@ -1,0 +1,381 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>6 Horizontal Bar Charts with Shared Legends - Chart.js</title>
+    @*<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <!-- Chart.js Data Labels plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .charts-row {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .chart-container {
+            width: 30%;
+            min-width: 300px;
+            height: 300px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .legend-container {
+            /*max-width: 900px;*/
+            margin: 0 auto 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            user-select: none;
+        }
+
+        /*.legend-item {
+            cursor: pointer;
+            margin: 5px 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.3s;
+            user-select: none;
+        }*/
+
+        .legend-color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 3px;
+            /*border: 1px solid #333;*/
+        }
+
+        .legend-item.disabled {
+            opacity: 0.4;
+            text-decoration: line-through;
+        }
+        .chart-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 8px;
+      text-align: center;
+      width: 100%;
+    }
+    </style>
+</head>
+<body>
+
+    <h2>Male</h2>
+    <div id="legend-group1" class="legend-container"></div>
+   
+    <div class="charts-row" id="charts-row-1">
+        
+        <div class="chart-container"><div class="chart-title">20-39</div><canvas id="chart1"></canvas></div>
+        <div class="chart-container"><div class="chart-title">40-59</div><canvas id="chart2"></canvas></div>
+        <div class="chart-container"><div class="chart-title">60+</div>  <canvas id="chart3"></canvas></div>
+    </div>
+
+    <h2>Female</h2>
+    <div id="legend-group2" class="legend-container"></div>
+    <div class="charts-row" id="charts-row-2">
+        <div class="chart-container"><div class="chart-title">20-39</div><canvas id="chart4"></canvas></div>
+        <div class="chart-container"><div class="chart-title">40-59</div><canvas id="chart5"></canvas></div>
+        <div class="chart-container"><div class="chart-title">60+</div>  <canvas id="chart6"></canvas></div>
+    </div>
+
+    <script>
+    // Register datalabels plugin globally
+    Chart.register(ChartDataLabels);
+
+    // Data for group 1
+    const data1 = [
+      { country: "Buccal Mucosa", value: 7.94 },
+      { country: "Leukemia", value: 7.81 },
+      { country: "Anterior Tongue", value: 4.77 },
+      { country: "Non-Hodgkins Lymphoma", value: 2.95 },
+      { country: "Rectum", value: 2.88 }
+
+    ];
+    const data2 = [
+     
+    { country: "Buccal Mucosa", value: 19.01 },
+    { country: "Leukemia", value: 5.66 },
+    { country: "Anterior Tongue", value: 8.31 },
+    { country: "Non-Hodgkins Lymphoma", value: 5.47 },
+    { country: "Lung", value: 10.60 }
+    ];
+    const data3 = [
+      { country: "Buccal Mucosa", value: 5.43 },
+      { country: "Prostate", value: 10.04 },
+      { country: "Stomach", value: 4.77 },
+      { country: "Oesophagus", value: 4.61 },
+      { country: "Lung", value: 13.00 }
+    ];
+
+    // Data for group 2
+    const data4 = [
+      { country: "Breast", value: 28.79 },
+      { country: "Leukemia", value: 8.51 },
+      { country: "Thyroid", value: 7.56 },
+      { country: "Ovary", value: 5.91 },
+      { country: "Cervix", value: 4.84 }
+    ];
+    const data5 = [
+      { country: "Breast", value: 31.90 },
+      { country: "Cervix", value: 10.92 },
+      { country: "Gall Bladder", value: 7.18 },
+      { country: "Ovary", value: 6.74 },
+      { country: "Lung", value: 4.24 }
+    ];
+    const data6 = [
+      { country: "Breast", value: 23.77 },
+      { country: "Cervix", value: 10.18 },
+      { country: "Lung", value: 6.15 },
+      { country: "Gall Bladder", value: 6.04 },
+      { country: "Ovary", value: 5.26 }
+    ];
+
+    // Utility: sort descending by value
+    function sortDescending(data) {
+      return data.slice().sort((a,b) => b.value - a.value);
+    }
+
+    // Sort all datasets
+    const sortedDataGroup1 = [sortDescending(data1), sortDescending(data2), sortDescending(data3)];
+    const sortedDataGroup2 = [sortDescending(data4), sortDescending(data5), sortDescending(data6)];
+
+    // Get unique countries for each group
+    function getUniqueCountries(datasets) {
+      const set = new Set();
+      datasets.forEach(data => data.forEach(d => set.add(d.country)));
+      return Array.from(set);
+    }
+    const countriesGroup1 = getUniqueCountries(sortedDataGroup1);
+    const countriesGroup2 = getUniqueCountries(sortedDataGroup2);
+
+    // Assign colors for all countries (you can customize colors)
+    const colorPalette = [
+      '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
+      '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
+    ];
+    // Map countries to colors for group 1 and 2 separately
+    function assignColors(countries) {
+      const colors = {};
+      countries.forEach((c,i) => {
+        colors[c] = colorPalette[i % colorPalette.length];
+      });
+      return colors;
+    }
+    const colorsGroup1 = assignColors(countriesGroup1);
+    const colorsGroup2 = assignColors(countriesGroup2);
+
+    // Prepare chart data for a single chart
+    // Sort data descending, labels = countries, data = values, backgroundColor by country
+    function prepareChartData(data, colors) {
+      const sorted = sortDescending(data);
+      return {
+        labels: sorted.map(d => d.country),
+        datasets: [{
+          label: 'Value',
+          data: sorted.map(d => d.value),
+          backgroundColor: sorted.map(d => colors[d.country]),
+          borderRadius: 5,
+          barPercentage: 0.7,
+          categoryPercentage: 0.8
+        }]
+      };
+    }
+
+    // Common chart options
+    const commonOptions = {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        },
+        y: {
+            ticks:
+                {
+                    font:
+                        {
+                            size: 18
+                        },
+                    color: '#000000'
+                }
+        }
+      },
+      plugins: {
+          legend: { display: false },
+          
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.label}: ${ctx.parsed.x}`
+          }
+        },
+        datalabels: {
+          anchor: 'end',
+          align: 'start',
+         // color: '#000',
+          color: '#ffffff',
+          font: {
+       weight: 'bold',
+            size: 14,
+            
+          },
+          formatter: value => value.toFixed(2)
+        }
+      },
+      animation: { duration: 800 }
+    };
+
+    // Create charts for group 1
+    const ctx1 = document.getElementById('chart1').getContext('2d');
+    const ctx2 = document.getElementById('chart2').getContext('2d');
+    const ctx3 = document.getElementById('chart3').getContext('2d');
+
+    const chart1 = new Chart(ctx1, {
+      type: 'bar',
+      data: prepareChartData(data1, colorsGroup1),
+      options: commonOptions,
+
+      plugins: [ChartDataLabels]
+    });
+    const chart2 = new Chart(ctx2, {
+      type: 'bar',
+      data: prepareChartData(data2, colorsGroup1),
+      options: commonOptions,
+      plugins: [ChartDataLabels]
+    });
+    const chart3 = new Chart(ctx3, {
+      type: 'bar',
+      data: prepareChartData(data3, colorsGroup1),
+      options: commonOptions,
+      plugins: [ChartDataLabels]
+    });
+
+    // Create charts for group 2
+    const ctx4 = document.getElementById('chart4').getContext('2d');
+    const ctx5 = document.getElementById('chart5').getContext('2d');
+    const ctx6 = document.getElementById('chart6').getContext('2d');
+
+        const chart4 = new Chart(ctx4, {
+            type: 'bar',
+            data: prepareChartData(data4, colorsGroup2),
+            options: commonOptions,
+      plugins: [ChartDataLabels]
+    });
+    const chart5 = new Chart(ctx5, {
+      type: 'bar',
+      data: prepareChartData(data5, colorsGroup2),
+      options: commonOptions,
+      plugins: [ChartDataLabels]
+    });
+    const chart6 = new Chart(ctx6, {
+      type: 'bar',
+      data: prepareChartData(data6, colorsGroup2),
+      options: commonOptions,
+      plugins: [ChartDataLabels]
+    });
+
+    // Shared legend logic for each group
+    function createLegend(containerId, countries, colors, charts) {
+      const container = document.getElementById(containerId);
+      const visibility = {  };
+      countries.forEach(c => visibility[c] = true);
+
+      countries.forEach(country => {
+        const item = document.createElement('div');
+        item.classList.add('legend-item');
+        item.dataset.country = country;
+
+          // Apply inline styles instead of CSS class
+        Object.assign(item.style, {
+            cursor: 'pointer',
+            margin: '5px 15px',
+           // fontWeight: 'bold',
+            display: 'flex',
+            alignItems: 'center',
+            opacity: '1',
+            transition: 'opacity 0.3s',
+            userSelect: 'none'
+        });
+
+        const colorBox = document.createElement('div');
+        colorBox.classList.add('legend-color-box');
+        colorBox.style.backgroundColor = colors[country];
+
+        const label = document.createElement('span');
+        label.textContent = country;
+
+        item.appendChild(colorBox);
+        item.appendChild(label);
+
+
+
+
+        item.addEventListener('click', () => {
+          visibility[country] = !visibility[country];
+          if (visibility[country]) {
+            item.classList.remove('disabled');
+          } else {
+            item.classList.add('disabled');
+          }
+
+          charts.forEach(chart => {
+            const dataset = chart.data.datasets[0];
+            const idx = chart.data.labels.indexOf(country);
+            if (idx !== -1) {
+              dataset.data[idx] = visibility[country] ? getOriginalValue(chart, country) : 0;
+            }
+            chart.update();
+          });
+        });
+
+        container.appendChild(item);
+      });
+
+      // Helper to get original value for a country in a chart
+      function getOriginalValue(chart, country) {
+        // Find original data array for this chart
+        let originalData;
+        switch(chart.canvas.id) {
+          case 'chart1': originalData = data1; break;
+          case 'chart2': originalData = data2; break;
+          case 'chart3': originalData = data3; break;
+          case 'chart4': originalData = data4; break;
+          case 'chart5': originalData = data5; break;
+          case 'chart6': originalData = data6; break;
+          default: originalData = [];
+        }
+        const item = originalData.find(d => d.country === country);
+        return item ? item.value : 0;
+      }
+    }
+
+    // Create legends
+    createLegend('legend-group1', countriesGroup1, colorsGroup1, [chart1, chart2, chart3]);
+    createLegend('legend-group2', countriesGroup2, colorsGroup2, [chart4, chart5, chart6]);
+
+    </script>
+
+</body>
+</html>
+

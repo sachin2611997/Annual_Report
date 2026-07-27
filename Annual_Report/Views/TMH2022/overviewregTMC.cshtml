@@ -1,0 +1,236 @@
+﻿@model IEnumerable<Annual_Report.Models.OverviewTmcRegistration>
+
+@{
+    Layout = null;
+}
+
+
+    <style>
+         /* Metronic uses light-info / light-primary utility bg's; these two
+        custom tones match the exact light-blue shades used in the source table */
+         .tmc-table {
+             border: 1px solid #b7dbe8;
+         }
+
+             .tmc-table th,
+             .tmc-table td {
+                 border: 1px solid #b7dbe8 !important;
+                 vertical-align: middle;
+                 padding: 10px 14px;
+             }
+
+         .tmc-header {
+             background-color: #ffffff;
+             font-weight: 700;
+             text-align: center;
+         }
+
+         .tmc-row-light {
+             background-color: #dcf1f7; /* light blue band rows */
+         }
+
+         .tmc-row-white {
+             background-color: #ffffff;
+         }
+
+         .tmc-bold {
+             font-weight: 700;
+         }
+
+         .tmc-center {
+             text-align: center;
+         }
+
+         .tmc-title {
+             text-decoration: underline;
+             font-weight: 700;
+             text-align: center;
+         }
+
+
+         @@media print {
+             body {
+                 /*background-color: white !important;*/
+                 zoom: 100%;
+                 -webkit-print-color-adjust: exact;
+                 /*   transform-origin: top left;*/
+             }
+             .hide{
+                 display:none;
+             }
+         }
+
+         @@page {
+             margin-top: 5mm !important;
+             margin-right: 4mm !important;
+             margin-bottom: 5mm !important;
+             margin-left: 8mm !important;
+         }
+    </style>
+
+
+
+  @foreach (var item in Model)
+  {
+    <div class="card">
+        <div class="card-body p-6">
+
+            <h3 class="tmc-title mb-6">
+                Table 1 (b): Overview of Registration Details at TMC Centres
+            </h3>
+
+            <div class="table-responsive">
+
+                <table class="table table-row-bordered align-middle gs-0 gy-0 tmc-table mb-0">
+
+                    <thead>
+                        <tr class="tmc-header">
+                            <th class="tmc-center" style="width:6%">Sr.No</th>
+                            <th style="width:38%">Summary</th>
+                            <th class="tmc-center" style="width:16%">TMH, Mumbai</th>
+                            <th class="tmc-center" style="width:14%">ACTREC</th>
+                            <th class="tmc-center" style="width:26%">Total (TMH + ACTREC)</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- Registration -->
+
+                        <tr class="tmc-row-white">
+                            <td class="tmc-center tmc-bold">1</td>
+                            <td class="tmc-bold">Registrations</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        @{ 
+                            var tmhTotal = item.CaseFileReg_TMH +
+                                           item.ReferralCardReg_TMH +
+                                           item.PreventiveReg_TMH +
+                                           item.Teleconsultation_TMH;
+
+                            var actrecTotal = item.CaseFileReg_ACTREC +
+                                              item.ReferralCardReg_ACTREC;
+
+                            var grandTotal = tmhTotal + actrecTotal;
+                        }
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Case File Registrations</td>
+                            <td class="tmc-center">@item.CaseFileReg_TMH</td>
+                            <td class="tmc-center">@item.CaseFileReg_ACTREC</td>
+                            <td class="tmc-center">@(item.CaseFileReg_TMH + item.CaseFileReg_ACTREC)</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Referral Card Registrations</td>
+                            <td class="tmc-center">@item.ReferralCardReg_TMH</td>
+                            <td class="tmc-center">@item.ReferralCardReg_ACTREC</td>
+                            <td class="tmc-center">@(item.ReferralCardReg_TMH + item.ReferralCardReg_ACTREC)</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Preventive Registrations</td>
+                            <td class="tmc-center">@item.PreventiveReg_TMH</td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center">@item.PreventiveReg_TMH</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Teleconsultation</td>
+                            <td class="tmc-center">@item.Teleconsultation_TMH</td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center">@item.Teleconsultation_TMH</td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td class="tmc-bold">Total Registrations</td>
+                            <td class="tmc-center tmc-bold">@tmhTotal</td>
+                            <td class="tmc-center tmc-bold">@actrecTotal</td>
+                            <td class="tmc-center tmc-bold">@grandTotal</td>
+                        </tr>
+
+                        <!-- Cancer Cases -->
+
+                        @{ 
+                            var TotalCancerCasesFromCaseFileRegistrations = item.CancerFromCaseFile_TMH + item.CancerFromCaseFile_ACTREC;
+                            var TotalCancerCasesinTMC = TotalCancerCasesFromCaseFileRegistrations + @item.CancerFromReferralCard_Total;
+                        }
+
+                        <tr class="tmc-row-white">
+                            <td class="tmc-center tmc-bold">2</td>
+                            <td class="tmc-bold">Cancer Cases</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td>Total Cancer Cases - From Case File Registrations</td>
+                            <td class="tmc-center tmc-bold">@item.CancerFromCaseFile_TMH</td>
+                            <td class="tmc-center tmc-bold">@item.CancerFromCaseFile_ACTREC</td>
+                            <td class="tmc-center tmc-bold">@TotalCancerCasesFromCaseFileRegistrations</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td></td>
+                            <td>Total Cancer Cases - From Referral Card Registrations</td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center"></td>
+                            <td class="tmc-center tmc-bold">@item.CancerFromReferralCard_Total</td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td></td>
+                            <td class="tmc-bold">Total Cancer Cases in TMC</td>
+                            <td></td>
+                            <td></td>
+                            <td class="tmc-center tmc-bold">@TotalCancerCasesinTMC</td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td colspan="4">
+                                Estimated Number of Cancer Cases in India (Source: Globocan 2022)
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @item.EstimatedCancerCasesIndia.ToString("N0")
+                            </td>
+                        </tr>
+
+                        <tr class="tmc-row-light">
+                            <td colspan="5">&nbsp;</td>
+                        </tr>
+
+                        <tr class="tmc-row-white">
+                            <td colspan="4">
+                                % of Cancer Patients Attending TMC Mumbai Centres
+                            </td>
+                            <td class="tmc-center tmc-bold">
+                                @item.PercentAttendingTMC.ToString("0.##")%
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+    @Html.ActionLink("Edit", "editoverviewregTMC", new { Id = item.Id }, new { @class = "btn btn-primary btn-sm hide" })
+  }
+
+

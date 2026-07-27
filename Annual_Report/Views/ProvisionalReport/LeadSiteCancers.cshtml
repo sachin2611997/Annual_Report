@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style>
+        .page-break-after {
+            page-break-after: always;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .a {
+            border: solid 1px;
+        }
+
+        @@media print {
+            body {
+                /*zoom: 38%;*/
+            }
+        }
+
+        @@page {
+           
+           
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @Html.Action("TopLeadSites", "ProvisionalReport")
+    </div>
+
+    <div>
+        @Html.Action("LeadSite2045", "ProvisionalReport")
+    </div>
+  
+
+    <div>
+        @Html.Action("LeadSite60above", "ProvisionalReport")
+    </div>
+  
+   
+    
+</body>
+</html>

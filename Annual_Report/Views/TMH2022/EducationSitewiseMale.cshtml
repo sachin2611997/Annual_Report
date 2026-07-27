@@ -1,0 +1,299 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Data Tables - Responsive Datatables</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN T~STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+    <style>
+        .table th {
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center; /* Horizontally centers the button */
+            align-items: center; /* Vertically centers the button */
+        }
+
+        .texthead {
+            font-size: x-large !important;
+            color: white !important;
+            font-weight: bold !important;
+        }
+         .portlet-title-em{
+              background-color: #26a69a !important;
+            }
+
+
+        @@media print {
+
+            .button-container {
+                display: none !important;
+            }
+
+            .portlet-title {
+                background-color: #09499a !important;
+                border: 1px solid #30d0c1 !important;
+            }
+
+            .texthead {
+                font-size: x-large !important;
+                color: white !important;
+            }
+            .portlet-title-em{
+                 background-color: #26a69a !important;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="portlet box green" style="text-align: center;">
+        <div class="portlet-title-em">
+            <div class="texthead">
+                Table 4(a) &nbsp;    Education and Site-wise distribution of Cancer Patients -TMC, Mumbai  &nbsp;&nbsp;&nbsp;&nbsp;     Sex: Male  &nbsp;&nbsp;&nbsp;&nbsp;  Year: @ViewBag.year
+            </div>
+
+        </div>
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content" style="text-align: center;">
+                    <tr id="header-row">
+                        <th width="5%" class="active">
+                            ICD-10
+                        </th>
+
+                        <th width="10%" class="active">Site</th>
+                        <th class="active"> <5Yrs Old       </th>
+                        <th class="active">Illiterate   </th>
+                        <th class="active">Literate    </th>
+                        <th class="active">Primary  </th>
+                        <th class="active">Middle     </th>
+                        <th class="active">Secondary     </th>
+                        <th class="active">Technical   </th>
+                        <th class="active">College & Above     </th>
+
+                        <th class="active">Others      </th>
+                        <th class="active">Unknown    </th>
+                        <th class="active">TOTAL</th>
+                        <th class="active">%</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.Year5AgeCounts != null)
+                    {
+                        var year5AgeCounts = Json.Decode<List<Dictionary<string, object>>>(Json.Encode(ViewBag.Year5AgeCounts));
+
+                        var totalCount = ViewBag.TotalCount;  // Get the total count from ViewBag
+
+
+                        // Initialize the sums for each age group
+                        var methodSums = new Dictionary<string, int>
+        {
+                              { "<5Yrs Old", 0 },
+            { "Illiterate", 0 },
+            { "Literate",  0 },
+            { "Primary", 0 },
+            { "Middle", 0 },
+            { "Secondary", 0 },
+            { "Technical", 0 },
+            { "College & Above", 0 },
+
+
+              { "Others"  , 0 },
+            { "Unknown"  , 0 },
+        };
+
+
+
+
+                        foreach (var row in year5AgeCounts)
+                        {
+                            var methods = row["Methods"] as Dictionary<string, object>;
+
+                            <tr>
+                                <td class="active">@row["SysValue"]</td>
+                                <td class="active">@row["SiteName"]</td>
+                                <td>@(methods.ContainsKey("<5Yrs Old") ? methods["<5Yrs Old"] : 0)</td>
+                                <td>@(methods.ContainsKey("Illiterate") ? methods["Illiterate"] : 0)</td>
+                                <td>@(methods.ContainsKey("Literate") ? methods["Literate"] : 0)</td>
+                                <td>@(methods.ContainsKey("Primary") ? methods["Primary"] : 0)</td>
+                                <td>@(methods.ContainsKey("Middle") ? methods["Middle"] : 0)</td>
+                                <td>@(methods.ContainsKey("Secondary") ? methods["Secondary"] : 0)</td>
+                                <td>@(methods.ContainsKey("Technical") ? methods["Technical"] : 0)</td>
+                                <td>@(methods.ContainsKey("College & Above") ? methods["College & Above"] : 0)</td>
+
+
+
+                                <td>@(methods.ContainsKey("Others") ? methods["Others"] : 0)</td>
+                                <td>@(methods.ContainsKey("Unknown") ? methods["Unknown"] : 0)</td>
+
+                                <td class="active">@(methods.Values.Cast<int?>().Sum(x => x ?? 0)) </td>  <!-- Sum all the values and handle nulls by using ?? 0 -->
+                                <td class="active">
+                                    @(totalCount > 0 ? ((double)(methods.Values.Cast<int?>().Sum(x => x ?? 0)) / totalCount * 100).ToString("F1") : "0.0")%
+                                </td>
+                            </tr>
+                            // Update the sum for each age group
+                            methodSums["<5Yrs Old"] += methods.ContainsKey("<5Yrs Old") ? (int)methods["<5Yrs Old"] : 0;
+                            methodSums["Illiterate"] += methods.ContainsKey("Illiterate") ? (int)methods["Illiterate"] : 0;
+                            methodSums["Literate"] += methods.ContainsKey("Literate") ? (int)methods["Literate"] : 0;
+                            methodSums["Primary"] += methods.ContainsKey("Primary") ? (int)methods["Primary"] : 0;
+                            methodSums["Middle"] += methods.ContainsKey("Middle") ? (int)methods["Middle"] : 0;
+                            methodSums["Secondary"] += methods.ContainsKey("Secondary") ? (int)methods["Secondary"] : 0;
+                            methodSums["Technical"] += methods.ContainsKey("Technical") ? (int)methods["Technical"] : 0;
+                            methodSums["College & Above"] += methods.ContainsKey("College & Above") ? (int)methods["College & Above"] : 0;
+
+
+                            methodSums["Others"] += methods.ContainsKey("Others") ? (int)methods["Others"] : 0;
+
+                            methodSums["Unknown"] += methods.ContainsKey("Unknown") ? (int)methods["Unknown"] : 0;
+                        }
+
+                    <tfoot>
+                        <tr class="active">
+                            <td colspan="2"><strong>Total</strong></td>
+                           
+                            <td>@methodSums["<5Yrs Old"]</td>
+                            <td>@methodSums["Illiterate"]</td>
+                            <td>@methodSums["Literate"]</td>
+                            <td>@methodSums["Primary"]</td>
+                            <td>@methodSums["Middle"]</td>
+                            <td>@methodSums["Secondary"]</td>
+                            <td>@methodSums["Technical"]</td>
+                            <td>@methodSums["College & Above"]</td>
+
+                            <td>@methodSums["Others"]</td>
+                            <td>@methodSums["Unknown"]</td>
+
+                            <!-- Total Count (Sum of all columns) -->
+                            <td>@methodSums.Values.Sum()</td>
+                            <!-- Total Percentage (One Decimal Place) -->
+                            <td>
+                                @(totalCount > 0 ? ((double)methodSums.Values.Sum() / totalCount * 100).ToString("F1") : "0.0")%
+                            </td>
+                        </tr>
+                        <!-- Second Row for Percentages -->
+                        <tr class="active">
+                            <td colspan="2"><strong>%</strong></td>
+                         
+                            <td>@(totalCount > 0 ? ((double)methodSums["<5Yrs Old"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Illiterate"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Literate"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Primary"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Middle"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Secondary"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Technical"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["College & Above"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+
+
+                            <td>@(totalCount > 0 ? ((double)methodSums["Others"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>@(totalCount > 0 ? ((double)methodSums["Unknown"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+                            <td>100%</td>
+                            <td></td>
+                            <!-- Empty cell for Total count -->
+                    </tfoot>
+                    }
+                    </tbody>
+
+
+
+                </table>
+            </div>
+
+
+
+        </div>
+
+
+
+      
+
+    </body>
+</html>
+<script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE~INS -->
+<script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+                        // initiate layout and plugins
+                        Metronic.init(); // init metronic core components
+                        Layout.init(); // init current layout
+                        Demo.init(); // init demo features
+                    });
+</script>
+
+
+<script>
+   $(document).ready(function () {
+    $('#exportBtn').click(function () {
+        // Get the table element
+        var table = $('table.table-bordered');
+
+        // Use SheetJS to export the table to an Excel file
+        var wb = XLSX.utils.table_to_book(table[0], { sheet: "Sheet1" });
+
+        // Create a Blob from the workbook and trigger a download
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) {
+                view[i] = s.charCodeAt(i) & 0xFF;
+            }
+            return buf;
+        }
+
+        // Trigger download of the Excel file
+        var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "Age_Site_Distribution.xlsx"; // Set the filename here
+        link.click();
+    });
+});
+
+</script>
+
+
+

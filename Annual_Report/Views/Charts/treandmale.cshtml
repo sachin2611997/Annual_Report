@@ -1,0 +1,371 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Male Cancer Trends – Total 1984–2018</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f3;
+            color: #1a1a1a;
+            padding: 32px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #111;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        #cancer-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px solid #e0e0dd;
+            font-size: 13px;
+            background: #fff;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+            .legend-item:hover {
+                background: #f0f0ee;
+            }
+
+            .legend-item.active {
+                background: #f0f0ee;
+                border-color: #bbb;
+                font-weight: 500;
+            }
+
+        .legend-dot {
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 740px;
+            margin-bottom: 28px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .summary-card {
+            background: #f5f5f3;
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+
+            .summary-card .s-label {
+                font-size: 11px;
+                color: #888;
+                margin-bottom: 6px;
+            }
+
+            .summary-card .s-value {
+                font-size: 22px;
+                font-weight: 700;
+            }
+
+            .summary-card .s-change {
+                font-size: 11px;
+                margin-top: 4px;
+            }
+
+        .up {
+            color: #2e9e74;
+        }
+
+        .down {
+            color: #c25a2e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Male Cancer Incidence – Total Cases</h1>
+        <p class="subtitle">Total male incidence · 1984 to 2018 · Click a cancer type to isolate its line</p>
+        <p class="section-label">Cancer type</p>
+        <div id="cancer-legend"></div>
+        <div class="chart-wrapper">
+            <canvas id="trendChart"></canvas>
+        </div>
+        <p class="section-label">Latest (2018) &amp; change vs 1984</p>
+        <div class="summary-grid" id="summary-cards"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+    <script>
+  Chart.register(ChartDataLabels);
+
+  const years = ['1984','1989','1990–96','1997–98','1999–00','2001–03','2004–05','2006–08','2011','2012','2015–17','2018'];
+
+  const raw = {
+    Lung:       [352.8, 358.5, 327.6, 349.2, 346.8, 254.9, 248.5, 281.4, 318.3, 378.1, 293.5, 294.4],
+    Prostate:   [315.6, 270.5, 285.6, 339,   363.2, 254.1, 268.3, 300.1, 404.9, 393.1, 421.7, 446.1],
+    Mouth:      [83.9,  105.2, 100.3, 114.7, 118.8, 113.9, 107.5, 113.8, 112.5, 141.6, 158.8, 158.4],
+    Stomach:    [173.6, 196.9, 163.4, 167.9, 142.8, 108.6, 127.7, 106.8, 116.2, 130.5, 116.7, 122.4],
+    Oesophagus: [325.9, 311.8, 225.1, 249.7, 212.1, 172,   145.3, 131.7, 117.3, 141.8, 108.9, 99.8]
+  };
+
+  const cancers = Object.keys(raw);
+  const palette = ['#3266ad','#c25a2e','#2e9e74','#9c4eb8','#b89a17'];
+  let highlighted = null;
+
+  // ── Collision-aware label positioning ──────────────────────────────────────
+  // For each year column, sort all cancer values and assign alternating
+  // top/bottom slots so no two labels share the same row.
+  // Labels are stacked outward: closest values to the line, farther ones pushed out.
+
+  const LABEL_H = 26;   // approx px height of a badge (font 11 + padding)
+  const MIN_GAP = 8;    // min gap between badges
+
+  // Pre-compute per-year per-cancer {align, offset} when all lines visible
+  function computePositions(visibleCancers) {
+    // positions[yearIdx][cancer] = { align, anchor, offset }
+    const positions = Array.from({ length: years.length }, () => ({}));
+
+    for (let yi = 0; yi < years.length; yi++) {
+      // Build list sorted by value descending
+      const entries = visibleCancers
+        .map(c => ({ cancer: c, val: raw[c][yi] }))
+        .sort((a, b) => b.val - a.val);
+
+      const n = entries.length;
+      // Assign slots based on rank: spread labels so close values go opposite directions
+      // Pattern for 5: top(0), bottom(0), top(1), bottom(1), top(2)
+      // This ensures adjacent ranked values always go opposite sides
+      const slotDir  = [];
+      const slotOff  = [];
+
+      // Track independent counters for top and bottom stacks
+      let topCount = 0, botCount = 0;
+      for (let i = 0; i < n; i++) {
+        // Group values that are close together (within 30 units) into same direction bucket
+        const myVal = entries[i].val;
+        const prevVal = i > 0 ? entries[i-1].val : null;
+        const isClose = prevVal !== null && Math.abs(myVal - prevVal) < 35;
+
+        if (i % 2 === 0) {
+          slotDir.push('top');
+          slotOff.push(10 + topCount * (LABEL_H + MIN_GAP));
+          topCount++;
+        } else {
+          slotDir.push('bottom');
+          slotOff.push(10 + botCount * (LABEL_H + MIN_GAP));
+          botCount++;
+        }
+      }
+
+      entries.forEach((e, idx) => {
+        positions[yi][e.cancer] = {
+          align:  slotDir[idx],
+          anchor: slotDir[idx] === 'top' ? 'end' : 'start',
+          offset: slotOff[idx]
+        };
+      });
+
+      // Hard override: if Prostate and Oesophagus both ended up same side, flip Oesophagus
+      if (positions[yi]['Prostate'] && positions[yi]['Oesophagus']) {
+        const pAlign = positions[yi]['Prostate'].align;
+        const oAlign = positions[yi]['Oesophagus'].align;
+        if (pAlign === oAlign) {
+          const newAlign = oAlign === 'top' ? 'bottom' : 'top';
+          const newAnchor = newAlign === 'top' ? 'end' : 'start';
+          // find max offset already used on that side and add one more step
+          const maxOff = entries
+            .map(e => positions[yi][e.cancer])
+            .filter(p => p.align === newAlign)
+            .reduce((m, p) => Math.max(m, p.offset), 8);
+          positions[yi]['Oesophagus'] = { align: newAlign, anchor: newAnchor, offset: maxOff + LABEL_H + MIN_GAP };
+        }
+      }
+
+      // Hard override: if Lung and Prostate both ended up same side, flip Lung
+      if (positions[yi]['Lung'] && positions[yi]['Prostate']) {
+        const lAlign = positions[yi]['Lung'].align;
+        const pAlign = positions[yi]['Prostate'].align;
+        if (lAlign === pAlign) {
+          const newAlign = lAlign === 'top' ? 'bottom' : 'top';
+          const newAnchor = newAlign === 'top' ? 'end' : 'start';
+          const maxOff = entries
+            .map(e => positions[yi][e.cancer])
+            .filter(p => p.align === newAlign)
+            .reduce((m, p) => Math.max(m, p.offset), 8);
+          positions[yi]['Lung'] = { align: newAlign, anchor: newAnchor, offset: maxOff + LABEL_H + MIN_GAP };
+        }
+      }
+    }
+    return positions;
+  }
+
+  let positions = computePositions(cancers);
+
+  function buildDatasets() {
+    const visible = highlighted ? [highlighted] : cancers;
+    if (highlighted) {
+      positions = computePositions([highlighted]);
+    } else {
+      positions = computePositions(cancers);
+    }
+
+    return cancers.map((cancer, ci) => {
+      const isVisible = highlighted === null || highlighted === cancer;
+      return {
+        label: cancer,
+        data: isVisible ? raw[cancer] : [],
+        borderColor: palette[ci],
+        backgroundColor: palette[ci] + '15',
+        borderWidth: highlighted === cancer ? 3.5 : 2.5,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        tension: 0.35,
+        datalabels: {
+          display: isVisible,
+          align:  ctx => (positions[ctx.dataIndex][cancer] || {align:'top'}).align,
+          anchor: ctx => (positions[ctx.dataIndex][cancer] || {anchor:'end'}).anchor,
+          offset: ctx => (positions[ctx.dataIndex][cancer] || {offset:8}).offset,
+          clamp: true,
+          font: { size: 13, weight: '700' },
+          color: '#000000',
+            //  color:'#fff',
+            //backgroundColor: palette[ci],
+          borderRadius: 4,
+          padding: { top: 3, bottom: 3, left: 5, right: 5 },
+          formatter: v => v
+        }
+      };
+    });
+  }
+
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: { labels: years, datasets: buildDatasets() },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      clip: false,
+      interaction: { mode: 'index', intersect: false },
+      layout: { padding: { top: 90, bottom: 90, left: 20, right: 20 } },
+      plugins: {
+        legend: { display: false },
+        datalabels: { display: true },
+        tooltip: {
+          callbacks: { label: c => '  ' + c.dataset.label + ': ' + c.parsed.y }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(0,0,0,0.07)' },
+          ticks: { font: { size: 11 }, maxRotation: 40 }
+        },
+        y: {
+          beginAtZero: false,
+          grace: '40%',
+          title: { display: true, text: 'Total Cases', font: { size: 12 } },
+          grid: { color: 'rgba(0,0,0,0.07)' },
+          ticks: { font: { size: 12 } }
+        }
+      }
+    }
+  });
+
+  function refresh() {
+    chart.data.datasets = buildDatasets();
+    chart.update();
+    updateSummary();
+  }
+
+  const legendEl = document.getElementById('cancer-legend');
+  cancers.forEach((cancer, i) => {
+    const item = document.createElement('div');
+    item.className = 'legend-item active';
+    item.innerHTML = '<span class="legend-dot" style="background:' + palette[i] + '"></span>' + cancer;
+    item.addEventListener('click', () => {
+      highlighted = (highlighted === cancer) ? null : cancer;
+      legendEl.querySelectorAll('.legend-item').forEach((el, idx) => {
+        el.classList.toggle('active', highlighted === null || highlighted === cancers[idx]);
+      });
+      refresh();
+    });
+    legendEl.appendChild(item);
+  });
+
+  function updateSummary() {
+    const el = document.getElementById('summary-cards');
+    el.innerHTML = '';
+    cancers.forEach((cancer, ci) => {
+      const first  = raw[cancer][0];
+      const latest = raw[cancer][raw[cancer].length - 1];
+      const change = ((latest - first) / first * 100).toFixed(1);
+      const up = parseFloat(change) > 0;
+      const card = document.createElement('div');
+      card.className = 'summary-card';
+      card.innerHTML =
+        '<p class="s-label">' + cancer + '</p>' +
+        '<p class="s-value" style="color:' + palette[ci] + '">' + latest + '</p>' +
+        '<p class="s-change ' + (up?'up':'down') + '">' + (up?'▲':'▼') + ' ' + Math.abs(change) + '% vs 1984</p>';
+      el.appendChild(card);
+    });
+  }
+  updateSummary();
+    </script>
+</body>
+</html>

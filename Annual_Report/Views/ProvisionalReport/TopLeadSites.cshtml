@@ -1,0 +1,364 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Leadsites</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Leadsites</title>
+    <!-- Styles -->
+    <style>
+        /*.portlet-body {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }*/
+
+        @@media print {
+           
+
+           
+
+            .well {
+                display: none;
+            }
+
+            body {
+                background-color: #e9ecf3 !important;
+            }
+
+            .portlet {
+                background-color: #ffffff !important;
+            }
+
+            .caption-subject {
+                font-size: 50px !important;
+            }
+
+            u {
+                color: #5b9bd1 !important;
+            }
+        }
+        /*close media_tag*/
+
+
+
+        .caption-subject {
+            padding: 25px 0 9px 0 !important;
+            font-weight: bold !important;
+            font-size: 30px !important;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- BEGIN CHART PORTLET-->
+    <!-- BEGIN REGIONAL STATS PORTLET-->
+   
+    <!-- END REGIONAL STATS PORTLET-->
+
+
+   
+       <h1 style="text-align:center;"> <b>Chapter 5. Leading Sites of Cancer</b></h1>
+        <!-- BEGIN CHART PORTLET-->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light" style="border:solid 1px">
+                <div class="portlet-title">
+                    <div>
+                        @*<i class="icon-bar-chart font-green-haze"></i>*@
+                        <p class="caption-subject  uppercase" style="text-align:center">  Fig.4 Top Ten Leading Sites of Cancer - Male Year:2024 </p>
+                    </div>
+                </div>
+                <div class="portlet body">
+                    <div id="leadmale" class="chart" style="height:630px">
+                    </div>
+                    <div class="well margin-top-20">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="text-left">Depth:</label>
+                                <input class="leadmale_chart_input" data-property="depth3D" min="1" max="120" value="10" step="1" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="text-left">Angle:</label>
+                                <input class="leadmale_chart_input" data-property="angle" min="0" max="89" value="50" step="1" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+
+
+
+
+        <!-- BEGIN CHART PORTLET-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light" style="border:solid 1px">
+                <div class="portlet-title">
+                    <div>
+
+                        <p class="caption-subject  uppercase" style="text-align:center"> Fig.5 Top Ten Leading Sites of Cancer - Female Year:2024 </p>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="leadfemale" class="chart" style="height:650px;">
+                    </div>
+                    <div class="well margin-top-20">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label class="text-left">Depth:</label>
+                                <input class="leadfemale_chart_input" data-property="depth3D" min="1" max="120" value="10" step="1" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="text-left">Angle:</label>
+                                <input class="leadfemale_chart_input" data-property="angle" min="0" max="89" value="50" step="1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+
+
+        <!-- END CHART PORTLET-->
+
+
+</body>
+</html>
+
+<script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+<!-- IMPORTAN~llcalendar depends on jquery-ui.min.js for drag & drop support -->
+<script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/plugins/responsive/responsive.min.js"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script src="~/assets/admin/pages/scripts/charts-amcharts.js"></script>
+<script>
+        jQuery(document).ready(function() {
+            // initiate layout and plugins
+            Metronic.init(); // init metronic core components
+            Layout.init(); // init current layout
+            Demo.init(); // init demo features
+            ChartsAmLeadcharts.init();
+            ChartsdemoLeadcharts.init();
+        });
+</script>
+
+<!-- Chart code -->
+<script>
+    var ChartsAmLeadcharts = function () {
+        var initChartSample5 = function() {
+            var chart = AmCharts.makeChart("leadmale", {
+
+                "type": "serial",
+                "theme": "light",
+                "dataProvider":  @Html.Raw(Json.Encode(@ViewBag.Male)),
+                "graphs": [{
+                    "fillAlphas": 0.9,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "Count",     // vlaue of the bar
+                    "fixedColumnWidth": 20,     // size of the bar
+                    // "showAllValueLabels": true,
+                    "labelText":"[[Count]]([[Percentage]])" , //value on top of the bar
+
+                    "fontSize":20,                  //size of the value
+                    "fillColors":"#074799",
+                    "labelPosition":"right",
+                    "labelOffset": 10,      // Space between the bar and the label (adjust as needed)
+                    "axisX":0,
+                }],
+                "valueAxes": [
+              {
+                  "gridThickness": 0,
+                  //"title": "Axis title",
+                  "fontSize": 18,
+                  "labelsEnabled": false,
+              },],
+                "categoryAxis": {
+                    "gridThickness": 0,
+                    // "title": "Axis title",
+                    "fontSize": 20,
+                    "gridAlpha": 0 ,
+                    "boldLabels":false,
+                },
+
+
+
+               "categoryField": "Key",
+                "rotate": true
+            }, 0);
+
+            jQuery('.leadmale_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+                target[property] = value;
+                chart.validateNow();
+            });
+            $('#leadmale').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+
+
+        }
+
+        return {
+            init: function () {
+            initChartSample5();
+            }
+        };
+    }();
+</script>
+
+<script>
+    var ChartsdemoLeadcharts = function () {
+        var initChartleadfemale = function() {
+            var chart = AmCharts.makeChart("leadfemale", {
+
+                "type": "serial",
+                "theme": "light",
+                "dataProvider":  @Html.Raw(Json.Encode(@ViewBag.Female)),
+                "graphs": [{
+                    "fillAlphas": 0.9,
+                    "lineAlpha": 0.2,
+                    "type": "column",
+                    "valueField": "Count",     // vlaue of the bar
+                    "fixedColumnWidth": 20,     // size of the bar
+
+                    "labelText": "[[Count]]([[Percentage]])" , //value on top of the bar
+                    "fontSize":20,                  //size of the value
+
+                    "fillColors":"#6A1E55",
+                    "labelPosition":"right",
+                    "labelOffset": 10     // Space between the bar and the label (adjust as needed)
+
+
+                }],
+
+                "valueAxes": [
+              {
+                  "gridThickness": 0,
+                  //"title": "Axis title",
+                  "fontSize": 10,
+                  "labelsEnabled": false,
+
+                  "inside":true,
+
+              },],
+                "categoryAxis": {
+                    "gridThickness": 0,
+                    // "title": "Axis title",
+                    "fontSize": 20,
+                    "gridAlpha": 0 ,
+                    "boldLabels":false
+
+
+                },
+
+               "categoryField": "Key",
+               "rotate": true,
+
+
+
+            }, 0);
+
+
+
+            jQuery('.leadfemale_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+                target[property] = value;
+                chart.validateNow();
+            });
+            $('#leadfemale').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }
+
+        return {
+            init: function () {
+                initChartleadfemale();
+            }
+        };
+    }();
+</script>
+
+

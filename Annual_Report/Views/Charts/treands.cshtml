@@ -1,0 +1,381 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cancer Trends – Male &amp; Female 1984–2018</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f3;
+            color: #1a1a1a;
+            padding: 32px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #111;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e0e0dd;
+        }
+
+        .tab-btn {
+            padding: 10px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #888;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .tab-btn:hover {
+                color: #333;
+            }
+
+            .tab-btn.active {
+                color: #1a1a1a;
+                border-bottom-color: #3266ad;
+            }
+
+            .tab-btn .tab-icon {
+                font-size: 18px;
+            }
+
+            .tab-btn.female.active {
+                border-bottom-color: #c25a2e;
+            }
+
+        .tab-panel {
+            display: none;
+        }
+
+            .tab-panel.active {
+                display: block;
+            }
+
+        .section-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 5px 12px;
+            border-radius: 6px;
+            border: 1px solid #e0e0dd;
+            font-size: 13px;
+            background: #fff;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+            .legend-item:hover {
+                background: #f0f0ee;
+            }
+
+            .legend-item.active {
+                background: #f0f0ee;
+                border-color: #bbb;
+                font-weight: 500;
+            }
+
+        .legend-dot {
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 680px;
+            margin-bottom: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cancer Incidence Trends – Total Cases</h1>
+        <p class="subtitle">1984 to 2018 · Click a cancer type to isolate its line</p>
+
+        <div class="tab-bar">
+            <button class="tab-btn male active" onclick="switchTab('male')">
+                <span class="tab-icon">♂</span> Male
+            </button>
+            <button class="tab-btn female" onclick="switchTab('female')">
+                <span class="tab-icon">♀</span> Female
+            </button>
+        </div>
+
+        <!-- Male Panel -->
+        <div class="tab-panel active" id="panel-male">
+            <p class="section-label">Cancer type</p>
+            <div class="legend" id="legend-male"></div>
+            <div class="chart-wrapper"><canvas id="chart-male"></canvas></div>
+        </div>
+
+        <!-- Female Panel -->
+        <div class="tab-panel" id="panel-female">
+            <p class="section-label">Cancer type</p>
+            <div class="legend" id="legend-female"></div>
+            <div class="chart-wrapper"><canvas id="chart-female"></canvas></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+    <script>
+        Chart.register(ChartDataLabels);
+
+        const years = ['1984','1989','1990–96','1997–98','1999–00','2001–03','2004–05','2006–08','2011','2012','2015–17','2018'];
+        const LAST_IDX = years.length - 1;
+        const FIRST_IDX = 0;
+        const LABEL_H = 24, MIN_GAP = 6;
+
+        const DATA = {
+            male: {
+                cancers: ['Lung','Prostate','Mouth','Stomach','Oesophagus'],
+                palette: ['#3266ad','#c25a2e','#2e9e74','#9c4eb8','#b89a17'],
+                raw: {
+                    Lung:       [352.8,358.5,327.6,349.2,346.8,254.9,248.5,281.4,318.3,378.1,293.5,294.4],
+                    Prostate:   [315.6,270.5,285.6,339,  363.2,254.1,268.3,300.1,404.9,393.1,421.7,446.1],
+                    Mouth:      [83.9, 105.2,100.3,114.7,118.8,113.9,107.5,113.8,112.5,141.6,158.8,158.4],
+                    Stomach:    [173.6,196.9,163.4,167.9,142.8,108.6,127.7,106.8,116.2,130.5,116.7,122.4],
+                    Oesophagus: [325.9,311.8,225.1,249.7,212.1,172,  145.3,131.7,117.3,141.8,108.9,99.8]
+                }
+            },
+            female: {
+                cancers: ['Breast','Cervix','Lung','GallBladder','Ovary'],
+                palette: ['#3266ad','#c25a2e','#2e9e74','#9c4eb8','#b89a17'],
+                raw: {
+                    Breast:      [317.8,422.6,449,  515.6,517.9,399.6,449.5,481.1,621.3,591.1,605.2,707.7],
+                    Cervix:      [239.6,247.4,223.7,294.2,269.7,181.1,192.5,184.8,155.3,153.8,125.6,112.8],
+                    Lung:        [97.4, 101.7,85,   107.7,95.3, 76.1, 86.6, 91.3, 110.6,170.3,145.2,123.3],
+                    GallBladder: [40.9, 46.4, 54.2, 56.1, 83.9, 42.5, 54,   57,   58.7, 79.9, 72.6, 59.5],
+                    Ovary:       [80.8, 103,  105.8,141.8,133.3,116.8,107.3,117.1,147.8,149.3,135.1,140]
+                }
+            }
+        };
+
+        function computePositions(raw, cancers) {
+            const positions = Array.from({ length: years.length }, () => ({}));
+            for (let yi = 0; yi < years.length; yi++) {
+                const entries = cancers.map(c => ({ cancer: c, val: raw[c][yi] })).sort((a, b) => b.val - a.val);
+                const n = entries.length;
+                let topCount = 0, botCount = 0;
+                const slotDir = [], slotOff = [];
+                for (let i = 0; i < n; i++) {
+                    if (i % 2 === 0) {
+                        slotDir.push('top');
+                        slotOff.push(10 + topCount * (LABEL_H + MIN_GAP));
+                        topCount++;
+                    } else {
+                        slotDir.push('bottom');
+                        slotOff.push(10 + botCount * (LABEL_H + MIN_GAP));
+                        botCount++;
+                    }
+                }
+                entries.forEach((e, idx) => {
+                    positions[yi][e.cancer] = {
+                        align:  slotDir[idx],
+                        anchor: slotDir[idx] === 'top' ? 'end' : 'start',
+                        offset: slotOff[idx]
+                    };
+                });
+                const overridePairs = [
+                    ['Prostate','Oesophagus'],['Lung','Prostate'],
+                    ['Breast','Cervix'],['Lung','Ovary']
+                ];
+                overridePairs.forEach(([a, b]) => {
+                    if (positions[yi][a] && positions[yi][b] && positions[yi][a].align === positions[yi][b].align) {
+                        const newAlign = positions[yi][b].align === 'top' ? 'bottom' : 'top';
+                        const maxOff = entries.map(e => positions[yi][e.cancer])
+                            .filter(p => p.align === newAlign).reduce((m, p) => Math.max(m, p.offset), 8);
+                        positions[yi][b] = {
+                            align: newAlign,
+                            anchor: newAlign === 'top' ? 'end' : 'start',
+                            offset: maxOff + LABEL_H + MIN_GAP
+                        };
+                    }
+                });
+            }
+            return positions;
+        }
+
+        // For first & last point: all labels go TOP, stacked by value rank (highest = smallest offset)
+        function edgeOffset(gender, cancer, ptIdx, highlightedCancer) {
+            const { cancers, raw } = DATA[gender];
+            const visible = highlightedCancer ? [highlightedCancer] : cancers;
+            const sorted = visible.slice().sort((a, b) => raw[b][ptIdx] - raw[a][ptIdx]);
+            const rank = sorted.indexOf(cancer);
+            if (rank === -1) return 10;
+            return 8 + rank * (LABEL_H + MIN_GAP);
+        }
+
+        function buildDatasets(gender, highlightedCancer) {
+            const { cancers, palette, raw } = DATA[gender];
+            const visibleCancers = highlightedCancer ? [highlightedCancer] : cancers;
+            const positions = computePositions(raw, visibleCancers);
+
+            return cancers.map((cancer, ci) => {
+                const isVisible = !highlightedCancer || highlightedCancer === cancer;
+                const _gender = gender;
+                const _cancer = cancer;
+
+                return {
+                    label: cancer,
+                    data: isVisible ? raw[cancer] : [],
+                    borderColor: palette[ci],
+                    backgroundColor: palette[ci] + '15',
+                    borderWidth: highlightedCancer === cancer ? 3.5 : 2.5,
+                    pointRadius: 5, pointHoverRadius: 8, tension: 0.35,
+                    datalabels: {
+                        display: isVisible,
+                        align: ctx => {
+                            if (ctx.dataIndex === FIRST_IDX || ctx.dataIndex === LAST_IDX) return 'top';
+                            return (positions[ctx.dataIndex][_cancer] || { align: 'top' }).align;
+                        },
+                        anchor: ctx => {
+                            if (ctx.dataIndex === FIRST_IDX || ctx.dataIndex === LAST_IDX) return 'end';
+                            return (positions[ctx.dataIndex][_cancer] || { anchor: 'end' }).anchor;
+                        },
+                        offset: ctx => {
+                            if (ctx.dataIndex === FIRST_IDX || ctx.dataIndex === LAST_IDX) {
+                                return edgeOffset(_gender, _cancer, ctx.dataIndex, highlighted[_gender]);
+                            }
+                            return (positions[ctx.dataIndex][_cancer] || { offset: 10 }).offset;
+                        },
+                        clamp: true,
+                        font: { size: 13, weight: '700' },
+                        color: '#000000',
+                        borderRadius: 4,
+                        padding: { top: 3, bottom: 3, left: 5, right: 5 },
+                        formatter: v => v
+                    }
+                };
+            });
+        }
+
+        const chartOptions = {
+            responsive: true, maintainAspectRatio: false, clip: false,
+            interaction: { mode: 'index', intersect: false },
+            layout: { padding: { top: 160, bottom: 30, left: 20, right: 20 } },
+            plugins: {
+                legend: { display: false },
+                datalabels: { display: true },
+                tooltip: { callbacks: { label: c => '  ' + c.dataset.label + ': ' + c.parsed.y } }
+            },
+            scales: {
+                x: { grid: { color: 'rgba(0,0,0,0.07)' }, ticks: { font: { size: 11 }, maxRotation: 40 } },
+                y: {
+                    beginAtZero: false, grace: '15%',
+                    title: { display: true, text: 'Total Cases', font: { size: 12 } },
+                    grid: { color: 'rgba(0,0,0,0.07)' }, ticks: { font: { size: 12 } }
+                }
+            }
+        };
+
+        const charts = {};
+        const highlighted = { male: null, female: null };
+
+        function initChart(gender) {
+            const ctx = document.getElementById('chart-' + gender).getContext('2d');
+            charts[gender] = new Chart(ctx, {
+                type: 'line',
+                data: { labels: years, datasets: buildDatasets(gender, null) },
+                options: JSON.parse(JSON.stringify(chartOptions))
+            });
+            buildLegend(gender);
+        }
+
+        function buildLegend(gender) {
+            const { cancers, palette } = DATA[gender];
+            const el = document.getElementById('legend-' + gender);
+            el.innerHTML = '';
+            cancers.forEach((cancer, i) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item active';
+                item.innerHTML = '<span class="legend-dot" style="background:' + palette[i] + '"></span>' + cancer;
+                item.addEventListener('click', () => {
+                    highlighted[gender] = (highlighted[gender] === cancer) ? null : cancer;
+                    el.querySelectorAll('.legend-item').forEach((el2, idx) => {
+                        el2.classList.toggle('active', highlighted[gender] === null || highlighted[gender] === cancers[idx]);
+                    });
+                    charts[gender].data.datasets = buildDatasets(gender, highlighted[gender]);
+                    charts[gender].update();
+                });
+                el.appendChild(item);
+            });
+        }
+
+        function switchTab(gender) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector('.tab-btn.' + gender).classList.add('active');
+            document.getElementById('panel-' + gender).classList.add('active');
+            if (charts[gender]) charts[gender].resize();
+        }
+
+        initChart('male');
+        initChart('female');
+    </script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Buccal Mucosa  Chart code -->
+
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdivmodbm");
+
+
+var myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+var data = [{
+  "year": "Distant metastasis",
+  "Combination": 33.33,
+  "Only CT": 66.67,
+  "Only RT": 0.00,
+  "Only Sx": 0.00
+  
+}, {
+    "year": "Regional",
+    "Combination": 64.58,
+    "Only CT":24.14,
+    "Only RT": 0.31,
+    "Only Sx": 10.97
+}, {
+    "year": "Localised",
+    "Combination": 38.46,
+    "Only CT": 0.70,
+    "Only RT": 1.40,
+    "Only Sx": 59.44
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {});
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    baseAxis: yAxis,
+    valueXField: fieldName,
+    categoryYField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryY}: {valueX}",
+    tooltipY: am5.percent(90)
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueX}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Combination", "Combination");
+makeSeries("Only CT", "Only CT");
+makeSeries("Only RT", "Only RT");
+makeSeries("Only Sx", "Only Sx");
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- Lung Chart code -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartmodlung");
+
+
+var myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+var data = [{
+  "year": "Distant metastasis",
+  "Combination": 52.28,
+  "Only CT": 39.59,
+  "Only RT": 7.11,
+  "Only Sx": 1.02
+
+}, {
+    "year": "Regional",
+    "Combination": 44.44,
+    "Only CT":22.22,
+    "Only RT": 0.00,
+    "Only Sx": 33.33
+}, {
+    "year": "Localised",
+    "Combination":9.09,
+    "Only CT": 9.09,
+    "Only RT": 9.09,
+    "Only Sx": 72.73
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {});
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    baseAxis: yAxis,
+    valueXField: fieldName,
+    categoryYField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryY}: {valueX}",
+    tooltipY: am5.percent(90)
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueX}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Combination", "Combination");
+makeSeries("Only CT", "Only CT");
+makeSeries("Only RT", "Only RT");
+makeSeries("Only Sx", "Only Sx");
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- Oesophagus Chart code -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartmodoeso");
+
+
+var myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+var data = [{
+  "year": "Distant metastasis",
+  "Combination": 33.33,
+  "Only CT": 61.11,
+  "Only RT": 5.56,
+  "Only Sx": 0.00
+
+}, {
+    "year": "Regional",
+    "Combination": 68.63,
+    "Only CT":29.41,
+    "Only RT": 0.00,
+    "Only Sx": 1.96
+}, {
+    "year": "Localised",
+    "Combination": 60.00,
+    "Only CT": 0.00,
+    "Only RT": 0.00,
+    "Only Sx": 40.00
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {});
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    baseAxis: yAxis,
+    valueXField: fieldName,
+    categoryYField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryY}: {valueX}",
+    tooltipY: am5.percent(90)
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueX}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Combination", "Combination");
+makeSeries("Only CT", "Only CT");
+makeSeries("Only RT", "Only RT");
+makeSeries("Only Sx", "Only Sx");
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- Prostate Chart code -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartmodpro");
+
+
+var myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+var data = [{
+  "year": "Distant metastasis",
+  "Combination": 50.00,
+  "Only CT": 0.00,
+  "Only RT": 50.00,
+  "Only Sx": 0.00
+
+}, {
+    "year": "Regional",
+    "Combination": 0.00,
+    "Only CT": 0.00,
+    "Only RT": 0.00,
+    "Only Sx": 0.00
+}, {
+    "year": "Localised",
+    "Combination": 0.00,
+    "Only CT": 0.00,
+    "Only RT": 0.00,
+    "Only Sx": 0.00
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {});
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    baseAxis: yAxis,
+    valueXField: fieldName,
+    categoryYField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryY}: {valueX}",
+    tooltipY: am5.percent(90)
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueX}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Combination", "Combination");
+makeSeries("Only CT", "Only CT");
+makeSeries("Only RT", "Only RT");
+makeSeries("Only Sx", "Only Sx");
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+<!-- Stomach Chart code -->
+<script>
+am5.ready(function() {
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartmodsto");
+
+
+var myTheme = am5.Theme.new(root);
+
+myTheme.rule("Grid", ["base"]).setAll({
+  strokeOpacity: 0.1
+});
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([
+  am5themes_Animated.new(root),
+  myTheme
+]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: false,
+  panY: false,
+  wheelX: "panY",
+  wheelY: "zoomY",
+  paddingLeft: 0,
+  layout: root.verticalLayout
+}));
+
+// Add scrollbar
+// https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
+chart.set("scrollbarY", am5.Scrollbar.new(root, {
+  orientation: "vertical"
+}));
+
+var data = [{
+  "year": "Distant metastasis",
+  "Combination": 29.41,
+  "Only CT": 67.65,
+  "Only RT": 2.94,
+  "Only Sx": 0.00
+
+}, {
+    "year": "Regional",
+    "Combination": 75.00,
+    "Only CT":22.50,
+    "Only RT": 0.00,
+    "Only Sx": 2.50
+}, {
+    "year": "Localised",
+    "Combination": 88.24,
+    "Only CT": 5.88,
+    "Only RT": 0.00,
+    "Only Sx": 5.88
+}]
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {});
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  categoryField: "year",
+  renderer: yRenderer,
+  tooltip: am5.Tooltip.new(root, {})
+}));
+
+yRenderer.grid.template.setAll({
+  location: 1
+})
+
+yAxis.data.setAll(data);
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+    min: 0,
+    max: 100,
+  maxPrecision: 0,
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 40,
+    strokeOpacity: 0.1
+  })
+}));
+
+// Add legend
+// https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
+var legend = chart.children.push(am5.Legend.new(root, {
+  centerX: am5.p50,
+  x: am5.p50
+}));
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+function makeSeries(name, fieldName) {
+  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+    name: name,
+    stacked: true,
+    xAxis: xAxis,
+    yAxis: yAxis,
+    baseAxis: yAxis,
+    valueXField: fieldName,
+    categoryYField: "year"
+  }));
+
+  series.columns.template.setAll({
+    tooltipText: "{name}, {categoryY}: {valueX}",
+    tooltipY: am5.percent(90)
+  });
+  series.data.setAll(data);
+
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear();
+
+  series.bullets.push(function () {
+    return am5.Bullet.new(root, {
+      sprite: am5.Label.new(root, {
+        text: "{valueX}",
+        fill: root.interfaceColors.get("alternativeText"),
+        centerY: am5.p50,
+        centerX: am5.p50,
+        populateText: true
+      })
+    });
+  });
+
+  legend.data.push(series);
+}
+
+makeSeries("Combination", "Combination");
+makeSeries("Only CT", "Only CT");
+makeSeries("Only RT", "Only RT");
+makeSeries("Only Sx", "Only Sx");
+
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+
+
+
+
+
+
+<!-- HTML -->
+<h1 style="text-align:center"><b><u>Male</u></b></h1>
+<div style="display: flex;">
+    <div style="width: 100%; text-align:center;">
+        <div style="font-size:30px; margin-bottom:10px;"><b>Buccal Mucosa</b></div>
+        <div id="chartdivmodbm" style="width:100%; height:250px;"></div>
+    </div>
+
+    <div style="width: 100%; text-align:center;">
+        <div style="font-size:30px; margin-bottom:10px;"><b>Lung</b></div>
+        <div id="chartmodlung" style="width:100%; height:250px;"></div>
+    </div> 
+
+    
+</div>
+<div style="display: flex;">
+    <div style="width: 100%; text-align:center;">
+        <div style="font-size:30px; margin-bottom:10px;"><b>Oesophagus</b></div>
+        <div id="chartmodoeso" style="width:100%; height:250px;"></div>
+    </div>
+    <div style="width: 100%; text-align:center;">
+        <div style="font-size:30px; margin-bottom:10px;"><b>Prostate</b></div>
+        <div id="chartmodpro" style="width:100%; height:250px;"></div>
+    </div>
+</div>
+<div style="width: 100%; text-align:center;">
+    <div style="font-size:30px; margin-bottom:10px;"><b>Oesophagus</b></div>
+    <div id="chartmodsto" style="width:100%; height:250px;"></div>
+</div>
