@@ -10,7 +10,7 @@ namespace Annual_Report.Controllers
 {
     public class TMH2022Controller : YearController
     { // Data is persisted as a flat JSON file instead of a database.
-      
+
         DbEntity db = new DbEntity();
 
         public ActionResult map22()
@@ -20,18 +20,178 @@ namespace Annual_Report.Controllers
         // GET: TMH2022
         public ActionResult Index()
         {
-           
+
+            return View();
+        }
+
+        public ActionResult Chapters()
+        {
             return View();
         }
 
         public ActionResult Magnitude_Registration_Cancer_Cases()
         {
-            return View();
+            var list = db.MagnitudeRegistration.OrderBy(x => x.Year).ToList();
+            ViewBag.Note = db.keyfinds
+                  .Where(x => x.Heading == "Magnitude of Registration")
+                  .Select(x => x.Key)
+                  .FirstOrDefault();
+            return View(list);
         }
+
+        [HttpPost]
+        public JsonResult SaveMagnitudeRegistration(MagnitudeRegistration model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    // INSERT
+                    if (model.Id == 0)
+                    {
+                        db.MagnitudeRegistration.Add(model);
+
+                        db.SaveChanges();
+
+                        return Json(new
+                        {
+                            success = true,
+                            id = model.Id,
+                            message = "Saved Successfully"
+                        });
+                    }
+
+                    // UPDATE
+                    var row = db.MagnitudeRegistration
+                                .FirstOrDefault(x => x.Id == model.Id);
+
+                    if (row == null)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Record not found."
+                        });
+                    }
+
+                    row.Year = model.Year;
+                    row.TotalNewPatientsRegistered = model.TotalNewPatientsRegistered;
+                    row.CancerCases = model.CancerCases;
+                    row.MaleCases = model.MaleCases;
+                    row.FemaleCases = model.FemaleCases;
+
+                    db.SaveChanges();
+
+                    return Json(new
+                    {
+                        success = true,
+                        id = row.Id,
+                        message = "Updated Successfully"
+                    });
+                }
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Invalid Data."
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveMagnitudeNote(string text)
+        {
+            var row = db.keyfinds
+                        .FirstOrDefault(x => x.Heading == "MagnitudeRegistration");
+
+            if (row == null)
+            {
+                row = new KeyFinding
+                {
+                    Heading = "MagnitudeRegistration",
+                    Key = text
+                };
+
+                db.keyfinds.Add(row);
+            }
+            else
+            {
+                row.Key = text;
+            }
+
+            db.SaveChanges();
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteMagnitudeRegistration(int id)
+        {
+            try
+            {
+                var row = db.MagnitudeRegistration
+                            .FirstOrDefault(x => x.Id == id);
+
+                if (row == null)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Record not found."
+                    });
+                }
+
+                db.MagnitudeRegistration.Remove(row);
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetMagnitudeRegistration(int id)
+        {
+            var row = db.MagnitudeRegistration
+                        .Where(x => x.Id == id)
+                        .Select(x => new
+                        {
+                            x.Id,
+                            x.Year,
+                            x.TotalNewPatientsRegistered,
+                            x.CancerCases,
+                            x.MaleCases,
+                            x.FemaleCases
+                        })
+                        .FirstOrDefault();
+
+            return Json(row, JsonRequestBehavior.AllowGet);
+        }
+
+       
 
         public ActionResult overviewregTMC()
         {
-            var List = db.overview_tmc.ToList();  
+            var List = db.overview_tmc.ToList();
             return View(List);
         }
 
@@ -48,9 +208,9 @@ namespace Annual_Report.Controllers
         {
             var data = db.overview_tmc.FirstOrDefault(x => x.Id == 1);
             UpdateModel(data);
-                      
+
             db.SaveChanges();
-            
+
             return RedirectToAction("overviewregTMC");
         }
 
@@ -113,7 +273,7 @@ namespace Annual_Report.Controllers
                 MaleCount = db.fnl_alysis.Count(x => x.System4 == "Brain & Nervous System" && x.SEX == "M"),
                 FemaleCount = db.fnl_alysis.Count(x => x.System4 == "Brain & Nervous System" && x.SEX == "F")
             });
-            report.Add(new System3StatsViewModel 
+            report.Add(new System3StatsViewModel
             {
                 System = "Bone",
                 MaleCount = db.fnl_alysis.Count(x => x.System4 == "Bone" && x.SEX == "M"),
@@ -140,7 +300,7 @@ namespace Annual_Report.Controllers
                "Bone",
                "Peripheral Nerves & Soft Tissue"
 
-    };
+             };
 
             report.Add(new System3StatsViewModel
             {
@@ -185,16 +345,16 @@ namespace Annual_Report.Controllers
         {
             var report = db.fnl_alysis.GroupBy(x => new { x.Sys, x.System1 })
             .Select(g => new System3StatsViewModel
-           {
-         ICD10 = g.Key.Sys,
-         System = g.Key.System1,
+            {
+                ICD10 = g.Key.Sys,
+                System = g.Key.System1,
 
-         MaleCount = g.Count(x => x.SEX == "M"),
+                MaleCount = g.Count(x => x.SEX == "M"),
 
-         FemaleCount = g.Count(x => x.SEX == "F"),
+                FemaleCount = g.Count(x => x.SEX == "F"),
 
-         TotalCount = g.Count()
-     })
+                TotalCount = g.Count()
+            })
      .OrderBy(x => x.ICD10)
      .ToList();
 
@@ -205,14 +365,326 @@ namespace Annual_Report.Controllers
         }
 
 
+        public ActionResult PediatricCancer()
+        {
+            var data = db.pediatric_cancer
+             .OrderBy(x => x.DisplayOrder)
+             .ToList();
+
+            var keys = db.keyfinds.Where(x => x.Heading == "Pediatric Cancer").Select(y => y.Key).FirstOrDefault();
+            ViewBag.key = keys;
+
+            ViewBag.TotalMale0014 = data.Sum(x => x.Male_00_14);
+            ViewBag.TotalFemale0014 = data.Sum(x => x.Female_00_14);
+            ViewBag.Total0014 = data.Sum(x => x.Total_00_14);
+
+            ViewBag.TotalMale1519 = data.Sum(x => x.Male_15_19);
+            ViewBag.TotalFemale1519 = data.Sum(x => x.Female_15_19);
+            ViewBag.Total1519 = data.Sum(x => x.Total_15_19);
+
+            ViewBag.GrandTotal = data.Sum(x => x.GrandTotal);
+
+            return View(data);
+        }
 
 
 
+        public ActionResult EditPediatricCancer()
+        {
+            var model = db.pediatric_cancer
+                          .OrderBy(x => x.DisplayOrder)
+                          .ToList();
 
 
+            var keys = db.keyfinds.Where(x => x.Heading == "Pediatric Cancer").Select(y => y.Key).FirstOrDefault();
+            ViewBag.key = keys;
+
+            ViewBag.TotalMale0014 = model.Sum(x => x.Male_00_14);
+            ViewBag.TotalFemale0014 = model.Sum(x => x.Female_00_14);
+            ViewBag.Total0014 = model.Sum(x => x.Total_00_14);
+
+            ViewBag.TotalMale1519 = model.Sum(x => x.Male_15_19);
+            ViewBag.TotalFemale1519 = model.Sum(x => x.Female_15_19);
+            ViewBag.Total1519 = model.Sum(x => x.Total_15_19);
+
+            ViewBag.GrandTotal = model.Sum(x => x.GrandTotal);
+
+            ViewBag.year = 2022;      // or your selected year
+
+            return View(model);
+        }
 
 
-       //----------------------------------------xxxxxx-----------------------------xxxxxx-----------------------------------------xxxxxx-----------------------
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPediatricCancer(List<PediatricCancer> model, string key)
+        {
+            if (model == null)
+                return RedirectToAction("EditPediatricCancer");
+
+            foreach (var item in model)
+            {
+                var row = db.pediatric_cancer.FirstOrDefault(x => x.Id == item.Id);
+
+                if (row == null)
+                    continue;
+
+                row.CancerType = item.CancerType;
+
+                row.Male_00_14 = item.Male_00_14;
+                row.Female_00_14 = item.Female_00_14;
+
+                row.Total_00_14 = row.Male_00_14 + row.Female_00_14;
+
+                row.Male_15_19 = item.Male_15_19;
+                row.Female_15_19 = item.Female_15_19;
+
+                row.Total_15_19 = row.Male_15_19 + row.Female_15_19;
+
+                row.GrandTotal = row.Total_00_14 + row.Total_15_19;
+            }
+            var keyRow = db.keyfinds.FirstOrDefault(x => x.Heading == "Pediatric Cancer");
+
+            if (keyRow != null)
+            {
+                keyRow.Key = key;
+            }
+            db.SaveChanges();
+
+            TempData["Success"] = "Data saved successfully.";
+
+            return RedirectToAction("PediatricCancer");
+
+        }
+
+
+        public PartialViewResult LeadingSitesPartial()
+        {
+            string[] leukemia =
+                   {
+                      "Lymphoid  Leukemia",
+                      "Myeloid  Leukemia",
+                      "Leukemia Uns"
+                   };
+
+            var male = db.fnl_alysis
+                .Where(x => x.SEX == "M")
+                .GroupBy(x => leukemia.Contains(x.System2) ? "Leukemia" : x.System2)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    MaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.MaleCount)
+                .Take(10)
+                .ToList();
+
+            var female = db.fnl_alysis
+                .Where(x => x.SEX == "F")
+                .GroupBy(x => leukemia.Contains(x.System2) ? "Leukemia" : x.System2)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    FemaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.FemaleCount)
+                .Take(10)
+                .ToList();
+
+            ViewBag.Male = male;
+            ViewBag.Female = female;
+
+            ViewBag.MaleTotal = db.fnl_alysis.Count(x => x.SEX == "M");
+            ViewBag.FemaleTotal = db.fnl_alysis.Count(x => x.SEX == "F");
+            ViewBag.Leadingkey = db.keyfinds.Where(x => x.Heading == "Leading Sites").Select(y => y.Key).FirstOrDefault();
+            ViewBag.Malekey = db.keyfinds.Where(x => x.Heading == "RankMale").Select(y => y.Key).FirstOrDefault();
+            ViewBag.Femalekey = db.keyfinds.Where(x => x.Heading == "RankFemale").Select(y => y.Key).FirstOrDefault();
+            return PartialView("_LeadingSitesCancer");
+        }
+
+        public ActionResult EditLeading_Sites_Cancer()
+        {
+            string[] leukemia =
+            {
+        "Lymphoid  Leukemia",
+        "Myeloid  Leukemia",
+        "Leukemia Uns"
+    };
+
+            var male = db.fnl_alysis
+                .Where(x => x.SEX == "M")
+                .GroupBy(x => leukemia.Contains(x.System2) ? "Leukemia" : x.System2)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    MaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.MaleCount)
+                .Take(10)
+                .ToList();
+
+            var female = db.fnl_alysis
+                .Where(x => x.SEX == "F")
+                .GroupBy(x => leukemia.Contains(x.System2) ? "Leukemia" : x.System2)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    FemaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.FemaleCount)
+                .Take(10)
+                .ToList();
+
+            ViewBag.Male = male;
+            ViewBag.Female = female;
+
+            ViewBag.MaleTotal = db.fnl_alysis.Count(x => x.SEX == "M");
+            ViewBag.FemaleTotal = db.fnl_alysis.Count(x => x.SEX == "F");
+
+            ViewBag.Leadingkey = db.keyfinds
+                .Where(x => x.Heading == "Leading Sites")
+                .Select(x => x.Key)
+                .FirstOrDefault();
+
+            ViewBag.Malekey = db.keyfinds
+                .Where(x => x.Heading == "RankMale")
+                .Select(x => x.Key)
+                .FirstOrDefault();
+
+            ViewBag.Femalekey = db.keyfinds
+                .Where(x => x.Heading == "RankFemale")
+                .Select(x => x.Key)
+                .FirstOrDefault();
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditLeading_Sites_Cancer(string Leadingkey, string[] MaleRank, string[] FemaleRank)
+        {
+            var lead = db.keyfinds.FirstOrDefault(x => x.Heading == "Leading Sites");
+            if (lead != null)
+                lead.Key = Leadingkey;
+
+            var male = db.keyfinds.FirstOrDefault(x => x.Heading == "RankMale");
+            if (male != null)
+                male.Key = string.Join(",", MaleRank);
+
+            var female = db.keyfinds.FirstOrDefault(x => x.Heading == "RankFemale");
+            if (female != null)
+                female.Key = string.Join(",", FemaleRank);
+
+            db.SaveChanges();
+
+            return RedirectToAction("Chapter4and5");
+        }
+
+
+        public PartialViewResult MethodOfDiagnosisPartial()
+        {
+            string[] others = { "Others", "Clinical" };
+
+            var male = db.fnl_alysis.Where(x => x.SEX == "M").GroupBy(x => others.Contains(x.NMETHOD) ? "Others" : x.NMETHOD)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    MaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.MaleCount).ToList();
+
+            var female = db.fnl_alysis.Where(x => x.SEX == "F").GroupBy(x => others.Contains(x.NMETHOD) ? "Others" : x.NMETHOD)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    FemaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.FemaleCount).ToList();
+
+            var model = new MethodDiagnosisVM
+            {
+                Male = male,
+                Female = female
+            };
+
+            ViewBag.MaleTotal = male.Sum(x => x.MaleCount);
+            ViewBag.FemaleTotal = female.Sum(x => x.FemaleCount);
+            ViewBag.Methodkey = db.keyfinds.Where(x => x.Heading == "Method of Diagnosis").Select(y => y.Key).FirstOrDefault();
+            return PartialView("_MethodOfDiagnosis", model);
+        }
+
+        public ActionResult EditMethodOfDiagnosis()
+        {
+            string[] others = { "Others", "Clinical" };
+
+            var male = db.fnl_alysis
+                .Where(x => x.SEX == "M")
+                .GroupBy(x => others.Contains(x.NMETHOD) ? "Others" : x.NMETHOD)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    MaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.MaleCount)
+                .ToList();
+
+            var female = db.fnl_alysis
+                .Where(x => x.SEX == "F")
+                .GroupBy(x => others.Contains(x.NMETHOD) ? "Others" : x.NMETHOD)
+                .Select(g => new System3StatsViewModel
+                {
+                    System = g.Key,
+                    FemaleCount = g.Count()
+                })
+                .OrderByDescending(x => x.FemaleCount)
+                .ToList();
+
+            var model = new MethodDiagnosisVM
+            {
+                Male = male,
+                Female = female
+            };
+
+            ViewBag.MaleTotal = male.Sum(x => x.MaleCount);
+            ViewBag.FemaleTotal = female.Sum(x => x.FemaleCount);
+
+            ViewBag.Methodkey = db.keyfinds
+                .Where(x => x.Heading == "Method of Diagnosis")
+                .Select(x => x.Key)
+                .FirstOrDefault();
+
+            ViewBag.year = 2022;   // Or your selected year
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMethodOfDiagnosis(string Methodkey)
+        {
+            var row = db.keyfinds
+                .FirstOrDefault(x => x.Heading == "Method of Diagnosis");
+
+            if (row != null)
+            {
+                row.Key = Methodkey;
+                db.SaveChanges();
+            }
+
+            TempData["Success"] = "Data saved successfully.";
+
+            return RedirectToAction("Chapter4and5");
+        }
+
+
+        public ActionResult Chapter4and5()
+        {
+            return View();
+        }
+
+
+        //----------------------------------------xxxxxx-----------------------------xxxxxx-----------------------------------------xxxxxx-----------------------
 
         public ActionResult All_sites()
         {
@@ -243,7 +715,7 @@ namespace Annual_Report.Controllers
             // Define specific colors for certain values
             var colorMap = new Dictionary<string, string>
               {
-                
+
                  { "Regional", "#FF8000" },
                 { "Localised", "#33FF57" },
                 { "Not Known", "#8D0B41" },
@@ -498,7 +970,7 @@ namespace Annual_Report.Controllers
             // Define specific colors for certain values
             var colorMap = new Dictionary<string, string>
            {
-              { "Regional", "#FF8000" },
+                { "Regional", "#FF8000" },
                 { "Localised", "#33FF57" },
                 { "Not Known", "#8D0B41" },
                 { "Treated outside", "#37AFE1" },
@@ -564,7 +1036,7 @@ namespace Annual_Report.Controllers
 
             ViewBag.System2 = "Buccal Mucosa";
             return PartialView("~/Views/SharedTMH22/_Buccal_Mucosa.cshtml", list);
-           
+
         }
 
         [HttpGet]

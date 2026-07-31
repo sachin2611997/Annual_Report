@@ -2482,8 +2482,10 @@
     <Content Include="Models\GI.png" />
     <Content Include="Models\GU.png" />
     <Content Include="Models\h&amp;n.jpg" />
+    <Content Include="Models\IndiaMap\TMH2021.png" />
     <Content Include="Models\IndiaMap\TMH22.PNG" />
-    <Content Include="Models\updatemap %282%29.png" />
+    <Content Include="Models\pictogram.png" />
+    <Content Include="Models\symbol.png" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
@@ -2699,6 +2701,7 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\MagnitudeRegistration.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Views\Content\custom.css" />
     <Content Include="Web.config" />
@@ -2812,7 +2815,6 @@
     <Content Include="Views\Home\ICD_10Page.cshtml" />
     <Content Include="Views\ProvisionalReport\barchart.cshtml" />
     <Content Include="Views\ProvisionalReport\LeadSite60above.cshtml" />
-    <Content Include="Views\Home\map2.cshtml" />
     <Content Include="Views\map\postmap.cshtml" />
     <Content Include="Views\Home\All_sites.cshtml" />
     <Content Include="Views\map\map.cshtml" />
@@ -2906,6 +2908,15 @@
     <Content Include="Views\TMH2022\editoverviewregTMC.cshtml" />
     <Content Include="Views\TMH2022\SystemwiseDistribution.cshtml" />
     <Content Include="Views\TMH2022\DistributionCanceCasesSiteICD10.cshtml" />
+    <Content Include="Views\TMH2022\PediatricCancer.cshtml" />
+    <Content Include="Views\TMH2022\EditPediatricCancer.cshtml" />
+    <Content Include="Views\TMH2022\_LeadingSitesCancer.cshtml" />
+    <Content Include="Views\TMH2022\EditLeading_Sites_Cancer.cshtml" />
+    <Content Include="Views\TMH2022\_MethodOfDiagnosis.cshtml" />
+    <Content Include="Views\TMH2022\EditMethodOfDiagnosis.cshtml" />
+    <Content Include="Views\TMH2022\Chapter4and5.cshtml" />
+    <Content Include="Views\TMH2022\Chapters.cshtml" />
+    <Content Include="Views\TMH2022\EditMagnitudeRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

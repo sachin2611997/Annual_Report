@@ -1,0 +1,319 @@
+﻿
+@model Annual_Report.Models.MethodDiagnosisVM
+
+
+
+@{
+    ViewBag.Title = "Pediatric Cancer";
+}
+
+<style>
+    body {
+        font-family: Calibri;
+        font-size: 14px;
+    }
+
+    .chapter {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: italic;
+        /*text-decoration: underline;*/
+        margin-bottom: 20px;
+    }
+
+    .description {
+        text-align: justify;
+        font-size: 18px;
+        line-height: 26px;
+        margin-bottom: 20px;
+    }
+     .title3 {
+            text-align: center;
+        }
+    .title {
+        width: 350px;
+        margin: auto;
+        background: #777;
+        color: white;
+        text-align: center;
+        padding: 6px;
+        font-weight: bold;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    th, td {
+        border: 1px solid #9cb96d;
+        padding: 5px;
+        font-size:18px;
+    }
+
+    thead th {
+        background: #dce6c1;
+        text-align: center;
+    }
+
+    tbody tr:nth-child(even) {
+        background: #f6f8ef;
+    }
+
+    tfoot {
+        background: #dce6c1;
+        font-weight: bold;
+    }
+
+    .left {
+        text-align: left;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .tmc-title {
+        text-decoration: underline;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .report-page {
+        /*border: 1px solid #000;*/
+        padding: 20px;
+        margin: 20px auto;
+        background: #fff;
+        width: 95%;
+        box-sizing: border-box;
+    }
+
+    @@page {
+        margin-top: 5mm !important;
+        margin-right: 4mm !important;
+        margin-bottom: 5mm !important;
+        margin-left: 8mm !important;
+    }
+
+    @@media print {
+
+         .description {
+        text-align: justify;
+        font-size: 22px;
+        line-height: 26px;
+        margin-bottom: 20px;
+    }
+         .chapter {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: italic;
+        /*text-decoration: underline;*/
+        margin-bottom: 20px;
+    }
+        .hide {
+            display: none;
+        }
+
+        .num,
+        .per {
+            white-space: nowrap;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .per {
+            min-width: 48px;
+        }
+
+        .num {
+            min-width: 40px;
+        }
+
+        .totalRow td {
+            white-space: nowrap !important;
+            overflow: hidden;
+        }
+
+        /*table {
+            width: 104%;
+            margin-left: -2%;
+            height: 70%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }*/
+
+        th, td {
+            padding: 2px;
+            font-size: 22px;
+            /*line-height: 1.15;*/
+            word-wrap: break-word;
+        }
+
+        .table-title {
+            font-size: 16px;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .report-page {
+            width: 100%;
+            /*padding: 12mm;*/
+            /*border: 1px solid #000;*/
+            /*box-sizing: border-box;*/
+        }
+
+        .number {
+            white-space: nowrap;
+            text-align: center;
+        }
+
+      
+         .title3 h2{
+    margin:0;
+    font-size:25px;
+     font-style: italic;
+}
+
+    .title3 h3{
+          text-decoration: underline;
+    margin-top:8px;
+    margin-bottom:10px;
+    font-size:22px;
+}
+    }
+</style>
+<div class="report-page">
+    <div>
+        <div class="title3">
+            <h2>
+                Chapter 4. Method of Diagnosis- @ViewBag.year
+            </h2>
+            <br />
+
+
+            <h3 style="text-decoration:underline">
+                Table 4: Method of Diagnosis-@ViewBag.year
+            </h3>
+            <br />
+            </div>
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th rowspan="2" width="200;">
+                            Method of Diagnosis
+                        </th>
+
+                    </tr>
+
+                    <tr>
+
+                        <th colspan="2">Male</th>
+                        <th colspan="2">Female</th>
+                        <th colspan="2">Total</th>
+
+
+
+
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <th>Nos</th>
+                        <th>%</th>
+
+                        <th>Nos</th>
+                        <th>%</th>
+
+                        <th>Nos</th>
+                        <th>%</th>
+
+
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @{
+                        decimal maleTotal = Convert.ToDecimal(ViewBag.MaleTotal);
+                        decimal femaleTotal = Convert.ToDecimal(ViewBag.FemaleTotal);
+
+                        int rows = Math.Max(Model.Male.Count, Model.Female.Count);
+                    }
+
+                    @for (int i = 0; i < rows; i++)
+                    {
+                        var m = i < Model.Male.Count ? Model.Male[i] : null;
+                        var f = i < Model.Female.Count ? Model.Female[i] : null;
+
+                        decimal malePer = m != null && maleTotal > 0
+                            ? (m.MaleCount * 100M) / maleTotal
+                            : 0;
+
+                        decimal femalePer = f != null && femaleTotal > 0
+                            ? (f.FemaleCount * 100M) / femaleTotal
+                            : 0;
+
+                        int total = (m?.MaleCount ?? 0) + (f?.FemaleCount ?? 0);
+
+                        decimal totalPer = maleTotal + femaleTotal > 0
+                            ? total * 100M / (maleTotal + femaleTotal)
+                            : 0;
+
+                        <tr>
+                            <td>@(m?.System ?? f?.System)</td>
+
+                            <td class="center">@(m?.MaleCount ?? 0)</td>
+                            <td class="center">@malePer.ToString("0.0")</td>
+
+                            <td class="center">@(f?.FemaleCount ?? 0)</td>
+                            <td class="center">@femalePer.ToString("0.0")</td>
+
+                            <td class="center">@total</td>
+                            <td class="center">@totalPer.ToString("0.0")</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+                <tfoot>
+                    <tr>
+
+                        <td><b>Total</b></td>
+
+                        <td class="center"><b>@maleTotal</b></td>
+                        <td class="center"><b>100.0</b></td>
+
+                        <td class="center"><b>@femaleTotal</b></td>
+                        <td class="center"><b>100.0</b></td>
+
+                        <td class="center"><b>@(maleTotal + femaleTotal)</b></td>
+                        <td class="center"><b>100.0</b></td>
+
+                    </tr>
+                </tfoot>
+
+
+
+            </table>
+        </div>
+    <br />
+    <br />
+    <div class="description">
+        @ViewBag.Methodkey
+        </div>
+    @Html.ActionLink("Edit", "EditMethodOfDiagnosis", null, new { @class = "btn btn-primary btn-sm hide" })
+</div>

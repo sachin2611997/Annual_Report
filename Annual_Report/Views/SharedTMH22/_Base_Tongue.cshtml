@@ -289,7 +289,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <div class="page-container">
         <!-- BEGIN SIDEBAR -->
-     
         <!-- END SIDEBAR -->
         <!-- BEGIN CONTENT -->
 
@@ -298,323 +297,321 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-       
-
-            <div style="text-align: center;  color:white;  background-color: #4184f3;">
-                <p class="head uppercase">&nbsp;&nbsp;&nbsp;&nbsp; @ViewBag.System2 (ICD-10: C01.9)  &nbsp;&nbsp;&nbsp;&nbsp; TOTAL CASES : @ViewBag.TotalCount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   MALE : @ViewBag.malecount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FEMALE : @ViewBag.femalecount</p>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <!--Clinical Extent of Disease-->
-                    <div class="col-md-6">
-                        <!-- BEGIN CHART PORTLET-->
-                        <div class="portlet light">
-                            <div class="portlet-title">
-                                <div>
-                                    @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Clinical Extent of Disease</p>
-
-                                    @*<span class="caption-helper">@ViewBag.System2</span>*@
 
 
-                                </div>
+        <div style="text-align: center;  color:white;  background-color: #4184f3;">
+            <p class="head uppercase">&nbsp;&nbsp;&nbsp;&nbsp; @ViewBag.System2 (ICD-10: C01.9)  &nbsp;&nbsp;&nbsp;&nbsp; TOTAL CASES : @ViewBag.TotalCount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   MALE : @ViewBag.malecount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FEMALE : @ViewBag.femalecount</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--Clinical Extent of Disease-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Clinical Extent of Disease</p>
+
+                                @*<span class="caption-helper">@ViewBag.System2</span>*@
+
 
                             </div>
-                            <div class="portlet-body">
-                                <div id="chart_bt" class="chart" style="height: 470px;">
-                                </div>
 
-                            </div>
                         </div>
-                        <!-- END CHART PORTLET-->
+                        <div class="portlet-body">
+                            <div id="chart_bt" class="chart" style="height: 470px;">
+                            </div>
+
+                        </div>
                     </div>
+                    <!-- END CHART PORTLET-->
+                </div>
 
-                    <!--Geographic Distribution-->
-                    <div class="col-md-6">
-                        <div class="portlet light">
-                            <div class="portlet-title" style="height:80px">
-                                <div>
-                                    <p class="caption-subject uppercase" style="text-align:center;"> Geographic Distribution</p>
-
-                                </div>
+                <!--Geographic Distribution-->
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="portlet-title" style="height:80px">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center;"> Geographic Distribution</p>
 
                             </div>
-                            <div class="portlet-body" style="height: 480px;">
-                                <div class="table-scrollable ts">
-                                    <table class="table" border="1">
-                                        <thead>
+
+                        </div>
+                        <div class="portlet-body" style="height: 480px;">
+                            <div class="table-scrollable ts">
+                                <table class="table" border="1">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="border-bottom:thin solid">
+
+                                                @Html.DisplayNameFor(model => model.State)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.Statecount)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.Percentage)
+                                            </th>
+
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
                                             <tr>
-                                                <th scope="col" style="border-bottom:thin solid">
-
-                                                    @Html.DisplayNameFor(model => model.State)
-                                                </th>
-                                                <th scope="col">
-                                                    @Html.DisplayNameFor(model => model.Statecount)
-                                                </th>
-                                                <th scope="col">
-                                                    @Html.DisplayNameFor(model => model.Percentage)
-                                                </th>
-
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.State)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Statecount)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Percentage)%
+                                                </td>
 
                                             </tr>
+                                        }
+                                    </tbody>
 
+                                    <tfoot>
+                                        <tr>
+                                            <td>Other States</td>
+                                            <td>@ViewBag.other</td>
+                                            <td>@ViewBag.Otherper %</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <b>  Total</b>
+                                            </td>
+                                            <td>
+                                                <b>   @ViewBag.TotalCount</b>
+                                            </td>
+                                            <td><b> 100 %</b></td>
+                                        </tr>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END ROW -->
+        <!-- BEGIN ROW -->
+        <div class="row">
+            <div class="col-md-12">
+                <!--Type of Cases-->
+                <div class="col-md-6">
+                    <!-- BEGIN BORDERED TABLE PORTLET-->
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
+                            </div>
+
+                        </div>
+
+                        <div class="portlet-body" style="height:450px">
+                            <div class="table-scrollable">
+                                @*<table class="table" border="1">
+                                        <thead>
+                                            <tr>
+                                                <th>
+
+                                                </th>
+                                                <th>
+
+                                                </th>
+                                                <th>
+
+                                                </th>
+
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var item in Model)
-                                        {
+                                            <tr class="active">
+                                                <td>
+                                                    1
+                                                </td>
+                                                <td>
+                                                    New cases Treated at TMC,Mumbai
+                                                </td>
+                                                <td>
+                                                    @ViewBag.newtmc
+                                                </td>
+
+                                            </tr>
+                                            <tr class="success">
+                                                <td>
+                                                    2
+                                                </td>
+                                                <td>
+                                                    Prior Treated cases treated at TMC,Mumbai
+                                                </td>
+                                                <td>
+                                                    @ViewBag.oldtmc
+                                                </td>
+
+                                            </tr>
+                                            <tr class="warning">
+                                                <td>
+                                                    3
+                                                </td>
+                                                <td>
+                                                    Unknown
+                                                </td>
+                                                <td>
+                                                    @ViewBag.untmc
+                                                </td>
+
+                                            </tr>
+                                            <tr class="danger">
+                                                <td>
+                                                    4
+                                                </td>
+                                                <td>
+                                                    <b>Total Treated cases in TMC,Mumbai</b>
+                                                </td>
+                                                <td>
+                                                    <b>@ViewBag.totaltre</b>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>*@
+
+                                <table class="table" border="1" style="table-layout:fixed">
+                                    <thead>
                                         <tr>
+                                            <th>
+                                                Type of Case
+                                            </th>
+                                            <th>
+                                                Total Cases
+                                            </th>
+                                            <th>
+                                                Treated in TMH
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.State)
+                                                New Cases
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Statecount)
+                                                @ViewBag.newcase (@ViewBag.newcaseper%)
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Percentage)%
+                                                @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
                                             </td>
 
                                         </tr>
-                                        }
-                                        </tbody>
+                                        <tr>
 
-                                        <tfoot>
-                                            <tr>
-                                                <td>Other States</td>
-                                                <td>@ViewBag.other</td>
-                                                <td>@ViewBag.Otherper %</td>
-                                            </tr>
-                                            <tr>
+                                            <td>
+                                                Old Cases
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldcase (@ViewBag.oldcaseper%)
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
+                                            </td>
 
-                                                <td>
-                                                    <b>  Total</b>
-                                                </td>
-                                                <td>
-                                                    <b>   @ViewBag.TotalCount</b>
-                                                </td>
-                                                <td><b> 100 %</b></td>
-                                            </tr>
-
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    </div>
-                </div>
-            <!-- END ROW -->
-            <!-- BEGIN ROW -->
-            <div class="row">
-                <div class="col-md-12">
-                    <!--Type of Cases-->
-                    <div class="col-md-6">
-                        <!-- BEGIN BORDERED TABLE PORTLET-->
-                        <div class="portlet light">
-                            <div class="portlet-title">
-                                <div>
-                                    <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
-                                </div>
-
-                            </div>
-
-                            <div class="portlet-body" style="height:450px">
-                                <div class="table-scrollable">
-                                    @*<table class="table" border="1">
-                                <thead>
-                                    <tr>
-                                        <th>
-
-                                        </th>
-                                        <th>
-
-                                        </th>
-                                        <th>
-
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="active">
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>
-                                            New cases Treated at TMC,Mumbai
-                                        </td>
-                                        <td>
-                                            @ViewBag.newtmc
-                                        </td>
-
-                                    </tr>
-                                    <tr class="success">
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Prior Treated cases treated at TMC,Mumbai
-                                        </td>
-                                        <td>
-                                            @ViewBag.oldtmc
-                                        </td>
-
-                                    </tr>
-                                    <tr class="warning">
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Unknown
-                                        </td>
-                                        <td>
-                                            @ViewBag.untmc
-                                        </td>
-
-                                    </tr>
-                                    <tr class="danger">
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            <b>Total Treated cases in TMC,Mumbai</b>
-                                        </td>
-                                        <td>
-                                            <b>@ViewBag.totaltre</b>
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>*@
-
-                                    <table class="table" border="1" style="table-layout:fixed">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Type of Case
-                                                </th>
-                                                <th>
-                                                    Total Cases
-                                                </th>
-                                                <th>
-                                                    Treated in TMH
-                                                </th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-
-                                                <td>
-                                                    New Cases
-                                                </td>
-                                                <td>
-                                                    @ViewBag.newcase (@ViewBag.newcaseper%)
-                                                </td>
-                                                <td>
-                                                    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-
-                                                <td>
-                                                    Old Cases
-                                                </td>
-                                                <td>
-                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
-                                                </td>
-                                                <td>
-                                                    @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                @if (@ViewBag.unkcase != 0)
+                                        </tr>
+                                        <tr>
+                                            @if (@ViewBag.unkcase != 0)
                                             {
-                                            <td>
-                                                Unknown Cases
-                                            </td>
+                                                <td>
+                                                    Unknown Cases
+                                                </td>
 
-                                            <td>
-                                                @ViewBag.unkcase (@ViewBag.unkcaseper%)
-                                            </td>
+                                                <td>
+                                                    @ViewBag.unkcase (@ViewBag.unkcaseper%)
+                                                </td>
 
 
-                                            <td>
-                                                @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
-                                            </td>
+                                                <td>
+                                                    @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
+                                                </td>
 
                                             }
-                                            </tr>
+                                        </tr>
 
 
-                                        </tbody>
-                                        <tfoot>
+                                    </tbody>
+                                    <tfoot>
 
-                                            <tr>
+                                        <tr>
 
-                                                <td>
-                                                    <b>  Total Cases</b>
-                                                </td>
-                                                <td>
-                                                    <b>    @ViewBag.totalcase (100%)</b>
-                                                </td>
-                                                <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
-                                            </tr>
+                                            <td>
+                                                <b>  Total Cases</b>
+                                            </td>
+                                            <td>
+                                                <b>    @ViewBag.totalcase (100%)</b>
+                                            </td>
+                                            <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
+                                        </tr>
 
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                    </tfoot>
+                                </table>
                             </div>
+                        </div>
 
+
+                    </div>
+                    <!-- END BORDERED TABLE PORTLET-->
+                </div>
+
+                <!--Treatment Modality-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="portlet-title">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                @*<span class="caption-helper">@ViewBag.System2</span>*@
+                            </div>
 
                         </div>
-                        <!-- END BORDERED TABLE PORTLET-->
-                    </div>
-
-                    <!--Treatment Modality-->
-                    <div class="col-md-6">
-                        <!-- BEGIN CHART PORTLET-->
-                        <div class="portlet light">
-                            <div class="portlet-title">
-                                <div>
-                                    @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
-                                    @*<span class="caption-helper">@ViewBag.System2</span>*@
-                                </div>
-
+                        <div class="portlet-body tret" style="height:50%">
+                            <div id="chart_Btp" class="chart" style="height: 450px; width:950px;">
                             </div>
-                            <div class="portlet-body tret" style="height:50%">
-                                <div id="chart_Btp" class="chart" style="height: 450px; width:950px;">
-                                </div>
-                                <div class="well margin-top-20">
-                                    <div class="row">
-                                        @*<div class="col-sm-3">
-                                    <label class="text-left">Top Radius:</label>
-                                    <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
-                                </div>*@
-                                        <div class="col-sm-3">
-                                            <label class="text-left">Angle:</label>
-                                            <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label class="text-left">Depth:</label>
-                                            <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
-                                        </div>
+                            <div class="well margin-top-20">
+                                <div class="row">
+                                    @*<div class="col-sm-3">
+                                            <label class="text-left">Top Radius:</label>
+                                            <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                                        </div>*@
+                                    <div class="col-sm-3">
+                                        <label class="text-left">Angle:</label>
+                                        <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="text-left">Depth:</label>
+                                        <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- END CHART PORTLET-->
                     </div>
-                 </div>
+                    <!-- END CHART PORTLET-->
                 </div>
-            <!-- END ROW -->
-
-       
+            </div>
+        </div>
+        <!-- END ROW -->
         <!-- END PAGE CONTENT-->
         <!-- END CONTENT -->
     </div>
@@ -779,7 +776,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 "color":    '#000000',
                 "marginTop":0,
                 "marginBottom":-150,
-              
+
                 "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
                 "valueField": "Count",
                 "titleField": "Key",

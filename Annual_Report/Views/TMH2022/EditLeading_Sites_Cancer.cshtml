@@ -1,0 +1,222 @@
+﻿@using Annual_Report.Models
+
+@{
+    Layout = null;
+}
+
+
+@{
+    ViewBag.Title = "Leading Sites of Cancer";
+
+    var male = ViewBag.Male as List<System3StatsViewModel>;
+    var female = ViewBag.Female as List<System3StatsViewModel>;
+
+    decimal maleTotal = Convert.ToDecimal(ViewBag.MaleTotal);
+    decimal femaleTotal = Convert.ToDecimal(ViewBag.FemaleTotal);
+
+
+    string[] maleRank = (ViewBag.Malekey ?? "").ToString().Split(',');
+    string[] femaleRank = (ViewBag.Femalekey ?? "").ToString().Split(',');
+
+}
+
+<style>
+    .leadingTable {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial;
+        font-size: 14px;
+    }
+
+        .leadingTable th {
+            background: #ffffff;
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .leadingTable td {
+            border: 1px solid #999;
+            padding: 6px;
+        }
+
+        .leadingTable tr:nth-child(even) {
+            background: #eef5e4;
+        }
+
+    .center {
+        text-align: center;
+    }
+
+    .left {
+        text-align: left;
+    }
+
+    .total {
+        background: #dfe8c9;
+        font-weight: bold;
+    }
+
+    .genderImage {
+        text-align: center;
+        vertical-align: middle;
+        width: 100px;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+        .title h2 {
+            margin-bottom: 5px;
+        }
+
+        .title p {
+            text-align: justify;
+            margin: 15px 0;
+        }
+</style>
+
+<div class="title">
+
+    <h2><u>Chapter 5. Leading Sites of Cancer</u></h2>
+
+  
+
+    <h3>Table 5: Top ten leading Sites of Cancer in the year: @ViewBag.year</h3>
+
+</div>
+
+@using (Html.BeginForm("EditLeading_Sites_Cancer", "TMH2022", FormMethod.Post))
+{
+    <div style="font-size:18px; line-height:1.8; text-align:justify;">
+        <textarea name="Leadingkey"
+                  class="form-control"
+                  rows="4"
+                  style="font-size:18px;width:100%;font-size:18px;">
+            @ViewBag.Leadingkey
+            </textarea>
+    </div>
+
+    @Html.AntiForgeryToken()
+
+
+<table class="leadingTable">
+
+    <tr>
+
+        <th>Rank</th>
+        <th>Male Site</th>
+        <th>Nos</th>
+        <th>%</th>
+        <th>Rank in 2001</th>
+        <th rowspan="12" class="genderImage">
+
+
+            @*<img src="~/Models/pictogram.png" width="100" height="200"/>*@
+            <img src="~/Models/symbol.png" width="150" height="200" />
+
+        </th>
+
+        <th>Rank</th>
+        <th>Female Site</th>
+        <th>Nos</th>
+        <th>%</th>
+        <th>Rank in 2001</th>
+
+    </tr>
+
+    @for (int i = 0; i < 10; i++)
+    {
+        var m = male != null && i < male.Count ? male[i] : null;
+        var f = female != null && i < female.Count ? female[i] : null;
+
+        decimal malePer = 0;
+        decimal femalePer = 0;
+
+        if (m != null && maleTotal > 0)
+        {
+            malePer = (m.MaleCount * 100M) / maleTotal;
+        }
+
+        if (f != null && femaleTotal > 0)
+        {
+            femalePer = (f.FemaleCount * 100M) / femaleTotal;
+        }
+
+        <tr>
+
+            <td class="center">@(i + 1)</td>
+
+            <td class="left">
+                @(m == null ? "" : m.System)
+            </td>
+
+            <td class="center">
+                @(m == null ? "" : m.MaleCount.ToString())
+            </td>
+
+            <td class="center">
+                @(m == null ? "" : malePer.ToString("0.0"))
+            </td>
+            <td class="center">
+                <input type="text"
+                       name="MaleRank"
+                       value="@(i < maleRank.Length ? maleRank[i].Trim() : "")"
+                       class="form-control"
+                       style="width:55px;text-align:center;" />
+            </td>
+
+            <td class="center">@(i + 1)</td>
+
+            <td class="left">
+                @(f == null ? "" : f.System)
+            </td>
+
+            <td class="center">
+                @(f == null ? "" : f.FemaleCount.ToString())
+            </td>
+
+            <td class="center">
+                @(f == null ? "" : femalePer.ToString("0.0"))
+            </td>
+            <td class="center">
+                <input type="text"
+                       name="FemaleRank"
+                       value="@(i < femaleRank.Length ? femaleRank[i].Trim() : "")"
+                       class="form-control"
+                       style="width:55px;text-align:center;" />
+            </td>
+
+        </tr>
+
+    }
+
+    <tr class="total">
+
+        <td></td>
+
+        <td>ALL SITES</td>
+
+        <td class="center">@maleTotal</td>
+
+        <td class="center">100.0</td>
+
+
+        <td></td>
+        <td></td>
+        <td>ALL SITES</td>
+
+        <td class="center">@femaleTotal</td>
+
+        <td class="center">100.0</td>
+        <td></td>
+
+    </tr>
+
+</table>
+
+<button type="submit" class="btn btn-success">
+    Save
+</button>
+}

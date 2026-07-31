@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Annual Report";
+     Layout = null;
+}
+
+<style>
+    .report-container {
+        width: 700px;
+        margin: 40px auto;
+        font-family: Calibri;
+    }
+
+    .report-title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .report-list {
+        list-style: none;
+        padding: 0;
+    }
+
+        .report-list li {
+            margin: 12px 0;
+        }
+
+        .report-list a {
+            display: block;
+            padding: 12px 18px;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #000;
+            font-size: 20px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+            .report-list a:hover {
+                background: #007bff;
+                color: white;
+            }
+</style>
+
+<div class="report-container">
+
+    <div class="report-title">
+        Annual Report
+    </div>
+
+    <ul class="report-list">
+
+        <li>
+            <a href="@Url.Action("Magnitude_Registration_Cancer_Cases","TMH2022")" target="_blank">
+                Chapter 3. Magnitude of Registration and Cancer Cases
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("overviewregTMC","TMH2022")" target="_blank">
+                Overview of Registration Details at TMC centres in (Mumbai & ACTREC)
+            </a>
+        </li>
+
+        <li>
+            <a href="@Url.Action("SystemwiseDistribution","TMH2022")" target="_blank">
+                Table 2(b):  System-wise Cancer Cases
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("DistributionCanceCasesSiteICD10","TMH2022")" target="_blank">
+                Table 3(a): Distribution of Cancer Cases by Site (ICD-10) at TMC, Mumbai 
+            </a>
+        </li>
+      
+
+        
+        <li>
+            <a href="@Url.Action("Chapter4and5","TMH2022")" target="_blank">
+                Chapter 4. Method of Diagnosis & Chapter 5. Leading Sites of Cancer
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("PediatricCancer","TMH2022")" target="_blank">
+                Chapter 6. Pediatric Cancer
+            </a>
+        </li>
+
+    </ul>
+
+</div>

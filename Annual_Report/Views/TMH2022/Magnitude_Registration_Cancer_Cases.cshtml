@@ -1,4 +1,5 @@
-﻿
+﻿@model List<Annual_Report.Models.MagnitudeRegistration>
+
 @{
     Layout = null;
 }
@@ -6,343 +7,581 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
 
+    <meta charset="utf-8" />
+
+    <title>Magnitude Registration</title>
+
     <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <!-- END GLO~ANDATORY STYLES -->
-    <!-- BEGIN T~STYLES -->
-    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
-    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
-    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
-    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/assets/global/plugins/jquery.min.js"></script>
+
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+
     <style>
-        #tblData {
-    /*width: 100%;*/
-    table-layout: fixed;
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background: #fff;
+    margin: 15px;
 }
 
-#tblData th,
+/*==========================
+        TITLES
+===========================*/
+
+.tmc-title {
+    text-align: center;
+    font-family: "Times New Roman";
+    font-weight: bold;
+    margin: 0;
+}
+
+.chapter-title {
+    font-size: 28px;
+    font-style: italic;
+    text-decoration: underline;
+    margin-bottom: 12px;
+}
+
+.table-title {
+    font-size: 18px;
+    /*text-decoration: underline;*/
+    margin-bottom: 18px;
+}
+
+/*==========================
+        TABLE
+===========================*/
+
+#tblData {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #8FC9E8;
+    font-size: 13px;
+}
+
+/* Header */
+
+#tblData thead tr:first-child th {
+    background: #FFFFFF;
+    color: #000;
+    border: 1px solid #8FC9E8;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#tblData thead tr:nth-child(2) th {
+    background: #D9EEF7;
+    color: #000;
+    border: 1px solid #8FC9E8;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Body */
+
+#tblData tbody td {
+
+    border: 1px solid #8FC9E8;
+    padding: 3px 6px;
+    background: #FFFFFF;
+}
+
+/* Alternate Row */
+
+#tblData tbody tr:nth-child(even) td {
+
+    background: #EAF7FC;
+
+}
+
+/* Hover */
+
+#tblData tbody tr:hover td {
+
+    background: #D8F0FA;
+
+}
+
+/* Footer */
+
+#tblData tfoot td {
+
+    background: #D9EEF7;
+    border: 1px solid #8FC9E8;
+    font-weight: bold;
+    padding: 5px;
+
+}
+
+/* Alignment */
+
 #tblData td {
+
+    text-align: right;
+    vertical-align: middle;
+
+}
+
+#tblData td:first-child {
+
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#tblData th {
+
     text-align: center;
     vertical-align: middle;
-    word-wrap: break-word;
+
 }
- .tmc-title {
-             text-decoration: underline;
-             font-weight: 700;
-             text-align: center;
-         }
+
+/*==========================
+      INPUT CONTROLS
+===========================*/
+
+#tblData input {
+
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: right;
+    padding: 2px;
+
+}
+
+#tblData input:focus {
+
+    border: 1px solid #4A90E2;
+    background: #FFFFCC;
+    outline: none;
+
+}
+
+.year {
+
+    text-align: center !important;
+
+}
+
+/*==========================
+        BUTTONS
+===========================*/
+
+.btn {
+
+    font-size: 12px;
+    padding: 3px 8px;
+}
+
+.btn-xs {
+
+    padding: 2px 6px;
+
+}
+
+.no-print {
+
+    white-space: nowrap;
+
+}
+
+/*==========================
+      GRAND TOTAL
+===========================*/
+
+#gtPatient,
+#gtCancer,
+#gtCancerPer,
+#gtMale,
+#gtMalePer,
+#gtFemale,
+#gtFemalePer {
+
+    font-weight: bold;
+
+}
+
+/*==========================
+        PRINT
+===========================*/
 
 @@media print {
 
     @@page {
-        size: A4;
-        margin: 5mm;
+        size: A4 portrait;
+        margin: 8mm;
     }
 
-    body {
+    html, body {
         margin: 0;
         padding: 0;
-        zoom: 60%;          /* Chrome */
-        -webkit-print-color-adjust: exact;
+        zoom: 100%;
+        background: #ffffff !important;
+
+        /* Chrome / Edge */
+        -webkit-print-color-adjust: exact !important;
+
+        /* Standard */
+        print-color-adjust: exact !important;
     }
 
-    .table {
-        width: 100%;
-        font-size: 18px;
-        border-collapse: collapse;
-    }
-
-    .table th,
-    .table td {
-        /*padding: 2px 3px !important;*/
-        line-height: 1.1;
-    }
-
+    /* Hide buttons */
     .no-print {
         display: none !important;
     }
 
-    .portlet-title,
-    .page-header,
-    .page-sidebar,
-    .footer,
-    .navbar {
-        display: none !important;
+    /* Table */
+    #tblData {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    /* Borders */
+    #tblData,
+    #tblData th,
+    #tblData td {
+        border: 1px solid #8FC9E8 !important;
+    }
+
+    /* First header row */
+    #tblData thead tr:first-child th {
+        background: #FFFFFF !important;
+        color: #000 !important;
+    }
+
+    /* Second header row */
+    #tblData thead tr:nth-child(2) th {
+        background: #D9EEF7 !important;
+        color: #000 !important;
+    }
+
+    /* Alternate rows */
+    #tblData tbody tr:nth-child(even) td {
+        background: #EAF7FC !important;
+    }
+
+    #tblData tbody tr:nth-child(odd) td {
+        background: #FFFFFF !important;
+    }
+
+    /* Grand Total */
+    #tblData tfoot td {
+        background: #D9EEF7 !important;
+        font-weight: bold;
+    }
+
+    #tblData th,
+    #tblData td {
+        padding: 3px 5px !important;
+    }
+
+    /* Preserve colors */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 }
+
+/*==========================
+      COLUMN WIDTHS
+===========================*/
+
+#tblData th:nth-child(1) {
+    width: 80px;
+}
+
+#tblData th:nth-child(2) {
+    width: 170px;
+}
+
+#tblData th:nth-child(3),
+#tblData th:nth-child(4),
+#tblData th:nth-child(5),
+#tblData th:nth-child(6),
+#tblData th:nth-child(7),
+#tblData th:nth-child(8) {
+    width: 90px;
+}
+
     </style>
+
 </head>
 
-<body style="border:solid 1px">
+<body>
+    <div class="container-fluid">
 
-    <div class="container">
-        <h3 class="tmc-title mb-6">
-            <u>Chapter 3. Magnitude of Registration and Cancer Cases</u>
-        </h3>
-        <h4 class="tmc-title mb-6">
-            Table 1(a): Registrations and Cancer Cases at Tata Memorial Hospital from 1984 to 2022
-            </h4>
+        <div class="row">
 
+            <div class="col-md-12">
 
-            <div class="portlet light">
-
-                <div class="portlet-title">
-
-
-
-                    <div class="actions">
-
-                        <button id="btnAddRow" class="btn green no-print">
-                            <i class="fa fa-plus"></i> Add Row
-                        </button>
-
+                <div class="tmc-title">
+                    <div class="chapter-title">
+                        Chapter 3. Magnitude of Registration and Cancer Cases
                     </div>
 
-                </div>
-
-                <div class="portlet-body">
-                    <table id="tblData" class="table table-striped table-condensed table-bordered table-hover" style="text-align:center">
-
-                        <thead>
-                            <tr>
-                                <th rowspan="2" class="text-center" style="width:80px" ;>Year</th>
-                                <th rowspan="2" class="text-center" style="width:200px" ;>Total New Patients Registered</th>
-                                <th colspan="2" class="text-center">Cancer Cases</th>
-                                <th colspan="2" class="text-center">Males</th>
-                                <th colspan="2" class="text-center">Females</th>
-                                <th rowspan="2" class="no-print">Action</th>
-                            </tr>
-                            <tr>
-                                <th class="text-center" style="width:90px" ;>Nos.</th>
-                                <th class="text-center" style="width:90px" ;>%</th>
-                                <th class="text-center" style="width:90px" ;>Nos.</th>
-                                <th class="text-center" style="width:90px" ;>%</th>
-                                <th class="text-center" style="width:90px" ;>Nos.</th>
-                                <th class="text-center" style="width:90px" ;>%</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            <tr><td>1984</td><td>19,509</td><td>10,619</td><td>54.40%</td><td>5,744</td><td>54.10%</td><td>4,875</td><td>45.90%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1985</td><td>20,921</td><td>11,986</td><td>57.30%</td><td>6,529</td><td>54.50%</td><td>5,457</td><td>45.50%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1986</td><td>20,591</td><td>12,447</td><td>60.40%</td><td>6,939</td><td>55.70%</td><td>5,508</td><td>44.30%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1987</td><td>22,337</td><td>13,346</td><td>59.70%</td><td>7,476</td><td>56.00%</td><td>5,870</td><td>44.00%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1988</td><td>23,275</td><td>14,734</td><td>63.30%</td><td>8,333</td><td>56.50%</td><td>6,401</td><td>43.50%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1989</td><td>23,784</td><td>15,173</td><td>63.80%</td><td>8,658</td><td>57.10%</td><td>6,515</td><td>42.90%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1990</td><td>23,851</td><td>15,351</td><td>64.40%</td><td>8,796</td><td>57.30%</td><td>6,555</td><td>42.70%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1991</td><td>25,062</td><td>15,718</td><td>62.70%</td><td>8,880</td><td>56.50%</td><td>6,838</td><td>43.50%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1992</td><td>25,540</td><td>15,695</td><td>61.50%</td><td>8,778</td><td>55.90%</td><td>6,917</td><td>44.10%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1993</td><td>24,444</td><td>15,140</td><td>61.94%</td><td>8,463</td><td>55.90%</td><td>6,677</td><td>44.10%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1994</td><td>25,111</td><td>15,620</td><td>62.20%</td><td>8,784</td><td>56.20%</td><td>6,836</td><td>43.80%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1995</td><td>25,635</td><td>15,656</td><td>61.10%</td><td>8,773</td><td>56.00%</td><td>6,883</td><td>44.00%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1996</td><td>25,000</td><td>14,402</td><td>57.60%</td><td>8,057</td><td>56.00%</td><td>6,345</td><td>44.00%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1997</td><td>24,258</td><td>15,676</td><td>64.60%</td><td>8,724</td><td>56.70%</td><td>6,952</td><td>43.30%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1998</td><td>22,974</td><td>15,464</td><td>67.31%</td><td>8,761</td><td>56.30%</td><td>6,703</td><td>43.70%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>1999</td><td>22,447</td><td>15,724</td><td>70.00%</td><td>8,814</td><td>56.10%</td><td>6,910</td><td>43.90%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2000</td><td>21,629</td><td>15,591</td><td>72.00%</td><td>8,822</td><td>56.60%</td><td>6,769</td><td>43.40%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2001</td><td>21,894</td><td>16,160</td><td>73.80%</td><td>9,099</td><td>56.30%</td><td>7,061</td><td>43.70%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2002</td><td>20,991</td><td>16,097</td><td>76.70%</td><td>9,032</td><td>56.10%</td><td>7,065</td><td>43.90%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2003</td><td>20,865</td><td>15,946</td><td>76.42%</td><td>8,950</td><td>56.10%</td><td>6,996</td><td>43.80%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2004</td><td>22,470</td><td>17,163</td><td>76.40%</td><td>9,613</td><td>56.00%</td><td>7,550</td><td>44.00%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2005</td><td>23,430</td><td>17,583</td><td>75.00%</td><td>9,810</td><td>55.80%</td><td>7,773</td><td>44.20%</td>            <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2006</td><td>25,078</td><td>19,646</td><td>78.30%</td><td>11,019</td><td>56.10%</td><td>8,627</td><td>43.90%</td>           <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2007</td><td>26,622</td><td>20,609</td><td>77.40%</td><td>11,530</td><td>55.90%</td><td>9,079</td><td>44.10%</td>           <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2008</td><td>27,935</td><td>21,711</td><td>77.72%</td><td>12,054</td><td>55.50%</td><td>9,657</td><td>44.50%</td>           <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2009</td><td>30,145</td><td>23,485#</td><td>77.91%</td><td>13,039</td><td>55.52%</td><td>10,446</td><td>44.48%</td>         <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2010</td><td>31,909</td><td>24,859#</td><td>77.91%</td><td>13,802</td><td>55.52%</td><td>11,057</td><td>44.48%</td>         <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2011</td><td>33,573</td><td>26,156#</td><td>77.91%</td><td>14,522</td><td>55.52%</td><td>11,634</td><td>44.48%</td>         <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2012</td><td>33,967</td><td>25,733</td><td>75.75%</td><td>14,626</td><td>56.84%</td><td>11,107</td><td>43.17%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2013</td><td>34,996</td><td>28,938</td><td>82.69%</td><td>16,603</td><td>57.37%</td><td>12,335</td><td>42.63%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2014</td><td>37,284</td><td>30,490</td><td>81.78%</td><td>17,449</td><td>57.23%</td><td>13,041</td><td>42.77%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2015</td><td>38,646</td><td>31,861#</td><td>82.44%</td><td>18,278</td><td>57.37%</td><td>13,583</td><td>42.63%</td>         <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2016</td><td>39,922</td><td>32,913#</td><td>82.44%</td><td>18,882</td><td>57.37%</td><td>14,031</td><td>42.63%</td>         <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2017</td><td>43,461</td><td>34,906</td><td>80.32%</td><td>19,999</td><td>57.29%</td><td>14,907</td><td>42.70%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2018</td><td>44,493</td><td>36,095</td><td>81.12%</td><td>20,929</td><td>57.98%</td><td>15,166</td><td>42.02%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2019</td><td>45,639</td><td>38,080</td><td>83.44%</td><td>21,504</td><td>56.47%</td><td>16,576</td><td>43.53%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2020</td><td>25,357</td><td>21,148#</td><td>83.44%</td><td>11,942</td><td>56.47%</td><td>9,206</td><td>43.53%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-                            <tr><td>2021</td><td>37,495</td><td>32359</td><td>86.30%</td><td>18,275</td><td>56.48%</td><td>14,084</td><td>43.52%</td>          <td class="no-print"><button class="btn btn-xs blue edit"> <i class="fa fa-edit"></i> Edit</button><button class="btn btn-xs red delete"> <i class="fa fa-trash"></i> Delete</button> </td></tr>
-
-
-                        </tbody>
-                        <tfoot>
-                            <tr style="background:#d9edf7;font-weight:bold;">
-                                <td>Grand Total</td>
-
-                                <td id="gtPatient">0</td>
-                                <td id="gtCancer">0</td>
-                                <td id="gtCancerPer">0%</td>
-                                <td id="gtMale">0</td>
-                                <td id="gtMalePer">0%</td>
-                                <td id="gtFemale">0</td>
-                                <td id="gtFemalePer">0%</td>
-
-                                <td class="no-print"></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-
+                    <div class="table-title">
+                        Table 1(a): Registrations and Cancer Cases at Tata Memorial Hospital from 1984 to 2022
+                    </div>
                 </div>
 
             </div>
 
-</div>
+        </div>
 
-    <script src="~/assets/global/plugins/jquery.min.js"></script>
-    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+        
+        <div class="row no-print">
 
-    <script>
-          $(function(){
-              CalculateGrandTotal();
-              $("#btnAddRow").click(function () {
+            <div class="col-md-6">
 
-                  var html = "";
+                <button id="btnAddRow"
+                        class="btn btn-success">
 
-                  html += "<tr>";
+                    <i class="fa fa-plus"></i>
 
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
-                  html += "<td><input type='text' class='form-control input-sm'></td>";
+                    Add New Record
 
-                  html += "<td class='no-print'>";
-                  html += "<button class='btn btn-xs green save'><i class='fa fa-save'></i> Save</button> ";
-                  html += "<button class='btn btn-xs yellow cancel'>Cancel</button>";
-                  html += "</td>";
+                </button>
 
-                  html += "</tr>";
+            </div>
 
-                  $("#tblData tbody").append(html);
-                 
-              });
-              $("#tblData").on("click", ".save", function () {
+            <div class="col-md-6 text-right">
 
-                  var tr = $(this).closest("tr");
+                <button onclick="window.print()"
+                        class="btn btn-primary">
 
-                  tr.find("td").each(function (index) {
+                    <i class="fa fa-print"></i>
 
-                      if (index < 8) {
+                    Print
 
-                          var value = $(this).find("input").val();
+                </button>
 
-                          $(this).html(value);
+            </div>
 
-                      }
+        </div>
 
-                  });
+        <br />
 
-                  tr.find("td:last")
-                    .addClass("no-print")
-                    .html(
+        <br />
+        <table id="tblData"
+               class="table table-bordered table-striped">
 
-                      "<button class='btn btn-xs blue edit'><i class='fa fa-edit'></i> Edit</button> " +
+            <thead>
 
-                      "<button class='btn btn-xs red delete'><i class='fa fa-trash'></i> Delete</button>"
+                <tr>
 
-                    );
-                  CalculateGrandTotal();
-              });
-              $("#tblData").on("click", ".edit", function () {
+                    <th rowspan="2">Year</th>
 
-                  var tr = $(this).closest("tr");
+                    <th rowspan="2">Total New Patients Registered</th>
 
-                  tr.find("td").each(function (index) {
+                    <th colspan="2">Cancer Cases</th>
 
-                      if (index < 8) {
+                    <th colspan="2">Male</th>
 
-                          var text = $(this).text().trim();
+                    <th colspan="2">Female</th>
 
-                          $(this).html("<input type='text' class='form-control input-sm' value='" + text + "'>");
+                    <th rowspan="2" class="action no-print">
+                        Action
+                    </th>
 
-                      }
+                </tr>
 
-                  });
+                <tr>
 
-                  tr.find("td:last")
-                    .addClass("no-print")
-                    .html(
+                    <th>Nos.</th>
 
-                      "<button class='btn btn-xs green save'><i class='fa fa-save'></i> Save</button>"
+                    <th>%</th>
 
-                    );
+                    <th>Nos.</th>
 
-              });
-              $("#tblData").on("click", ".delete", function () {
+                    <th>%</th>
 
-                  if (confirm("Delete this row?")) {
+                    <th>Nos.</th>
 
-                      $(this).closest("tr").remove();
-                      CalculateGrandTotal();
+                    <th>%</th>
 
-                  }
+                </tr>
 
-              });
-              $("#tblData").on("click", ".cancel", function () {
+            </thead>
 
-                  $(this).closest("tr").remove();
-                  CalculateGrandTotal();
-              });
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var cancer = 0;
 
-              function CalculateGrandTotal() {
+                    int.TryParse(
+                        (item.CancerCases ?? "")
+                        .Replace("#", "")
+                        .Replace(",", ""),
+                        out cancer);
 
-                  var patient = 0;
-                  var cancer = 0;
-                  var male = 0;
-                  var female = 0;
+                    decimal cancerPer =
+                        item.TotalNewPatientsRegistered == 0
+                        ? 0
+                        : (decimal)cancer * 100 /
+                          item.TotalNewPatientsRegistered;
 
-                  $("#tblData tbody tr").each(function () {
+                    decimal malePer =
+                        cancer == 0
+                        ? 0
+                        : (decimal)item.MaleCases * 100 /
+                          cancer;
 
-                      patient += Number($(this).find("td:eq(1)").text().replace(/,/g, "")) || 0;
+                    decimal femalePer =
+                        cancer == 0
+                        ? 0
+                        : (decimal)item.FemaleCases * 100 /
+                          cancer;
 
-                      cancer += Number($(this).find("td:eq(2)").text().replace(/,/g, "").replace("#", "")) || 0;
+                    <tr data-id="@item.Id">
 
-                      male += Number($(this).find("td:eq(4)").text().replace(/,/g, "")) || 0;
+                        <td>@item.Year</td>
 
-                      female += Number($(this).find("td:eq(6)").text().replace(/,/g, "")) || 0;
+                        <td style="text-align:center">
+                            @item.TotalNewPatientsRegistered.ToString("N0")
+                        </td>
 
-                  });
+                        <td style="text-align:center">
+                            @item.CancerCases
+                        </td>
 
-                  $("#gtPatient").text(patient.toLocaleString());
+                        <td style="text-align:center">
+                            @cancerPer.ToString("0.00")%
+                        </td>
 
-                  $("#gtCancer").text(cancer.toLocaleString());
+                        <td style="text-align:center">
+                            @item.MaleCases.ToString("N0")
+                        </td>
 
-                  $("#gtMale").text(male.toLocaleString());
+                        <td style="text-align:center">
+                            @malePer.ToString("0.00")%
+                        </td>
 
-                  $("#gtFemale").text(female.toLocaleString());
+                        <td style="text-align:center">
+                            @item.FemaleCases.ToString("N0")
+                        </td>
 
-                  // Overall Percentages
+                        <td style="text-align:center">
+                            @femalePer.ToString("0.00")%
+                        </td>
+
+                        <td class="text-center no-print" style="text-align:center">
+
+                            <button class="btn btn-xs btn-primary edit"
+                                    title="Edit">
+
+                                <i class="fa fa-pencil"></i>
+
+                            </button>
+
+                            <button class="btn btn-xs btn-success save"
+                                    title="Save">
+
+                                <i class="fa fa-save"></i>
+
+                            </button>
+
+                            <button class="btn btn-xs btn-danger delete"
+                                    title="Delete">
+
+                                <i class="fa fa-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+                }
 
 
-                  if (patient > 0)
-                      $("#gtCancerPer").text(((cancer / patient) * 100).toFixed(2) + "%");
-                  else
-                      $("#gtCancerPer").text("0%");
 
-                  if (cancer > 0)
-                      $("#gtMalePer").text(((male / cancer) * 100).toFixed(2) + "%");
-                  else
-                      $("#gtMalePer").text("0%");
+          
 
-                  if (cancer > 0)
-                      $("#gtFemalePer").text(((female / cancer) * 100).toFixed(2) + "%");
-                  else
-                      $("#gtFemalePer").text("0%");
-              }
-          });
-    </script>
+                <tr>
+
+                    <td colspan="1"
+                        style="text-align:center">
+
+                        Grand Total
+
+                    </td>
+
+                    <td id="gtPatient" style="text-align:center"></td>
+
+                    <td id="gtCancer" style="text-align:center"></td>
+
+                    <td id="gtCancerPer" style="text-align:center"></td>
+
+                    <td id="gtMale" style="text-align:center"></td>
+
+                    <td id="gtMalePer" style="text-align:center"></td>
+
+                    <td id="gtFemale" style="text-align:center"></td>
+
+                    <td id="gtFemalePer" style="text-align:center"></td>
+
+                    <td class="no-print" style="text-align:center"> </td>
+
+                </tr>
+
+          
+            
+           
+        </table>
+        <div class="row" style="margin-top:20px;">
+
+            <div class="col-md-12">
+
+                <div id="noteText"
+                     style="font-size:14px;text-align:justify;line-height:25px;">
+
+                    @Html.Raw(ViewBag.Note)
+
+                </div>
+
+                <textarea id="txtNote"
+                          class="form-control"
+                          rows="5"
+                          style="display:none;">
+                    @ViewBag.Note
+                    </textarea>
+
+                    <br />
+
+                    <button id="btnEditNote"
+                            class="btn btn-primary no-print">
+
+                        <i class="fa fa-pencil"></i>
+                        Edit Text
+
+                    </button>
+
+                    <button id="btnSaveNote"
+                            class="btn btn-success no-print"
+                            style="display:none;">
+
+                        <i class="fa fa-save"></i>
+                        Save Text
+
+                    </button>
+
+                </div>
+
+            </div>
+    </div>
+    <script src="~/Scripts/MagnitudeRegistration.js"></script>
 
 </body>
+
 </html>

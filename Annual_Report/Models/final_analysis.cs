@@ -87,7 +87,11 @@ namespace Annual_Report.Models
         public int TotalNosCount { get; internal set; }
         public string ICD10 { get; set; }
     }
-
+    public class MethodDiagnosisVM
+    {
+        public List<System3StatsViewModel> Male { get; set; }
+        public List<System3StatsViewModel> Female { get; set; }
+    }
 
     [Table("OverviewTmcRegistration")]
     public class OverviewTmcRegistration
@@ -151,7 +155,52 @@ namespace Annual_Report.Models
         public decimal PercentAttendingTMC { get; set; }
     }
 
+    [Table("PediatricCancer")]
+    public class PediatricCancer
+    {
+        [Key]
+        public int Id { get; set; }
 
+        public string CancerType { get; set; }
+
+        public int Male_00_14 { get; set; }
+        public int Female_00_14 { get; set; }
+        public int Total_00_14 { get; set; }
+
+        public int Male_15_19 { get; set; }
+        public int Female_15_19 { get; set; }
+        public int Total_15_19 { get; set; }
+
+        public int GrandTotal { get; set; }
+
+        public int DisplayOrder { get; set; }
+    }
+
+    [Table("KeyFindings")]
+    public class KeyFinding
+    {
+        [Key]
+        public int Id { get; set; }
+        public string Heading { get; set; }
+        public string Key { get; set; }
+    }
+
+    [Table("MagnitudeRegistration")]
+    public class MagnitudeRegistration
+    {
+        [Key]
+        public int Id { get; set; }
+
+        public int Year { get; set; }
+
+        public int TotalNewPatientsRegistered { get; set; }
+
+        public string CancerCases { get; set; }
+
+        public int MaleCases { get; set; }
+
+        public int FemaleCases { get; set; }
+    }
 
 
 

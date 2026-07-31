@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Chapter 4 & 5</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-break {
+            height: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    @Html.Action("MethodOfDiagnosisPartial")
+
+    @*<div class="page-break"></div>*@
+    <br /><br /><br />
+
+    @Html.Action("LeadingSitesPartial")
+
+</body>
+
+</html>
