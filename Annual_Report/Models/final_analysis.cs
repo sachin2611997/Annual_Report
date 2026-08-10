@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Annual_Report.Models
 {
@@ -182,6 +183,8 @@ namespace Annual_Report.Models
         [Key]
         public int Id { get; set; }
         public string Heading { get; set; }
+
+        [AllowHtml]
         public string Key { get; set; }
     }
 
@@ -200,6 +203,15 @@ namespace Annual_Report.Models
         public int MaleCases { get; set; }
 
         public int FemaleCases { get; set; }
+    }
+
+    public class Index
+    {
+        public string Number { get; set; } = "";   // "Chapter 3", "Chapter 7", etc. Empty for non-chapter rows.
+        public string Title { get; set; } = "";
+        public string PageNo { get; set; } = "";    // supports single pages ("1") and ranges ("3-10"); empty = no page yet
+        public int Level { get; set; } = 1;
+        public bool IsSectionDivider { get; set; } = false;
     }
 
 

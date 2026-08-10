@@ -24,16 +24,151 @@ namespace Annual_Report.Controllers
             return View();
         }
 
+        public ActionResult IndexView()
+        {
+            var toc = new List<Index>
+            {
+                new Index {Title = $"TMH MUMBAI REPORT {ViewBag.year}", Level = 0,IsSectionDivider = true },
+
+                new Index { Number = "Chapter 1", Title = "Introduction", PageNo = "1", Level = 1 },
+                new Index { Number = "Chapter 2", Title = "Executive Summary", PageNo = "2", Level = 1 },
+
+                new Index { Number = "Chapter 3", Title = "Magnitude of Registration and Cancer Cases", PageNo = "3-10", Level = 1 },
+                new Index { Title = $"Registration and Cancer Cases - TMC Mumbai (1984 \u2013 {ViewBag.year})", PageNo = "3", Level = 2 },
+                new Index { Title = "Overview of Registration Details at TMC, Mumbai (TMH & ACTREC)", PageNo = "4", Level = 2 },
+                new Index { Title = "DMG-wise Registration of Cancer Cases", PageNo = "5", Level = 2 },
+                new Index { Title = "System-wise Distribution of Cancer Cases", PageNo = "6", Level = 2 },
+                new Index { Title = "Comparison of System-wise Distribution of Proportion of Cancer Cases Treated and Time to Treatment Initiation in TMC Mumbai", PageNo = "7", Level = 2 },
+                new Index { Title = "India Map State-wise Distribution of Registrations & Cancer Cases", PageNo = "8", Level = 2 },
+                new Index { Title = "Distribution of Cancer Cases by Site (ICD-10)", PageNo = "9", Level = 2 },
+                new Index { Title = "Site-wise Distribution of Referral Cancer Cases", PageNo = "10", Level = 2 },
+                   
+                new Index { Number = "Chapter 4", Title = "Method of Diagnosis", PageNo = "", Level = 1 },
+                new Index { Number = "Chapter 5", Title = "Leading Sites of Cancer", PageNo = "11-12", Level = 1 },
+                new Index { Number = "Chapter 6", Title = "Pediatric Cancer", PageNo = "13", Level = 1 },
+                new Index { Number = "Chapter 7", Title = "Geriatric Cancers", PageNo = "13-14", Level = 1 },
+                // NOTE: source document repeats "Chapter 7" for this row (likely a numbering typo
+                // in the original report). Renumber to "Chapter 8" here once confirmed.
+                new Index { Number = "Chapter 7", Title = "Tobacco Related Cancer Sites", PageNo = "15", Level = 1 },
+
+                new Index { Title = $"ACTREC REPORT {ViewBag.year}", PageNo = "16", Level = 0, IsSectionDivider = true },
+                new Index { Title = "Registration and Cancer Cases Distribution", PageNo = "17", Level = 2 },
+                new Index { Title = "System-Wise Distribution of Cancer Cases", PageNo = "18-19", Level = 2 },
+                new Index { Title = "Method of Diagnosis", PageNo = "", Level = 2 },
+                new Index { Title = "Leading Sites", PageNo = "20", Level = 2 },
+                new Index { Title = "Distribution of Treatment", PageNo = "21-22", Level = 2 },
+                    
+                new Index { Title = $"Trend of Cancer 1984 - {ViewBag.year}", PageNo = "", Level = 0, IsSectionDivider = true },
+
+                new Index { Title = "Clinical Extent of Disease, Geographic Distribution & Treatment (Site-Wise)", PageNo = "", Level = 0, IsSectionDivider = true },
+                new Index { Title = "Head & Neck Cancer  (ICD-10 : C00-C14 , C30-C32)", PageNo = "", Level = 1 },
+                new Index { Title = "Buccal Mucosa (ICD-10: C06)", PageNo = "", Level = 2 },
+                new Index { Title = "Anterior Tongue (ICD-10: C02.3)", PageNo = "", Level = 2 },
+                new Index { Title = "Base Tongue (ICD-10: C01.9)", PageNo = "", Level = 2 },
+                new Index { Title = "Tonsil (ICD-10: C09)", PageNo = "", Level = 2 },
+                new Index { Title = "Pyriform Fossa (ICD-10: C12.9)", PageNo = "", Level = 2 },
+                new Index { Title = "Supraglottic Larynx (ICD-10: C12.9)", PageNo = "", Level = 2 },
+                new Index { Title = "Vocal Cord (ICD-10: C32)", PageNo = "", Level = 2 },
+                new Index { Title = "Nasopharynx (ICD-10: C11)", PageNo = "", Level = 2 },
+
+                new Index { Title = "Lung & Trachea Cancer (ICD-10: C33-C34)", PageNo = "", Level = 1 },
+
+                new Index { Title = "Gastrointestinal Tract Cancer (ICD-10 : C15-C26)", PageNo = "", Level = 1 },
+                new Index { Title = "Oesophagus (ICD-10: C15)", PageNo = "", Level = 2 },
+                new Index { Title = "Stomach (ICD-10: C16)", PageNo = "", Level = 2 },
+                new Index { Title = "Colon (ICD-10: C18)", PageNo = "", Level = 2 },
+                new Index { Title = "Rectum (ICD-10: C19)", PageNo = "", Level = 2 },
+                new Index { Title = "Liver (ICD-10: C22)", PageNo = "", Level = 2 },
+                new Index { Title = "Gallbladder (ICD-10: C23-C24)", PageNo = "", Level = 2 },
+                new Index { Title = "Pancreas (ICD-10: 25)", PageNo = "", Level = 2 },
+
+                new Index { Title = "Female Breast Cancer (ICD-10: C50)", PageNo = "", Level = 1 },
+                new Index { Title = "Bone (ICD-10: C40-C41)", PageNo = "", Level = 1 },
+                new Index { Title = "PNET & Soft Tissue (ICD-10: C47, C49)", PageNo = "", Level = 1 },
+                new Index { Title = "Distribution of Gynecological & Genito-Urinary Cancers", PageNo = "", Level = 1 },
+
+                new Index { Title = "Female Gynecological Cancers (ICD-10: C51-C58)", PageNo = "", Level = 1 },
+                new Index { Title = "Cervix (ICD-10: 53)", PageNo = "", Level = 2 },
+                new Index { Title = "Corpus Uteri (ICD-10: 54)", PageNo = "", Level = 2 },
+                new Index { Title = "Ovary (ICD -10: 56)", PageNo = "", Level = 2 },
+                new Index { Title = "Vagina (ICD -10: 52)", PageNo = "", Level = 2 },
+
+                new Index { Title = "Uro-Oncology and Male Reproductive Cancers (ICD-10 : C60-C68)", PageNo = "", Level = 1 },
+                new Index { Title = "Kidney (ICD-10 : C64)", PageNo = "", Level = 2 },
+                new Index { Title = "Prostate (ICD-10 : C61)", PageNo = "", Level = 2 },
+                new Index { Title = "Testis (ICD-10 : C62)", PageNo = "", Level = 2 },
+                new Index { Title = "Urinary Bladder (ICD-10 : C67)", PageNo = "", Level = 2 },
+
+                new Index { Title = "Hematopoietic (ICD-10: C81-C96)", PageNo = "", Level = 1 },
+                new Index { Title = "Malignant Lymphoma (ICD-10: C82-C85, C96)", PageNo = "", Level = 2 },
+                new Index { Title = "Hodgkins Disease (ICD-10 : C81 )", PageNo = "", Level = 2 },
+                new Index { Title = "Leukemia (ICD-10 : C91 , C92-C94 , C95)", PageNo = "", Level = 2 },
+
+                //new Index {Title = $"ACTREC REPORT {ViewBag.year}", Level = 0,IsSectionDivider = true },
+                //new Index { Title = "Registration and Cancer Cases Distribution", PageNo = "", Level = 1 },
+                //new Index { Title = "System-Wise Distribution of Cancer Cases", PageNo = "", Level = 1 },
+                //new Index { Title = "Method of Diagnosis", PageNo = "", Level = 1 },
+                //new Index { Title = "Leading Sites", PageNo = "", Level = 1 },
+                //new Index { Title = "Distribution of Treatment", PageNo = "", Level = 1 },
+
+                new Index {Title = "TABLES BY ICD-10", Level = 0,IsSectionDivider = true },
+
+            };
+
+            return View(toc);
+        }
+
+
         public ActionResult Chapters()
         {
             return View();
         }
 
+
+        public ActionResult Chapter_1_Introduction()
+        {
+            var keys = db.keyfinds.Where(x => x.Id == 1005).FirstOrDefault();
+
+            return View(keys);
+        }
+
+        public  ActionResult EditChapter_1_Introduction(int id)
+        {
+            var keyFinding = db.keyfinds.Where(x => x.Id == 1005).FirstOrDefault();
+
+            return View(keyFinding);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  ActionResult EditChapter_1_Introduction(int id, KeyFinding model)
+        {
+            
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var existing = db.keyfinds.Find(model.Id);
+
+
+            if (existing == null)
+                return HttpNotFound();
+
+            existing.Heading = model.Heading;
+            existing.Key = model.Key;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Chapter_1_Introduction");
+        }
+
+
+
         public ActionResult Magnitude_Registration_Cancer_Cases()
         {
             var list = db.MagnitudeRegistration.OrderBy(x => x.Year).ToList();
             ViewBag.Note = db.keyfinds
-                  .Where(x => x.Heading == "Magnitude of Registration")
+                  .Where(x => x.Heading == "MagnitudeRegistration")
                   .Select(x => x.Key)
                   .FirstOrDefault();
             return View(list);
@@ -684,7 +819,11 @@ namespace Annual_Report.Controllers
         }
 
 
+
+
         //----------------------------------------xxxxxx-----------------------------xxxxxx-----------------------------------------xxxxxx-----------------------
+
+
 
         public ActionResult All_sites()
         {

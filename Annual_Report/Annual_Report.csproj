@@ -2917,6 +2917,9 @@
     <Content Include="Views\TMH2022\Chapter4and5.cshtml" />
     <Content Include="Views\TMH2022\Chapters.cshtml" />
     <Content Include="Views\TMH2022\EditMagnitudeRegistration.cshtml" />
+    <Content Include="Views\TMH2022\IndexView.cshtml" />
+    <Content Include="Views\TMH2022\Chapter_1_Introduction.cshtml" />
+    <Content Include="Views\TMH2022\EditChapter_1_Introduction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
