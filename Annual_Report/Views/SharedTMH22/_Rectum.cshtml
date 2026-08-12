@@ -331,7 +331,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
 
                     <!--Geographic Distribution-->
-                    <div class="col-md-6">
+                    @*<div class="col-md-6">
                         <div class="portlet light">
                             <div class="portlet-title" style="height:80px">
                                 <div>
@@ -401,13 +401,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
 
-                    </div>
-                    </div>
-                </div>
-            <!-- END ROW -->
-            <!-- BEGIN ROW -->
-            <div class="row">
-                <div class="col-md-12">
+                    </div>*@
                     <!--Type of Cases-->
                     <div class="col-md-6">
                         <!-- BEGIN BORDERED TABLE PORTLET-->
@@ -430,10 +424,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     Type of Case
                                                 </th>
                                                 <th>
-                                                    Total Cases
+                                                    New Cases
                                                 </th>
                                                 <th>
-                                                    Treated in TMH
+                                                    Old Cases
                                                 </th>
 
                                             </tr>
@@ -443,26 +437,27 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <tr>
 
                                                 <td>
-                                                    New Cases
+                                                    Total
                                                 </td>
                                                 <td>
                                                     @ViewBag.newcase (@ViewBag.newcaseper%)
                                                 </td>
                                                 <td>
-                                                    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
+                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
                                                 </td>
 
                                             </tr>
                                             <tr>
 
                                                 <td>
-                                                    Old Cases
+                                                    <b>    Treated</b>
                                                 </td>
                                                 <td>
-                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
+                                                    <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
                                                 </td>
                                                 <td>
-                                                    @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
+                                                    <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
                                                 </td>
 
                                             </tr>
@@ -492,12 +487,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <tr>
 
                                                 <td>
-                                                    <b>  Total Cases</b>
+                                                    Non Treated
+
+
+
                                                 </td>
                                                 <td>
-                                                    <b>    @ViewBag.totalcase (100%)</b>
+
+                                                    @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
                                                 </td>
-                                                <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
+                                                <td>
+
+                                                    @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                </td>
                                             </tr>
 
                                         </tfoot>
@@ -509,6 +511,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <!-- END BORDERED TABLE PORTLET-->
                     </div>
+                   
+                  
+                  </div>
+                </div>
+            <!-- END ROW -->
+            <!-- BEGIN ROW -->
+            <div class="row">
+                <div class="col-md-12">
+                   
 
                     <!--Treatment Modality-->
                     <div class="col-md-6">
@@ -528,9 +539,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="well margin-top-20">
                                     <div class="row">
                                         @*<div class="col-sm-3">
-                                    <label class="text-left">Top Radius:</label>
-                                    <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
-                                </div>*@
+                                <label class="text-left">Top Radius:</label>
+                                <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                            </div>*@
                                         <div class="col-sm-3">
                                             <label class="text-left">Angle:</label>
                                             <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
@@ -545,7 +556,39 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <!-- END CHART PORTLET-->
                     </div>
+
+                    <!--Disease Status-->
+                    <div class="col-md-6">
+
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div>
+                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status</p>
+                                </div>
+
+                            </div>
+                            <div class="portlet-body" style="height:400px">
+                                <div id="chart_diseaseRec" class="chart" style="height: 610px; width:950px;">
+                                </div>
+                                <div class="well margin-top-20">
+                                    <div class="row">
+
+                                        <div class="col-sm-3">
+                                            <label class="text-left">Angle:</label>
+                                            <input class="chart_7_chart_diseaseRec" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="text-left">Depth:</label>
+                                            <input class="chart_7_chart_diseaseRec" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                   
+                 </div>
                 </div>
             <!-- END ROW -->
 
@@ -751,6 +794,34 @@ License: You must have a valid license purchased only from themeforest(the above
         }
 
 
+        //Diease Status Pie chart
+        var initChartSamplediseaseRec = function() {
+            var chart = AmCharts.makeChart("chart_diseaseRec", {
+                "type": "pie",
+                "theme": "light",
+
+                "innerRadius": "50%",
+                "radius": "160",
+
+                "fontFamily": "Arial",
+                "fontSize": 16,
+                "color": "#000000",
+                "outlineAlpha": 0,
+                "pullOutRadius": 0,
+                "marginBottom": 160,
+                "labelRadius": 30,
+
+                "gradientRatio": [-0.4, 0.2, 0.2],
+
+                "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+                "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+                "valueField": "Count",
+                "titleField": "Key",
+                "colorField": "Color",
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
+            });
+
+        }
 
 
 
@@ -766,7 +837,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 initChartRecSample4();
                 initChartSample7();
-
+                initChartSamplediseaseRec();
             }
 
         };

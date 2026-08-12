@@ -44,6 +44,12 @@ namespace Annual_Report.Controllers
             return View(model);
         }
 
-       
+
+
+        public ActionResult piechart()
+        {
+            return View();
+        }
+
     }
 }

@@ -2920,6 +2920,7 @@
     <Content Include="Views\TMH2022\IndexView.cshtml" />
     <Content Include="Views\TMH2022\Chapter_1_Introduction.cshtml" />
     <Content Include="Views\TMH2022\EditChapter_1_Introduction.cshtml" />
+    <Content Include="Views\Test\piechart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

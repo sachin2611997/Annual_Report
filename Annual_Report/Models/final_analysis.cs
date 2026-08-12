@@ -12,7 +12,8 @@ namespace Annual_Report.Models
     
     // [Table("test")]               // 2021 report
      //[Table("Report2022")]   //testTMH 2022
-    [Table("TMH2022")]  //TMH2022
+    [Table("TMH_2022")]  //TMH_2022
+
     public class final_analysis
     {
         [Key]
@@ -48,6 +49,8 @@ namespace Annual_Report.Models
         public string MyProperty { get; set; }
         public string TREATMENT_Before { get; set; }
         public string INST { get; set; }
+
+        public string n_dissts { get; set; }
     }
 
 

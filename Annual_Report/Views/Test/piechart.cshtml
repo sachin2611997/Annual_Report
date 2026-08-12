@@ -1,0 +1,136 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Sunburst Chart";
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Sunburst</title>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #chartdiv {
+            width: 100%;
+            height: 700px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="chartdiv"></div>
+
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/5/hierarchy.js"></script>
+
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+    <script>
+
+am5.ready(function () {
+
+var root = am5.Root.new("chartdiv");
+
+root.setThemes([
+am5themes_Animated.new(root)
+]);
+
+var container = root.container.children.push(
+
+am5.Container.new(root,{
+width:am5.percent(100),
+height:am5.percent(100),
+layout:root.verticalLayout
+})
+
+);
+
+var series = container.children.push(
+
+am5hierarchy.Sunburst.new(root,{
+
+singleBranchOnly:false,
+
+downDepth:2,
+
+initialDepth:2,
+
+valueField:"value",
+
+categoryField:"name",
+
+childDataField:"children",
+
+innerRadius:am5.percent(20)
+
+})
+
+);
+
+series.data.setAll([
+{
+    name: "Total",
+    children: [
+    {
+        name: "Yes",
+        children: [
+
+            { name: "Hyperten", value: 19.9 },
+            { name: "Diabetes", value: 15.8 },
+            { name: "Heart", value: 1.8 },
+            { name: "Asthma", value: 1.0 },
+            { name: "Hep-B", value: 0.5 },
+            { name: "Allergy", value: 0.3 },
+            { name: "HIV", value: 0.3 },
+            { name: "Thyroid", value: 4.8 },
+            { name: "Hep-C", value: 0.1 },
+            { name: "Renal", value: 0.2 },
+            { name: "Covid", value: 0.0 },
+            { name: "TB", value: 2.1 }
+
+        ]
+    },
+
+    {
+        name: "No",
+        value: 84.9
+    },
+
+    {
+        name: "Unknown",
+        value: 10.9
+    }
+
+    ]
+}
+]);
+
+series.set("selectedDataItem", series.dataItems[0]);
+
+series.appear(1000,100);
+
+});
+
+    </script>
+
+</body>
+
+</html>
