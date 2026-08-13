@@ -409,15 +409,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div>
-                                    <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
+                                    <p class="caption-subject uppercase" style="text-align:center">Type of Cases</p>
                                 </div>
 
                             </div>
-
-                            <div class="portlet-body" style="height:430px">
+                            <div class="portlet-body" style="height:475px">
                                 <div class="table-scrollable">
-
-
                                     <table class="table" border="1" style="table-layout:fixed">
                                         <thead>
                                             <tr>
@@ -425,10 +422,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     Type of Case
                                                 </th>
                                                 <th>
-                                                    Total Cases
+                                                    New Cases
                                                 </th>
                                                 <th>
-                                                    Treated in TMH
+                                                    Old Cases
                                                 </th>
 
                                             </tr>
@@ -438,26 +435,27 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <tr>
 
                                                 <td>
-                                                    New Cases
+                                                    Total
                                                 </td>
                                                 <td>
                                                     @ViewBag.newcase (@ViewBag.newcaseper%)
                                                 </td>
                                                 <td>
-                                                    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
+                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
                                                 </td>
 
                                             </tr>
                                             <tr>
 
                                                 <td>
-                                                    Old Cases
+                                                    <b>    Treated</b>
                                                 </td>
                                                 <td>
-                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
+                                                    <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
                                                 </td>
                                                 <td>
-                                                    @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
+                                                    <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
                                                 </td>
 
                                             </tr>
@@ -487,20 +485,25 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <tr>
 
                                                 <td>
-                                                    <b>  Total Cases</b>
+                                                    Non Treated
+
+
+
                                                 </td>
                                                 <td>
-                                                    <b>    @ViewBag.totalcase (100%)</b>
+
+                                                    @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
                                                 </td>
-                                                <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
+                                                <td>
+
+                                                    @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                </td>
                                             </tr>
 
                                         </tfoot>
                                     </table>
                                 </div>
                             </div>
-
-
                         </div>
                         <!-- END BORDERED TABLE PORTLET-->
                     </div>
@@ -559,7 +562,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
 
                             </div>
-                            <div class="portlet-body" style="height:400px">
+                            <div class="portlet-body" style="height:440px">
                                 <div id="chart_diseaseKidney" class="chart" style="height: 610px; width:950px;">
                                 </div>
                                 <div class="well margin-top-20">
@@ -744,7 +747,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 "radius": 140,
                 "labelRadius":45,
                 "fontFamily": 'Arial',
-                "fontSize" :21,
+                "fontSize" :20,
                 "color":    '#000000',
                 "autoTransform":true,
                 "marginRight":100,
@@ -752,7 +755,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
                 "valueField": "Count",
                 "titleField": "Key",
-                "labelText":"[[Key]]:<br>[[Count]] ([[percents]]%)",
+                "labelText":"[[Key]]:[[Count]]([[percents]]%)",
                 "percentPrecision": 1,
                 "outlineAlpha": 0.4,
                 "depth3D": 15,
@@ -798,11 +801,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 "radius": "160",
 
                 "fontFamily": "Arial",
-                "fontSize": 16,
+                "fontSize": 20,
                 "color": "#000000",
                 "outlineAlpha": 0,
                 "pullOutRadius": 0,
-                "marginBottom": 160,
+                "marginBottom": 140,
                 "labelRadius": 30,
 
                 "gradientRatio": [-0.4, 0.2, 0.2],
@@ -830,7 +833,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 initChartkidneySample4();
                 initChartSample7();
-
+                initChartSamplediseaseKidney();
             }
 
         };

@@ -406,7 +406,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     <div class="row">
-        <div class="col-md-12">
+       
+         <div class="col-md-12">
 
 
             <!--Age-->
@@ -511,79 +512,141 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
         </div>
-        </div>
-        <!-- END ROW -->
-        <!-- BEGIN ROW -->
-
+       
+     </div>
+       
+    <!--    add new row column Risk Factor and Comorbidity-->
+   
     <div class="row">
+
         <div class="col-md-12">
 
-
-            <!--Type of cases-->
+            <!-- Risk Factor-->
             <div class="col-md-6">
-                <!-- BEGIN BORDERED TABLE PORTLET-->
-                <div class="portlet light">
-                    <div class="pt" style="height:80px">
+                <!-- BEGIN CHART PORTLET-->
+                <div class="portlet light " id="age">
+                    <div class="pt">
                         <div>
-                            <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
+                            @*<i class="icon-bar-chart font-green-haze"></i>*@
+                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Risk Factor</p>
+                            @*<span class="caption-helper">@ViewBag.System4</span>*@
                         </div>
 
                     </div>
-                    <div class="portlet-body" style="height:450px">
-                        <div @*class="table-scrollable"*@>
 
-                            <table class="table" border="1" style="table-layout:fixed">
+                    <div class="portlet-body">
+                        <div id="" class="" style="height: 530px;width:830px">
+                        </div>
 
-                                <thead class="thead">
-                                    <tr>
-                                        <th>
-                                            Type of Case
-                                        </th>
-                                        <th>
-                                            Total Cases
-                                        </th>
-                                        <th>
-                                            Treated in TMH
-                                        </th>
+                    </div>
 
-                                    </tr>
-                                </thead>
+                </div>
 
-                                <tbody>
+                <!-- demo 2nd chart-->
+                <!-- End demo 2nd chart-->
+                <!-- END CHART PORTLET-->
+            </div>
 
-                                    <tr>
+            <!--Comorbidity-->
+            <div class="col-md-6">
+                <div class="portlet light">
+                    <div class="pt" style="height:80px">
+                        <div>
+                            <p class="caption-subject uppercase" style="text-align:center"> Comorbidity</p>
+                        </div>
 
-                                        <td>
-                                            Old Cases
-                                        </td>
-                                        <td>
-                                            @ViewBag.oldcase (@ViewBag.oldcaseper%)
+                    </div>
+                    <div class="portlet-body" style="height:530px">
+                        <div class="table-scrollable">
 
-                                        </td>
-                                        <td>
-                                            @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>
-                                            New Cases
-
-                                        </td>
-                                        <td>
-                                            @ViewBag.newcase (@ViewBag.newcaseper%)
-                                        </td>
-                                        <td>
-                                            @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
-
-                                        </td>
-
-                                    </tr>
+                        </div>
+                    </div>
+                </div>
 
 
-                                    <tr>
-                                        @if (@ViewBag.unkcase != 0)
+
+            </div>
+
+
+
+        </div>
+        
+    </div>
+        <!--   end add new row column Risk Factor and Comorbidity-->
+
+
+
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+
+                <!--Type of cases-->
+                <div class="col-md-6">
+                    <!-- BEGIN BORDERED TABLE PORTLET-->
+                    <div class="portlet light">
+                        <div class="pt" style="height:80px">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
+                            </div>
+
+                        </div>
+                        <div class="portlet-body" style="height:450px">
+                            <div @*class="table-scrollable"*@>
+
+                                <table class="table" border="1" style="table-layout:fixed">
+
+                                    <thead class="thead">
+                                        <tr>
+                                            <th>
+                                                Type of Case
+                                            </th>
+                                            <th>
+                                                Total Cases
+                                            </th>
+                                            <th>
+                                                Treated in TMH
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr>
+
+                                            <td>
+                                                Old Cases
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                New Cases
+
+                                            </td>
+                                            <td>
+                                                @ViewBag.newcase (@ViewBag.newcaseper%)
+                                            </td>
+                                            <td>
+                                                @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
+
+                                            </td>
+
+                                        </tr>
+
+
+                                        <tr>
+                                            @if (@ViewBag.unkcase != 0)
                                                     {
                                         <td>
                                             Unknown Cases
@@ -595,117 +658,159 @@ License: You must have a valid license purchased only from themeforest(the above
                                             @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
                                         </td>
                                                     }
-                                    </tr>
+                                        </tr>
 
-                                </tbody>
-                                <tfoot>
+                                    </tbody>
+                                    <tfoot>
 
-                                    <tr>
+                                        <tr>
 
-                                        <td>
-                                            <b>  Total Cases</b>
-                                        </td>
-                                        <td>
-                                            <b>    @ViewBag.totalcase @*(@ViewBag.totalcaseper%)*@ (100%)</b>
-                                        </td>
-                                        <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
-                                    </tr>
+                                            <td>
+                                                <b>  Total Cases</b>
+                                            </td>
+                                            <td>
+                                                <b>    @ViewBag.totalcase @*(@ViewBag.totalcaseper%)*@ (100%)</b>
+                                            </td>
+                                            <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
+                                        </tr>
 
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- END BORDERED TABLE PORTLET-->
-            </div>
-
-
-            <!--Clinical Extent of Disease-->
-            <div class="col-md-6">
-
-
-                @*<div id="chart_4" class="chart" style="height: 570px;">*@
-                <div class="portlet light">
-                    <div class="pt">
-                        <div>
-                            @*<i class="icon-bar-chart font-green-haze"></i>*@
-
-                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center">Clinical Extent of Disease</p>
-                            @*<span class="caption-helper">@ViewBag.System4</span>*@
-                        </div>
-
-                    </div>
-                    <div class="portlet-body">
-                        <div id="chart_HN4" class="chart" style="height: 450px;">
-                        </div>
-                    </div>
+                    <!-- END BORDERED TABLE PORTLET-->
                 </div>
 
 
+                <!--Clinical Extent of Disease-->
+                <div class="col-md-6">
 
-                <!-- demo 2nd chart-->
-                <!-- End demo 2nd chart-->
-                <!-- END CHART PORTLET-->
+
+                    @*<div id="chart_4" class="chart" style="height: 570px;">*@
+                    <div class="portlet light">
+                        <div class="pt">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center">Clinical Extent of Disease</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+                        <div class="portlet-body">
+                            <div id="chart_HN4" class="chart" style="height: 450px;">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- demo 2nd chart-->
+                    <!-- End demo 2nd chart-->
+                    <!-- END CHART PORTLET-->
+                </div>
+
+
+
             </div>
-
-
 
         </div>
-        </div>
-        <!-- END CHART PORTLET-->
-        <!-- END ROW -->
 
-    <div class="row">
-        <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-12">
 
 
-            <!--Treatment Modality-->
-            <div class="col-md-6">
-                <!-- BEGIN CHART PORTLET-->
-                <div class="portlet light">
-                    <div class="pt">
-                        <div>
-                            @*<i class="icon-bar-chart font-green-haze"></i>*@
-                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
-                            @*<span class="caption-helper">@ViewBag.System4</span>*@
+                <!--Treatment Modality-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="pt">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
                         </div>
+                        <div class="portlet-body">
+                            <div id="chart_7" class="chart" style="height: 600px; width:850px">
+                            </div>
 
-                    </div>
-                    <div class="portlet-body">
-                        <div id="chart_7" class="chart" style="height: 600px; width:850px">
                         </div>
-
                     </div>
+                    <!-- END CHART PORTLET-->
                 </div>
-                <!-- END CHART PORTLET-->
+
+                <!--Time to treatment Initiation (In days)-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="pt">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Time to treatment Initiation (In days)</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+                        <div class="portlet-body">
+                            <div id="Timechart" class="chart" style="height: 600px;">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END CHART PORTLET-->
+                </div>
+
+
             </div>
 
-            <!--Time to treatment Initiation (In days)-->
-            <div class="col-md-6">
-                <!-- BEGIN CHART PORTLET-->
-                <div class="portlet light">
-                    <div class="pt">
-                        <div>
-                            @*<i class="icon-bar-chart font-green-haze"></i>*@
-                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Time to treatment Initiation (In days)</p>
-                            @*<span class="caption-helper">@ViewBag.System4</span>*@
+        </div>
+
+
+
+
+        <!--Disease Status-->
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <!-- Risk Factor-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light " id="age">
+                        <div class="pt">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+
+                        <div class="portlet-body">
+                            <div id="" class="" style="height: 530px;width:830px">
+                            </div>
+
                         </div>
 
                     </div>
-                    <div class="portlet-body">
-                        <div id="Timechart" class="chart" style="height: 600px;">
-                        </div>
 
-                    </div>
+                    <!-- demo 2nd chart-->
+                    <!-- End demo 2nd chart-->
+                    <!-- END CHART PORTLET-->
                 </div>
-                <!-- END CHART PORTLET-->
+
+              
+
             </div>
 
-
         </div>
-</div>
-        <!-- END PAGE CONTENT-->
-        <!-- END CONTENT -->
+
+
+
 
 
 
@@ -766,7 +871,7 @@ License: You must have a valid license purchased only from themeforest(the above
             jQuery(document).ready(function() {
                 // initiate layout and plugins
                 Metronic.init(); // init metronic core components
-               Layout.init(); // init current layout
+                Layout.init(); // init current layout
                 Demo.init(); // init demo features
                 //  ChartsAmcharts.init();
                 ChartsHNAgecharts.init();
@@ -1072,13 +1177,13 @@ License: You must have a valid license purchased only from themeforest(the above
             "type": "pie",
                 "theme": "light",
                 "radius": 150,
-                "labelRadius":90,
+                "labelRadius":60,
                 "fontFamily": 'Arial',
                 "fontSize" :20,
                 "color":    '#000000',
                 "stroke": '#000000',
                 "marginTop":0,
-                "marginLeft":-20,
+                "marginLeft":40,
                 "autoMargins": true,
                 "labelsEnabled": true,
                 "pullOutRadius": 15,
@@ -1087,7 +1192,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
                 "valueField": "Count",
                 "titleField": "Key",
-                "labelText":"[[Key]]:[[Count]] ([[percents]]%)",
+                "labelText":"[[Key]]:<br>[[Count]] ([[percents]]%)",
                 "percentPrecision": 1,
                 "outlineAlpha": 0.4,
                 "depth3D": 15,
@@ -1126,7 +1231,34 @@ License: You must have a valid license purchased only from themeforest(the above
      }
 
 
+     //Diease Status Pie chart
+     var initChartSamplediseaseHeadNeck = function() {
+         var chart = AmCharts.makeChart("chart_diseaseHeadNeck", {
+             "type": "pie",
+             "theme": "light",
 
+             "innerRadius": "50%",
+             "radius": "160",
+
+             "fontFamily": "Arial",
+             "fontSize": 20,
+             "color": "#000000",
+             "outlineAlpha": 0,
+             "pullOutRadius": 0,
+             "marginBottom": 170,
+             "labelRadius": 50,
+
+             "gradientRatio": [-0.4, 0.2, 0.2],
+
+             "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+             "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+             "valueField": "Count",
+             "titleField": "Key",
+             "colorField": "Color",
+             "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
+         });
+
+     }
 
 
 
@@ -1138,7 +1270,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 initChartSample4();
                 initChartSample7();
-
+                initChartSamplediseaseHeadNeck();
                 }
 
                 };
