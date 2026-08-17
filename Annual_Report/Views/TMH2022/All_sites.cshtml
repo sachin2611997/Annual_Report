@@ -91,7 +91,7 @@ License: You must have a valid license purchased only from themeforest(the above
 .custom-table td {
     border: 1.5px solid #000 !important;
 }
-
+ 
 .custom-table th,
 .custom-table td {
     text-align: center;
@@ -99,6 +99,7 @@ License: You must have a valid license purchased only from themeforest(the above
     padding: 12px;
 }
         @@media print {
+           
 
             .col-md-6 {
                 width: 50%;
@@ -213,18 +214,17 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
 
 
-    <div class="page-container">
+    <div @*class="page-container"*@>
 
         <div class="page-content-wrapper">
             <div>
 
 
 
-                <br />
 
+                <!--Trend Year-->
 
-
-                <div class="row">
+                @*<div class="row">
                     <div class="col-md-12">
                         <!-- BEGIN CHART PORTLET-->
                         <div class="portlet light">
@@ -246,11 +246,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <!-- END CHART PORTLET-->
                     </div>
-                </div>
+                </div>*@
 
 
 
                 @*@Html.Partial("PartialView")*@
+
+
+
+
 
 
                 <div class="container con">
@@ -293,6 +297,147 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
 
 
+                <!--age catogy And Risk factor-->
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Age Category</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:400px;">
+                                    <div id="chart_All" class="chart" style="height: 400px;width:830px">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+
+                     
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Treatment Status Based on Case Type</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:400px;">
+                                    <div class="table-scrollable">
+                                        <table class="table" border="1" style="table-layout:fixed">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Type of Case
+                                                    </th>
+                                                    <th>
+                                                        New Cases
+                                                    </th>
+                                                    <th>
+                                                        Old Cases
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Total
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.newcase (@ViewBag.newcaseper%)
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        <b>    Treated</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    @if (@ViewBag.unkcase != 0)
+                                                    {
+                                                        <td>
+                                                            Unknown Cases
+                                                        </td>
+
+                                                        <td>
+                                                            @ViewBag.unkcase (@ViewBag.unkcaseper%)
+                                                        </td>
+
+
+                                                        <td>
+                                                            @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
+                                                        </td>
+
+                                                    }
+                                                </tr>
+
+
+                                            </tbody>
+                                            <tfoot>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Non Treated
+
+
+
+                                                    </td>
+                                                    <td>
+
+                                                        @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
+                                                    </td>
+                                                    <td>
+
+                                                        @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                    </td>
+                                                </tr>
+
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+                        
+                        
+                        
+                        
+                          
+
+                    </div>
+
+
+                    <!-- END REGIONAL STATS PORTLET-->
+
+
+                </div>
+
 
 
 
@@ -301,183 +446,259 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 <div class="row">
 
-                    <!-- BEGIN REGIONAL STATS PORTLET-->
-                    <div class="col-md-6">
-                        <!-- BEGIN BORDERED TABLE PORTLET-->
-                        <div class="portlet light">
-                            <div class="ptt" style="height:80px">
-                                <div>
-                                    <p class="caption-subject uppercase" style="text-align:center">Treatment Status Based on Case Type</p>
-                                </div>
-
-                            </div>
-                            <div class="portlet-body" style="height:500px;">
-                                <div>
-                                    <table class="table custom-table" border="1" style="table-layout:fixed; margin: 50px 0 0 0;">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    Type of Case
-                                                </th>
-                                                <th>
-                                                    Total Cases
-                                                </th>
-                                                <th>
-                                                    Treated in TMH
-                                                </th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-
-                                                <td>
-                                                    New Cases
-                                                </td>
-                                                <td>
-                                                    @ViewBag.newcase (@ViewBag.newcaseper%)
-                                                </td>
-                                                <td>
-                                                    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-
-                                                <td>
-                                                    Old Cases
-                                                </td>
-                                                <td>
-                                                    @ViewBag.oldcase (@ViewBag.oldcaseper%)
-                                                </td>
-                                                <td>
-                                                    @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                @if (@ViewBag.unkcase != 0)
-                                                {
-                                                    <td>
-                                                        Unknown Cases
-                                                    </td>
-
-                                                    <td>
-                                                        @ViewBag.unkcase (@ViewBag.unkcaseper%)
-                                                    </td>
-
-
-                                                    <td>
-                                                        @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
-                                                    </td>
-
-                                                }
-                                            </tr>
-
-
-                                        </tbody>
-                                        <tfoot>
-
-                                            <tr>
-
-                                                <td>
-                                                    <b>  Total Cases</b>
-                                                </td>
-                                                <td>
-                                                    <b>    @ViewBag.totalcase (100%)</b>
-                                                </td>
-                                                <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
-                                            </tr>
-
-                                        </tfoot>
-                                    </table>
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Risk Factor</p>
+                                    </div>
 
                                 </div>
-                            </div>
-                        </div>
-                        <!-- END BORDERED TABLE PORTLET-->
-                    </div>
+                                <div class="portlet-body">
+                                    <div>
+                                        <table class="table" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="padding: 50px;border-bottom: thin solid; text-align: center;" rowspan="2">Factors</th>
 
-                    <div class="col-md-6">
-                        <!-- BEGIN CHART PORTLET-->
-                        <div class="portlet light">
-                            <div class="ptt" style="height:80px">
-                                <div>
-                                    <p class="caption-subject uppercase" style="text-align:center">Treatment Modality</p>
-                                </div>
+                                                    <th scope="col" colspan="2">Male</th>
+                                                    <th scope="col" colspan="2">Female</th>
+                                                    <th scope="col" colspan="2">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                </tr>
+                                            </thead>
 
-                            </div>
-                            <div class="portlet-body">
-                                <div id="chart_7all" class="chart" style="height: 500px; width:900px">
-                                </div>
-                                <div class="well margin-top-20">
-                                    <div class="row">
-                                        @*<div class="col-sm-3">
-                                <label class="text-left">Top Radius:</label>
-                                <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
-                            </div>*@
-                                        <div class="col-sm-3">
-                                            <label class="text-left">Angle:</label>
-                                            <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <label class="text-left">Depth:</label>
-                                            <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
-                                        </div>
+                                            <tbody>
+
+                                                
+                                                <tr>
+                                                    <td> Smoking Tobacco</td>
+                                                    <td>@ViewBag.RiskSmokefactorMale</td>
+                                                    <td>@ViewBag.RiskSmokefactorMaleper</td>
+                                                    <td>@ViewBag.RiskSmokefactorFemale</td>
+                                                    <td>@ViewBag.RiskSmokefactorFemaleper</td>
+                                                    <td>@ViewBag.TotalSmokeRiskfactor</td>
+                                                    <td>@ViewBag.TotalSmokeRiskfactorper</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Smokless Tobacco </td>
+                                                    <td>@ViewBag.RiskChewfactorMale</td>
+                                                    <td>@ViewBag.RiskChewfactorMaleper</td>
+                                                    <td>@ViewBag.RiskChewfactorFemale</td>
+                                                    <td>@ViewBag.RiskChewfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalChewRiskfactor</td>
+                                                    <td>@ViewBag.TotalChewRiskfactorper</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Alcohol</td>
+                                                    <td>@ViewBag.RiskDrinkfactorMale</td>
+                                                    <td>@ViewBag.RiskDrinkfactorMaleper</td>
+                                                    <td>@ViewBag.RiskDrinkfactorFemale</td>
+                                                    <td>@ViewBag.RiskDrinkfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalDrinkRiskfactor</td>
+                                                    <td>@ViewBag.TotalDrinkRiskfactorper</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Family History </td>
+                                                    <td>@ViewBag.RiskFamHistfactorMale</td>
+                                                    <td>@ViewBag.RiskFamHistfactorMaleper</td>
+                                                    <td>@ViewBag.RiskFamHistfactorFemale</td>
+                                                    <td>@ViewBag.RiskFamHistfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalFamHistRiskfactor</td>
+                                                    <td>@ViewBag.TotalFamHistRiskfactorper</td>
+                                                </tr>
+
+                                            </tbody>
+
+                                            @*<tfoot>
+                                <tr>
+                                    <td style="text-align:center" colspan="2"><b>Total Cancers Cases</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tMcount</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tFcount</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>@ViewBag.TotalGUSCount</b></td>
+                                    <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                </tr>
+                            </tfoot>*@
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                            <!-- END CHART PORTLET-->
                         </div>
-                        <!-- END CHART PORTLET-->
+
+
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Comorbidity</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:400px;">
+                                    <div id="chart_comabiditypie" class="chart" style="height: 200px; width:900px">
+                                    </div>
+                                    <div id="chart_cdscoreall" class="chart" style="height: 210px; width:900px">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+
+                      
+
                     </div>
 
-                           
-                            <!-- END REGIONAL STATS PORTLET-->
+
+                        <!-- END REGIONAL STATS PORTLET-->
 
 
-                        </div>
+                    </div>
 
 
 
 
                         <div class="row">
                             <div class="col-md-12">
-                                <!-- BEGIN CHART PORTLET-->
-                                <div class="portlet light">
-                                    <div class="ptt" style="height:80px">
-                                        <div>
-                                            <p class="caption-subject uppercase" style="text-align:center">Clinical Extent of Disease</p>
-                                        </div>
+                                <div class="col-md-6">
+                                    <!-- BEGIN CHART PORTLET-->
+                                    <div class="portlet light">
+                                        <div class="ptt" style="height:80px">
+                                            <div>
+                                                <p class="caption-subject uppercase" style="text-align:center">Clinical Extent of Disease</p>
+                                            </div>
 
-                                    </div>
-                                    <div class="portlet-body">
-                                        <div id="chart_5" class="chart" style="height: 700px;">
                                         </div>
-                                        <div class="well margin-top-20">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <label class="text-left">Top Radius:</label>
-                                                    <input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="text-left">Angle:</label>
-                                                    <input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <label class="text-left">Depth:</label>
-                                                    <input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                        <div class="portlet-body">
+                                            <div id="chart_5" class="chart" style="height: 500px;">
+                                            </div>
+                                            <div class="well margin-top-20">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label class="text-left">Top Radius:</label>
+                                                        <input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label class="text-left">Angle:</label>
+                                                        <input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label class="text-left">Depth:</label>
+                                                        <input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- END CHART PORTLET-->
+                               </div>
+
+                                <div class="col-md-6">
+                                    <!-- BEGIN CHART PORTLET-->
+                                    <div class="portlet light">
+                                        <div class="ptt" style="height:80px">
+                                            <div>
+                                                <p class="caption-subject uppercase" style="text-align:center">Treatment Modality</p>
+                                            </div>
+
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div id="chart_7all" class="chart" style="height: 500px; width:900px">
+                                            </div>
+                                            <div class="well margin-top-20">
+                                                <div class="row">
+                                                    @*<div class="col-sm-3">
+                                <label class="text-left">Top Radius:</label>
+                                <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                            </div>*@
+                                                    <div class="col-sm-3">
+                                                        <label class="text-left">Angle:</label>
+                                                        <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label class="text-left">Depth:</label>
+                                                        <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END CHART PORTLET-->
                                 </div>
-                                <!-- END CHART PORTLET-->
-                            </div>
+
+                            
+
+                                </div>
 
                            
                         </div>
 
+
+                <!--co-morbidity And tti-->
+           
+                     <div class="row">
+
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+                       
+
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Time to treatment Initiation (In days)</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:500px;">
+                                    <div id="TimechartAll" class="chart" style="height: 400px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="ptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Discharge Status</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height: 500px;">
+                                    <div id="chart_diseaseAll" class="chart" style="height: 610px; width:950px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+                    </div>
+
+
+                    <!-- END REGIONAL STATS PORTLET-->
+
+
+                </div>
 
 
 
@@ -695,11 +916,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
             });
 
-
-
-
-
-
             jQuery('.chart_7_chart_input').off().on('input change', function() {
                 var property = jQuery(this).data('property');
                 var target = chart;
@@ -719,244 +935,579 @@ License: You must have a valid license purchased only from themeforest(the above
             });
         }
 
-        var initChartSample3 = function () {
-            var chart = AmCharts.makeChart("chart_3", {
-                "type": "serial",
+        //var initChartSample3 = function () {
+        //    var chart = AmCharts.makeChart("chart_3", {
+        //        "type": "serial",
+        //        "theme": "light",
+
+        //        "fontFamily": 'Open Sans',
+        //        "color":    '#000000',
+
+
+        //        "pathToImages": "/HBCR_REPORT/assets/global/plugins/amcharts/amcharts/images/",
+
+        //        "dataProvider": [{
+        //            //  "lineColor": "#b7e021",
+        //            "date": "1984",
+
+        //            "duration": 10619
+        //        }, {
+        //            "date": "1985",
+        //            "duration": 11986,
+
+        //        }, {
+        //            "date": "1986",
+        //            "duration": 12447
+        //        }, {
+        //            "date": "1987",
+        //            "duration": 13346
+        //        }, {
+        //            // "lineColor": "#fbd51a",
+        //            "date": "1988",
+        //            "duration": 14734
+        //        }, {
+        //            "date": "1989",
+        //            "duration": 15173
+        //        }, {
+        //            "date": "1990",
+        //            "duration": 15351
+        //        }, {
+        //            "date": "1991",
+        //            "duration": 15718,
+        //            //"lineColor": "#2498d2"
+        //        }, {
+        //            "date": "1992",
+        //            "duration": 15695,
+
+        //        }, {
+        //            "date": "1993",
+        //            "duration": 15140
+        //        }, {
+        //            "date": "1994",
+        //            "duration": 15620
+        //        }, {
+        //            "date": "1995",
+        //            "duration": 15656
+        //        }, {
+        //            "date": "1996",
+        //            "duration": 14402
+        //        }, {
+        //            "date": "1997",
+        //            "duration": 15676
+        //        }, {
+        //            "date": "1998",
+        //            "duration": 15464
+        //        }, {
+        //            "date": "1999",
+        //            "duration": 15724
+        //        }, {
+        //            // "lineColor": "#000000",
+        //            "date": "2000",
+        //            "duration": 15591,
+
+        //        }, {
+        //            "date": "2001",
+        //            "duration": 16160
+        //        }, {
+        //            "date": "2002",
+        //            "duration": 16097
+        //        }, {
+        //            "date": "2003",
+        //            "duration": 15946
+        //        }, {
+        //            "date": "2004",
+        //            "duration": 17163
+        //        }, {
+        //            "date": "2005",
+        //            "duration": 17583
+        //        }, {
+        //            "date": "2006",
+        //            "duration": 19646
+        //        }, {
+        //            "date": "2007",
+        //            "duration": 20609
+        //        }, {
+        //            "date": "2008",
+        //            "duration": 21711
+        //        }, {
+        //            "date": "2009",
+        //            "duration": 23485
+        //        }, {
+        //            "date": "2010",
+        //            "duration": 24859
+        //        }, {
+        //            "date": "2011",
+        //            "duration": 26156
+        //        }, {
+        //            "date": "2012",
+        //            "duration": 25733
+        //        }, {
+        //            "date": "2013",
+        //            "duration": 28938
+        //        }, {
+        //            "date": "2014",
+        //            "duration": 30490
+        //        }, {
+        //            "date": "2015",
+        //            "duration": 31861
+        //        }, {
+        //            "date": "2016",
+        //            "duration": 32913
+        //        }, {
+        //            "date": "2017",
+        //            "duration": 34906
+        //        }, {
+        //            "date": "2018",
+        //            "duration": 36095
+        //        }, {
+        //            "date": "2019",
+        //            "duration": 38080
+        //        }, {
+        //            "date": "2020",
+        //            "duration": 21148
+        //        },
+        //        {
+        //            "date": "2021",
+        //            "duration": 32359
+        //        },
+        //        {
+        //            "date": "2022",
+        //            "duration": 38239
+        //        },
+        //        //{
+        //        //    "date": "2023",
+        //        //    "duration": 37374
+        //        //},
+        //        ],
+        //        "balloon": {
+        //            "cornerRadius": 6,
+
+        //        },
+
+
+        //        "graphs": [{
+        //            "bullet": "square",
+        //            "labelText": "[[duration]]",
+
+        //            "bulletBorderAlpha": 1,
+        //            "bulletBorderThickness": 1,
+        //            "fillAlphas": 0,
+        //            "fillColorsField": "lineColor",
+        //            "legendValueText": "[[value]]",
+        //            "lineColor": "#a72d2d", // black or use a dark hex code
+        //            "lineColorField": "lineColor",
+        //            "lineThickness": 5,               // thicker/bolder line
+        //            "title": "duration",
+        //            "valueField": "duration",
+
+        //            "fontSize":15,
+        //            "labelRotation": 45,
+        //            "labelOffset": 15,  // increase this number to move the label higher
+        //        }],
+        //        //     "chartScrollbar": {},
+        //        "chartCursor": {
+        //            "categoryBalloonDateFormat": "YYYY MMM DD",
+        //            "cursorAlpha": 0,
+        //            "zoomable": false
+        //        },
+
+        //        "categoryAxis": {
+
+        //            "gridThickness": 0,
+        //            "fontSize":20,
+        //            "labelRotation": 90,
+        //            "title": "YEAR",
+        //            "titleFontSize": 20
+        //        },
+
+
+
+
+        //        "valueAxes": [
+        //        {
+        //            "titleFontSize": 20  ,
+        //            "title": "NUMBER",
+        //            "gridThickness": 0,
+        //            "fontSize":17,
+        //            //   "axisColor":'red',
+        //            //  "color":'red',
+        //        },],
+
+
+
+        //        //"dataDateFormat": "YYYY-MM-DD",
+        //        "categoryField": "date",
+        //        //"categoryAxis": {
+        //        //    "dateFormats": [{
+        //        //        "period": "DD",
+        //        //        "format": "DD"
+        //        //    }, {
+        //        //        "period": "WW",
+        //        //        "format": "MMM DD"
+        //        //    }, {
+        //        //        "period": "MM",
+        //        //        "format": "MMM"
+        //        //    }, {
+        //        //        "period": "YYYY",
+        //        //        "format": "YYYY"
+        //        //    }],
+        //        //    "parseDates": true,
+        //        //    "autoGridCount": false,
+        //        //    "axisColor": "#555555",
+        //        //    "gridAlpha": 0,
+        //        //    "gridCount": 50
+        //        //}
+
+
+
+
+
+        //    });
+
+
+
+        //    $('#chart_3').closest('.portlet').find('.fullscreen').click(function () {
+        //        chart.invalidateSize();
+        //    });
+
+
+        //}
+
+
+            //Age Category
+
+        var initAllChart = function() {
+            var ageAllchart = AmCharts.makeChart("chart_All", {
                 "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
 
                 "fontFamily": 'Open Sans',
+
                 "color":    '#000000',
 
-
-                "pathToImages": "/HBCR_REPORT/assets/global/plugins/amcharts/amcharts/images/",
-
-                "dataProvider": [{
-                    //  "lineColor": "#b7e021",
-                    "date": "1984",
-
-                    "duration": 10619
-                }, {
-                    "date": "1985",
-                    "duration": 11986,
-
-                }, {
-                    "date": "1986",
-                    "duration": 12447
-                }, {
-                    "date": "1987",
-                    "duration": 13346
-                }, {
-                    // "lineColor": "#fbd51a",
-                    "date": "1988",
-                    "duration": 14734
-                }, {
-                    "date": "1989",
-                    "duration": 15173
-                }, {
-                    "date": "1990",
-                    "duration": 15351
-                }, {
-                    "date": "1991",
-                    "duration": 15718,
-                    //"lineColor": "#2498d2"
-                }, {
-                    "date": "1992",
-                    "duration": 15695,
-
-                }, {
-                    "date": "1993",
-                    "duration": 15140
-                }, {
-                    "date": "1994",
-                    "duration": 15620
-                }, {
-                    "date": "1995",
-                    "duration": 15656
-                }, {
-                    "date": "1996",
-                    "duration": 14402
-                }, {
-                    "date": "1997",
-                    "duration": 15676
-                }, {
-                    "date": "1998",
-                    "duration": 15464
-                }, {
-                    "date": "1999",
-                    "duration": 15724
-                }, {
-                    // "lineColor": "#000000",
-                    "date": "2000",
-                    "duration": 15591,
-
-                }, {
-                    "date": "2001",
-                    "duration": 16160
-                }, {
-                    "date": "2002",
-                    "duration": 16097
-                }, {
-                    "date": "2003",
-                    "duration": 15946
-                }, {
-                    "date": "2004",
-                    "duration": 17163
-                }, {
-                    "date": "2005",
-                    "duration": 17583
-                }, {
-                    "date": "2006",
-                    "duration": 19646
-                }, {
-                    "date": "2007",
-                    "duration": 20609
-                }, {
-                    "date": "2008",
-                    "duration": 21711
-                }, {
-                    "date": "2009",
-                    "duration": 23485
-                }, {
-                    "date": "2010",
-                    "duration": 24859
-                }, {
-                    "date": "2011",
-                    "duration": 26156
-                }, {
-                    "date": "2012",
-                    "duration": 25733
-                }, {
-                    "date": "2013",
-                    "duration": 28938
-                }, {
-                    "date": "2014",
-                    "duration": 30490
-                }, {
-                    "date": "2015",
-                    "duration": 31861
-                }, {
-                    "date": "2016",
-                    "duration": 32913
-                }, {
-                    "date": "2017",
-                    "duration": 34906
-                }, {
-                    "date": "2018",
-                    "duration": 36095
-                }, {
-                    "date": "2019",
-                    "duration": 38080
-                }, {
-                    "date": "2020",
-                    "duration": 21148
-                },
-                {
-                    "date": "2021",
-                    "duration": 32359
-                },
-                {
-                    "date": "2022",
-                    "duration": 38239
-                },
-                //{
-                //    "date": "2023",
-                //    "duration": 37374
-                //},
-                ],
-                "balloon": {
-                    "cornerRadius": 6,
-
-                },
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.agedata)),
 
 
-                "graphs": [{
-                    "bullet": "square",
-                    "labelText": "[[duration]]",
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
 
-                    "bulletBorderAlpha": 1,
-                    "bulletBorderThickness": 1,
-                    "fillAlphas": 0,
-                    "fillColorsField": "lineColor",
-                    "legendValueText": "[[value]]",
-                    "lineColor": "#a72d2d", // black or use a dark hex code
-                    "lineColorField": "lineColor",
-                    "lineThickness": 5,               // thicker/bolder line
-                    "title": "duration",
-                    "valueField": "duration",
+                    "fontSize":23
 
-                    "fontSize":15,
-                    "labelRotation": 45,
-                    "labelOffset": 15,  // increase this number to move the label higher
                 }],
-                //     "chartScrollbar": {},
+                "graphs": [{
+
+                    "fillColors":"#6A42C2",
+                    "offset":0,
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 1,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count",
+
+
+                }
+
+                ],
+                "depth3D": 40,
+                "angle": 20,
                 "chartCursor": {
-                    "categoryBalloonDateFormat": "YYYY MMM DD",
+                    "categoryBalloonEnabled": false,
                     "cursorAlpha": 0,
                     "zoomable": false
                 },
 
+                "categoryField": "Key",
                 "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
 
-                    "gridThickness": 0,
-                    "fontSize":20,
-                    "labelRotation": 90,
-                    "title": "YEAR",
-                    "titleFontSize": 20
+            }, 0);
+            jQuery('.chart_age_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                chart.startDuration = 0;
+
+                if (property == 'topRadius') {
+                    target = chart.graphs[0];
+                }
+
+                target[property] = this.value;
+                chart.validateNow();
+            });
+
+            $('#chart_All').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+
+
+        var initTimeChartAll = function() {
+            var timechartAll = AmCharts.makeChart("TimechartAll", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.timedata)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":23
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                    "fillColors":"#D91656",
+                    //"fillColors":"#700B97",
+
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
                 },
 
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
 
 
-
-                "valueAxes": [
-                {
-                    "titleFontSize": 20  ,
-                    "title": "NUMBER",
-                    "gridThickness": 0,
-                    "fontSize":17,
-                    //   "axisColor":'red',
-                    //  "color":'red',
-                },],
-
-
-
-                //"dataDateFormat": "YYYY-MM-DD",
-                "categoryField": "date",
-                //"categoryAxis": {
-                //    "dateFormats": [{
-                //        "period": "DD",
-                //        "format": "DD"
-                //    }, {
-                //        "period": "WW",
-                //        "format": "MMM DD"
-                //    }, {
-                //        "period": "MM",
-                //        "format": "MMM"
-                //    }, {
-                //        "period": "YYYY",
-                //        "format": "YYYY"
-                //    }],
-                //    "parseDates": true,
-                //    "autoGridCount": false,
-                //    "axisColor": "#555555",
-                //    "gridAlpha": 0,
-                //    "gridCount": 50
-                //}
-
-
-
-
-
+            $('#TimechartAll').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
             });
+        }
 
+        //Diease Status Pie chart
+        var initChartSamplediseaseAll = function() {
+            var chart = AmCharts.makeChart("chart_diseaseAll", {
+                "type": "pie",
+                "theme": "light",
 
+                "innerRadius": "50%",
+                "radius": "160",
 
-            $('#chart_3').closest('.portlet').find('.fullscreen').click(function () {
-                chart.invalidateSize();
+                "fontFamily": "Arial",
+                "fontSize": 20,
+                "color": "#000000",
+                "outlineAlpha": 0,
+                "pullOutRadius": 0,
+                "marginBottom": 170,
+                "labelRadius": 50,
+
+                "gradientRatio": [-0.4, 0.2, 0.2],
+
+                "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+                "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+                "valueField": "Count",
+                "titleField": "Key",
+                "colorField": "Color",
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
             });
-
 
         }
 
+        //comabidity
+
+        var initChartSamplecomabiditypie = function() {
+            var chart = AmCharts.makeChart("chart_comabiditypie", {
+                "type": "pie",
+                "theme": "light",
+                "radius": 100,
+                "fontFamily": 'Arial',
+                "fontSize":20,
+                "color":    '#000000',
+                "labelRadius":40,
+                "marginBottom":00,
+                "marginRight":00,
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.combability)),
+                "valueField": "Count",
+                "titleField": "Key",
+                "labelText":"[[Key]]:<br>[[Count]] ([[percents]]%)",
+
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+
+
+
+            });
+
+            jQuery('.chart_7_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#chart_comabiditypie').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }
+
+
+        //CD Score
+        var initchart_cdscoreall = function() {
+            var timechartchart_cdscoreall = AmCharts.makeChart("chart_cdscoreall", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+                
+                
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.total_co)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":18
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                   // "fillColors":"#D91656",
+                    "fillColors":"#009688",
+                  
+                    //"bold": true,
+                    "fontSize" :"20px" ,
+                    "labelText":"[[Percentage]]%",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                   // "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 50,
+                    "valueField": "Count"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":18
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+
+            $('#chart_cdscoreall').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
 
 
 
@@ -971,10 +1522,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
             init: function () {
 
-                initChartSample3();
+                //initChartSample3();
                 initChartSample5();
                 initChartSample7();
-
+                initAllChart();
+                initTimeChartAll();
+                initChartSamplediseaseAll();
+                initChartSamplecomabiditypie();
+                initchart_cdscoreall();
             }
 
         };

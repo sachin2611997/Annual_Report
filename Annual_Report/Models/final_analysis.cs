@@ -12,7 +12,7 @@ namespace Annual_Report.Models
     
     // [Table("test")]               // 2021 report
      //[Table("Report2022")]   //testTMH 2022
-    [Table("TMH_2022")]  //TMH_2022
+    [Table("TMH2022")]  //TMH_2022
 
     public class final_analysis
     {
@@ -51,9 +51,16 @@ namespace Annual_Report.Models
         public string INST { get; set; }
 
         public string n_dissts { get; set; }
+
+        public string CHEW { get; set; }
+        public string SMOKE { get; set; }
+        public string DRINK { get; set; }
+        public string FAM_HIST { get; set; }
+        public string COMORBID { get; set; }
+        public string total_co { get; set; }
+
     }
-
-
+   
     public class final_analysisViewModel
     {
         public string System4 { get; set; }

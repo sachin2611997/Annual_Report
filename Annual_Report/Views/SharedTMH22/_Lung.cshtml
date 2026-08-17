@@ -498,11 +498,72 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                         </div>
+                    
                     </div>
-                    </div>
+                </div>
           
-            <!-- END ROW -->
-            <!-- BEGIN ROW -->
+
+    <!--Risk Factor & comorbidity-->
+
+    <div class="row">
+        <div class="col-md-12">
+         
+            <div class="col-md-6">
+                <!-- BEGIN CHART PORTLET-->
+                <div class="portlet light " id="age">
+                    <div class="lt">
+                        <div>
+                            @*<i class="icon-bar-chart font-green-haze"></i>*@
+                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center">Risk Factor</p>
+                            @*<span class="caption-helper">@ViewBag.System4</span>*@
+                        </div>
+
+                    </div>
+
+                    <div class="portlet-body" style="height:580px">
+                       
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <div class="col-md-6">
+                <div class="portlet light">
+                    <div class="lt" style="height:80px">
+                        <div>
+                            <p class="caption-subject uppercase" style="text-align:center"> Comorbidity</p>
+                        </div>
+
+                    </div>
+                    <div class="portlet-body" style="height:580px">
+
+                    </div>
+                </div>
+
+
+
+            </div>
+             
+            </div>
+
+          
+          
+
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
           
 
@@ -518,73 +579,71 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
 
                                 </div>
-                                <div class="portlet-body" style="height:600px">
+                                <div class="portlet-body" style="height:615px">
                                     <div class="table-scrollable">
-
                                         <table class="table" border="1" style="table-layout:fixed">
-
-                                            <thead class="thead">
+                                            <thead>
                                                 <tr>
                                                     <th>
                                                         Type of Case
                                                     </th>
                                                     <th>
-                                                        Total Cases
+                                                        New Cases
                                                     </th>
                                                     <th>
-                                                        Treated in TMH
+                                                        Old Cases
                                                     </th>
 
                                                 </tr>
                                             </thead>
-
                                             <tbody>
 
                                                 <tr>
 
                                                     <td>
-                                                        Old Cases
+                                                        Total
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.newcase (@ViewBag.newcaseper%)
                                                     </td>
                                                     <td>
                                                         @ViewBag.oldcase (@ViewBag.oldcaseper%)
 
-                                                    </td>
-                                                    <td>
-                                                        @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)
                                                     </td>
 
                                                 </tr>
                                                 <tr>
 
                                                     <td>
-                                                        New Cases
-
+                                                        <b>    Treated</b>
                                                     </td>
                                                     <td>
-                                                        @ViewBag.newcase (@ViewBag.newcaseper%)
+                                                        <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
                                                     </td>
                                                     <td>
-                                                        @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)
-
+                                                        <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
                                                     </td>
 
                                                 </tr>
-
-
                                                 <tr>
                                                     @if (@ViewBag.unkcase != 0)
                                                     {
                                                         <td>
                                                             Unknown Cases
                                                         </td>
+
                                                         <td>
                                                             @ViewBag.unkcase (@ViewBag.unkcaseper%)
                                                         </td>
+
+
                                                         <td>
                                                             @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
                                                         </td>
+
                                                     }
                                                 </tr>
+
 
                                             </tbody>
                                             <tfoot>
@@ -592,12 +651,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <tr>
 
                                                     <td>
-                                                        <b>  Total Cases</b>
+                                                        Non Treated
+
+
+
                                                     </td>
                                                     <td>
-                                                        <b>    @ViewBag.totalcase @*(@ViewBag.totalcaseper%)*@ (100%)</b>
+
+                                                        @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
                                                     </td>
-                                                    <td><b> @ViewBag.tottreatmh (@ViewBag.tottreatmhper%)</b></td>
+                                                    <td>
+
+                                                        @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                    </td>
                                                 </tr>
 
                                             </tfoot>
@@ -636,7 +702,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!-- End demo 2nd chart-->
                             <!-- END CHART PORTLET-->
                         </div>
-</div>
+
+                </div>
                     </div>
                 <!-- END CHART PORTLET-->
            
@@ -688,12 +755,52 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <!-- END CHART PORTLET-->
                         </div>
-                        </div>
+                       
+                     </div>
                     </div>
            
-        <!-- END PAGE CONTENT-->
+    <div class="row">
+        <div class="col-md-12">
+            <!--Disease Status-->
 
-    <!-- END CONTENT -->
+            <div class="col-md-6">
+
+
+
+                <div class="portlet light">
+                    <div class="lt">
+                        <div>
+
+
+                            <p class="caption-subject  uppercase font-green-haze" style="text-align:center">Disease Status</p>
+
+                        </div>
+
+                    </div>
+                    <div class="portlet-body" style="height:580px">
+                        <div id="chart_diseaseLung" class="chart" style="height: 610px; width:950px;">
+                        </div>
+                        <div class="well margin-top-20">
+                            <div class="row">
+
+                                <div class="col-sm-3">
+                                    <label class="text-left">Angle:</label>
+                                    <input class="chart_7_chart_diseaseLung" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="text-left">Depth:</label>
+                                    <input class="chart_7_chart_diseaseLung" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -1060,15 +1167,15 @@ License: You must have a valid license purchased only from themeforest(the above
          var chart = AmCharts.makeChart("chart_treMLung", {
             "type": "pie",
                 "theme": "light",
-                "radius": 240,
+                "radius": 200,
                 "labelRadius":55,
                 "fontFamily": 'Arial',
-                "fontSize" :23,
+                "fontSize" :20,
                 "color":    '#000000',
                 "stroke": '#000000',
-                "marginRight":0,
-                "marginLeft":10,
-                "marginBottom":-150,
+                
+                "marginLeft":80,
+                "marginBottom":150,
                 "marginTop":0,
                 //"stroke-opacity":"1",
                 "align":"Left",
@@ -1112,7 +1219,34 @@ License: You must have a valid license purchased only from themeforest(the above
      }
 
 
+     //Diease Status Pie chart
+     var initChartSamplediseaseLung = function() {
+         var chart = AmCharts.makeChart("chart_diseaseLung", {
+             "type": "pie",
+             "theme": "light",
 
+             "innerRadius": "50%",
+             "radius": "160",
+
+             "fontFamily": "Arial",
+             "fontSize": 20,
+             "color": "#000000",
+             "outlineAlpha": 0,
+             "pullOutRadius": 0,
+             "marginBottom": 170,
+             "labelRadius": 50,
+
+             "gradientRatio": [-0.4, 0.2, 0.2],
+
+             "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+             "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+             "valueField": "Count",
+             "titleField": "Key",
+             "colorField": "Color",
+             "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
+         });
+
+     }
 
 
 
@@ -1124,7 +1258,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 initChartSample4();
                 initChartSample7();
-
+                initChartSamplediseaseLung();
                 }
 
                 };
