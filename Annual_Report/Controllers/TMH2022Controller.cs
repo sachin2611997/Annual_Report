@@ -1001,7 +1001,7 @@ namespace Annual_Report.Controllers
                  .Where(x => x.System4 == "Head & Neck");
 
             var totalCount = filtered.Count();
-
+            ViewBag.total = totalCount;
             var data = filtered
                 .GroupBy(x => x.N_CLINEXT)
                 .Select(y => new
@@ -1118,6 +1118,55 @@ namespace Annual_Report.Controllers
                               x.Key == "Death in Hospital" ? "#4FC3F7" :
                               "#CCCCCC"
                               }).ToList();
+
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System4== "Head & Neck").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System4 == "Head & Neck").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System4 == "Head & Neck").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System4 == "Head & Neck").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System4 == "Head & Neck").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System4 == "Head & Neck").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System4 == "Head & Neck").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System4 == "Head & Neck").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / totalCount, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
+
+
+
 
             ViewBag.System4 = "Head & Neck";
             return PartialView("~/Views/SharedTMH22/_Head_Neck.cshtml", list);
@@ -1972,6 +2021,8 @@ namespace Annual_Report.Controllers
                 color = colorMap.ContainsKey(item.Key) ? colorMap[item.Key] : defaultColors[random.Next(defaultColors.Length)]
             }).ToList();
 
+            var total= db.fnl_alysis.Where(x => x.System4 == "Lung").Count();
+            ViewBag.total = db.fnl_alysis.Where(x => x.System4 == "Lung").Count();
             // Store the data in ViewBag
             ViewBag.data = dataWithColors;
 
@@ -2051,6 +2102,48 @@ namespace Annual_Report.Controllers
                             }).ToList();
 
 
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System4 == "Lung").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System4 == "Lung").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System4 == "Lung").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System4 == "Lung").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System4 == "Lung").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System4 == "Lung").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System4 == "Lung").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System4 == "Lung").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System4 == "Lung").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System4 == "Lung").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System4 == "Lung").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System4 == "Lung").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System4 == "Lung").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System4 == "Lung").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
+
             ViewBag.System4 = "Lung & Trachea";
             return PartialView("~/Views/SharedTMH22/_Lung.cshtml", list);
         }   //main
@@ -2098,7 +2191,8 @@ namespace Annual_Report.Controllers
             ViewBag.other = list1.Sum(y => y.Statecount);
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Select(x => x.STATE).Count(), 1);
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Select(x => x.STATE).Count();
-
+            ViewBag.total = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Select(x => x.STATE).Count();
+            var total = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Count();
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -2180,7 +2274,47 @@ namespace Annual_Report.Controllers
                               "#CCCCCC"
                               }).ToList();
 
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
 
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System4 == "Gastro-intestinal").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System4 == "Gastro-intestinal").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System4 == "Gastro-intestinal").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
 
             ViewBag.System4 = "Gastrointestinal Tract Cancers";
             return PartialView("~/Views/SharedTMH22/_Gastro_intestinal.cshtml", list);
@@ -2922,6 +3056,9 @@ namespace Annual_Report.Controllers
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System2 == "Female Breast").Select(x => x.STATE).Count(), 1);
             // ViewBag.totalper = db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count() * 100 / db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count();
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Select(x => x.STATE).Count();
+            ViewBag.total = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Count();
+            var total= db.fnl_alysis.Where(x => x.System2 == "Female Breast").Count();
+
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -2968,6 +3105,51 @@ namespace Annual_Report.Controllers
                            "#CCCCCC"
                            }).ToList();
 
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System2 == "Female Breast").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System2 == "Female Breast").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System2 == "Female Breast").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System2 == "Female Breast").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); ;
+
+
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System2 == "Female Breast").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System2 == "Female Breast").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
 
             ViewBag.System2 = "Female Breast Cancer";
             return PartialView("~/Views/SharedTMH22/_Female_Breast.cshtml", list);
@@ -3017,6 +3199,9 @@ namespace Annual_Report.Controllers
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System3 == "Bone").Select(x => x.STATE).Count(), 1);
             // ViewBag.totalper = db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count() * 100 / db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count();
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System3 == "Bone").Select(x => x.STATE).Count();
+            ViewBag.total = db.fnl_alysis.Where(x => x.System3 == "Bone").Count();
+           var total = db.fnl_alysis.Where(x => x.System3 == "Bone").Count();
+
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System3 == "Bone").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -3040,11 +3225,74 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmh = (ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh + ViewBag.untreatedtmh);
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
+            ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Bone").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Bone").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
             var objj = db.fnl_alysis.Where(x => x.System3 == "Bone" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Bone" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
             ViewBag.timedata = objj.Where(x => x.Key != null);
+
+
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System3 == "Bone").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System3 == "Bone").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System3 == "Bone").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System3 == "Bone").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System3 == "Bone").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System3 == "Bone").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System3 == "Bone").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System3 == "Bone").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System3 == "Bone").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System3 == "Bone").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System3 == "Bone").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System3 == "Bone").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0"); 
+
+            ViewBag.discharge = db.fnl_alysis.Where(x => x.System3 == "Bone").GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
+                         .Select(x => new {
+                             x.Key,
+                             x.Count,
+                             Color =
+                         x.Key == "Palliative Care" ? "#FFF200" :
+                         x.Key == "Regression" ? "#9CD66B" :
+                         x.Key == "Progression" ? "#FF4C4C" :
+                         x.Key == "NED" ? "#E78AC3" :
+                         x.Key == "Lost to Follow-up" ? "#2F3E75" :
+                         x.Key == "Death in Hospital" ? "#4FC3F7" :
+                         "#CCCCCC"
+                         }).ToList();
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System3 == "Bone").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System3 == "Bone").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
 
             ViewBag.System3 = "Bone";
             return PartialView("~/Views/SharedTMH22/_Bone.cshtml", list);
@@ -3095,6 +3343,8 @@ namespace Annual_Report.Controllers
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Select(x => x.STATE).Count(), 1);
             // ViewBag.totalper = db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count() * 100 / db.fnl_alysis.Where(x => x.System4 == sys4 ).Select(x => x.STATE).Count();
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Select(x => x.STATE).Count();
+            ViewBag.total = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            var total = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Count();
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -3118,11 +3368,74 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmh = (ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh + ViewBag.untreatedtmh);
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
+            ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
             var objj = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
             ViewBag.timedata = objj.Where(x => x.Key != null);
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.discharge = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
+                         .Select(x => new {
+                             x.Key,
+                             x.Count,
+                             Color =
+                         x.Key == "Palliative Care" ? "#FFF200" :
+                         x.Key == "Regression" ? "#9CD66B" :
+                         x.Key == "Progression" ? "#FF4C4C" :
+                         x.Key == "NED" ? "#E78AC3" :
+                         x.Key == "Lost to Follow-up" ? "#2F3E75" :
+                         x.Key == "Death in Hospital" ? "#4FC3F7" :
+                         "#CCCCCC"
+                         }).ToList();
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System3 == "Peripheral Nerves & Soft Tissue").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System3 == "Peripheral Nerves & Soft Tissue").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
+
+
 
             ViewBag.System3 = "Peripheral Nerves & Autonomic Nervous System and Soft Tissue";
             return PartialView("~/Views/SharedTMH22/_Peripheral_Nerves_Soft_Tissue.cshtml", list);
@@ -3241,7 +3554,8 @@ namespace Annual_Report.Controllers
             ViewBag.other = list1.Sum(y => y.Statecount);
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Select(x => x.STATE).Count(), 1);
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Select(x => x.STATE).Count();
-
+            ViewBag.total = db.fnl_alysis.Where(x => x.gynae_system == "Female Gyaec Cancer").Count();
+            var total= db.fnl_alysis.Where(x => x.gynae_system == "Female Gyaec Cancer").Count();
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -3276,6 +3590,12 @@ namespace Annual_Report.Controllers
             ViewBag.Per = Math.Round((ViewBag.totaltre) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
+            ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+
+
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys))
                 .GroupBy(x => x.BROAD_AGE).Select(y => new
@@ -3289,6 +3609,63 @@ namespace Annual_Report.Controllers
 
             //  var objj = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && x.final_tti != null && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs"  && x.final_tti != null && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<30 days").ToList();
             var objj = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.gynae_system == "Female Gyaec Cancer").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.discharge = db.fnl_alysis.Where(x => x.gynae_system == "Female Gyaec Cancer").GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
+                         .Select(x => new {
+                             x.Key,
+                             x.Count,
+                             Color =
+                         x.Key == "Palliative Care" ? "#FFF200" :
+                         x.Key == "Regression" ? "#9CD66B" :
+                         x.Key == "Progression" ? "#FF4C4C" :
+                         x.Key == "NED" ? "#E78AC3" :
+                         x.Key == "Lost to Follow-up" ? "#2F3E75" :
+                         x.Key == "Death in Hospital" ? "#4FC3F7" :
+                         "#CCCCCC"
+                         }).ToList();
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.gynae_system == "Female Gyaec Cancer").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.gynae_system == "Female Gyaec Cancer").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
 
 
 
@@ -3721,7 +4098,8 @@ namespace Annual_Report.Controllers
             ViewBag.other = list1.Sum(y => y.Statecount);
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Select(x => x.STATE).Count(), 1);
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Select(x => x.STATE).Count();
-
+            ViewBag.total = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            var total = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Count();
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -3756,12 +4134,75 @@ namespace Annual_Report.Controllers
             ViewBag.Per = Math.Round((ViewBag.totaltre) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
+            ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
 
 
             var objj = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.discharge = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
+                         .Select(x => new {
+                             x.Key,
+                             x.Count,
+                             Color =
+                         x.Key == "Palliative Care" ? "#FFF200" :
+                         x.Key == "Regression" ? "#9CD66B" :
+                         x.Key == "Progression" ? "#FF4C4C" :
+                         x.Key == "NED" ? "#E78AC3" :
+                         x.Key == "Lost to Follow-up" ? "#2F3E75" :
+                         x.Key == "Death in Hospital" ? "#4FC3F7" :
+                         "#CCCCCC"
+                         }).ToList();
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.gynae_system == "Uro and Male Reproductive Organs").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.gynae_system == "Uro and Male Reproductive Organs").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
+
+
 
 
 
@@ -4187,7 +4628,8 @@ namespace Annual_Report.Controllers
             ViewBag.other = list1.Sum(y => y.Statecount);
             ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Select(x => x.STATE).Count(), 1);
             ViewBag.TotalCount = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Select(x => x.STATE).Count();
-
+            ViewBag.total = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Count();
+            var total = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Count();
 
             ViewBag.newcase = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Where(x => x.PRVTMTYN == "N").Count();
             ViewBag.newcaseper = Math.Round((ViewBag.newcase) * 100.0 / (ViewBag.TotalCount), 1);
@@ -4222,12 +4664,74 @@ namespace Annual_Report.Controllers
             ViewBag.Per = Math.Round((ViewBag.totaltre) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
+            ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
 
 
             var objj = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
+
+            ViewBag.RiskChewfactorMale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "M" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskChewfactorMaleper = Math.Round((ViewBag.RiskChewfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskChewfactorFemale = db.fnl_alysis.Where(x => x.CHEW == "1" && x.SEX == "F" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskChewfactorFemaleper = Math.Round((ViewBag.RiskChewfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalChewRiskfactor = db.fnl_alysis.Where(x => x.CHEW == "1" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.TotalChewRiskfactorper = Math.Round((ViewBag.TotalChewRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskSmokefactorMale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "M" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskSmokefactorMaleper = Math.Round((ViewBag.RiskSmokefactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskSmokefactorFemale = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.SEX == "F" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskSmokefactorFemaleper = Math.Round((ViewBag.RiskSmokefactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalSmokeRiskfactor = db.fnl_alysis.Where(x => x.SMOKE == "1" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.TotalSmokeRiskfactorper = Math.Round((ViewBag.TotalSmokeRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+
+            ViewBag.RiskDrinkfactorMale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "M" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskDrinkfactorMaleper = Math.Round((ViewBag.RiskDrinkfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskDrinkfactorFemale = db.fnl_alysis.Where(x => x.DRINK == "1" && x.SEX == "F" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskDrinkfactorFemaleper = Math.Round((ViewBag.RiskDrinkfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalDrinkRiskfactor = db.fnl_alysis.Where(x => x.DRINK == "1" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.TotalDrinkRiskfactorper = Math.Round((ViewBag.TotalDrinkRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.RiskFamHistfactorMale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "M" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskFamHistfactorMaleper = Math.Round((ViewBag.RiskFamHistfactorMale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.RiskFamHistfactorFemale = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.SEX == "F" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.RiskFamHistfactorFemaleper = Math.Round((ViewBag.RiskFamHistfactorFemale) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+            ViewBag.TotalFamHistRiskfactor = db.fnl_alysis.Where(x => x.FAM_HIST == "Yes" && x.System4 == "Haematopoetic Cancers").Count();
+            ViewBag.TotalFamHistRiskfactorper = Math.Round((ViewBag.TotalFamHistRiskfactor) * 100.0 / (ViewBag.total), 1).ToString("0.0");
+
+            ViewBag.discharge = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
+                         .Select(x => new {
+                             x.Key,
+                             x.Count,
+                             Color =
+                         x.Key == "Palliative Care" ? "#FFF200" :
+                         x.Key == "Regression" ? "#9CD66B" :
+                         x.Key == "Progression" ? "#FF4C4C" :
+                         x.Key == "NED" ? "#E78AC3" :
+                         x.Key == "Lost to Follow-up" ? "#2F3E75" :
+                         x.Key == "Death in Hospital" ? "#4FC3F7" :
+                         "#CCCCCC"
+                         }).ToList();
+
+            ViewBag.combability = db.fnl_alysis.Where(x => x.COMORBID != null && x.System4 == "Haematopoetic Cancers").GroupBy(x => x.COMORBID).Select(s => new {
+                Key =
+                 s.Key == "1" ? "Yes" : s.Key == "2" ? "No" : s.Key == "9" ? "Unknown" : s.Key,
+                Count = s.Count()
+            }).ToList();
+
+
+            ViewBag.total_co = db.fnl_alysis.Where(x => x.total_co != "0" && x.System4 == "Haematopoetic Cancers").GroupBy(x => x.total_co).Select(s => new {
+                Key = s.Key,
+                Count = s.Count(),
+                Percentage = Math.Round(s.Count() * 100.0 / total, 1)
+            }).AsEnumerable().OrderBy(x => Convert.ToInt32(x.Key)).ToList();
 
 
 

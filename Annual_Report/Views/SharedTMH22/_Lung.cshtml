@@ -412,8 +412,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                 </div>
 
-                                <div class="portlet-body">
-                                    <div id="chart_lung" class="chart" style="height: 570px;width:830px">
+                                <div class="portlet-body" style="height: 650px;">
+                                    <div id="chart_lung" class="chart" style="height: 650px;width:830px">
                                     </div>
 
                                 </div>
@@ -434,7 +434,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
 
                                 </div>
-                                <div class="portlet-body" style="height:580px">
+                                <div class="portlet-body" style="height:650px">
                                     <div class="table-scrollable">
                                         <table class="table" border="1">
                                             <thead class="thead">
@@ -501,7 +501,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     
                     </div>
                 </div>
-          
+    <br /><br />
 
     <!--Risk Factor & comorbidity-->
 
@@ -520,9 +520,85 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     </div>
 
-                    <div class="portlet-body" style="height:580px">
-                       
+                    <div class="portlet-body" style="height:650px;">
+                        <div>
+                            <table class="table" border="1">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="padding: 50px;border-bottom: thin solid; text-align: center;" rowspan="2">Factors</th>
+
+                                        <th scope="col" colspan="2">Male</th>
+                                        <th scope="col" colspan="2">Female</th>
+                                        <th scope="col" colspan="2">Total</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Nos</th>
+                                        <th scope="col">%</th>
+                                        <th scope="col">Nos</th>
+                                        <th scope="col">%</th>
+                                        <th scope="col">Nos</th>
+                                        <th scope="col">%</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+
+                                    <tr>
+                                        <td> Smoking Tobacco</td>
+                                        <td>@ViewBag.RiskSmokefactorMale</td>
+                                        <td>@ViewBag.RiskSmokefactorMaleper</td>
+                                        <td>@ViewBag.RiskSmokefactorFemale</td>
+                                        <td>@ViewBag.RiskSmokefactorFemaleper</td>
+                                        <td>@ViewBag.TotalSmokeRiskfactor</td>
+                                        <td>@ViewBag.TotalSmokeRiskfactorper</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Smokless Tobacco </td>
+                                        <td>@ViewBag.RiskChewfactorMale</td>
+                                        <td>@ViewBag.RiskChewfactorMaleper</td>
+                                        <td>@ViewBag.RiskChewfactorFemale</td>
+                                        <td>@ViewBag.RiskChewfactorFemaleper</td>
+                                        <td>@ViewBag.TotalChewRiskfactor</td>
+                                        <td>@ViewBag.TotalChewRiskfactorper</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Alcohol</td>
+                                        <td>@ViewBag.RiskDrinkfactorMale</td>
+                                        <td>@ViewBag.RiskDrinkfactorMaleper</td>
+                                        <td>@ViewBag.RiskDrinkfactorFemale</td>
+                                        <td>@ViewBag.RiskDrinkfactorFemaleper</td>
+                                        <td>@ViewBag.TotalDrinkRiskfactor</td>
+                                        <td>@ViewBag.TotalDrinkRiskfactorper</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Family History </td>
+                                        <td>@ViewBag.RiskFamHistfactorMale</td>
+                                        <td>@ViewBag.RiskFamHistfactorMaleper</td>
+                                        <td>@ViewBag.RiskFamHistfactorFemale</td>
+                                        <td>@ViewBag.RiskFamHistfactorFemaleper</td>
+                                        <td>@ViewBag.TotalFamHistRiskfactor</td>
+                                        <td>@ViewBag.TotalFamHistRiskfactorper</td>
+                                    </tr>
+
+                                </tbody>
+
+                                @*<tfoot>
+                        <tr>
+                            <td style="text-align:center" colspan="2"><b>Total Cancers Cases</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tMcount</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tFcount</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>@ViewBag.TotalGUSCount</b></td>
+                            <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                        </tr>
+                    </tfoot>*@
+                            </table>
                         </div>
+
+                    </div>
 
                     </div>
 
@@ -536,7 +612,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
 
                     </div>
-                    <div class="portlet-body" style="height:580px">
+                    <div class="portlet-body" style="height:650px;">
+                        <div id="chart_comabiditypieLung" class="chart" style="height: 325px; width:900px">
+                        </div>
+                        <div id="chart_cdscoreallLung" class="chart" style="height: 325px; width:900px">
+                        </div>
+
 
                     </div>
                 </div>
@@ -553,16 +634,7 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
     
 
-
-
-
-
-
-
-
-
-
-
+    <br /><br />
 
 
           
@@ -691,7 +763,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                 </div>
                                 <div class="portlet-body">
-                                    <div id="chart_CliLung" class="chart" style="height: 590px;">
+                                    <div id="chart_CliLung" class="chart" style="height: 600px;">
                                     </div>
                                 </div>
                             </div>
@@ -705,6 +777,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 </div>
                     </div>
+
+
+    <br /><br /><br /><br /><br /><br />
                 <!-- END CHART PORTLET-->
            
 
@@ -777,7 +852,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
 
                     </div>
-                    <div class="portlet-body" style="height:580px">
+                    <div class="portlet-body" style="height:650px">
                         <div id="chart_diseaseLung" class="chart" style="height: 610px; width:950px;">
                         </div>
                         <div class="well margin-top-20">
@@ -1173,7 +1248,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 "fontSize" :20,
                 "color":    '#000000',
                 "stroke": '#000000',
-                
+
                 "marginLeft":80,
                 "marginBottom":150,
                 "marginTop":0,
@@ -1233,7 +1308,7 @@ License: You must have a valid license purchased only from themeforest(the above
              "color": "#000000",
              "outlineAlpha": 0,
              "pullOutRadius": 0,
-             "marginBottom": 170,
+             "marginBottom": 70,
              "labelRadius": 50,
 
              "gradientRatio": [-0.4, 0.2, 0.2],
@@ -1249,6 +1324,142 @@ License: You must have a valid license purchased only from themeforest(the above
      }
 
 
+     //comabidity
+
+     var initChartSamplecomabiditypieLung = function() {
+         var chart = AmCharts.makeChart("chart_comabiditypieLung", {
+             "type": "pie",
+             "theme": "light",
+             "radius": 130,
+             "fontFamily": 'Arial',
+             "fontSize":20,
+             "color":    '#000000',
+             "labelRadius":50,
+             "marginBottom":00,
+             "marginRight":00,
+             "dataProvider": @Html.Raw(Json.Encode(ViewBag.combability)),
+             "valueField": "Count",
+             "titleField": "Key",
+             "labelText":"[[Key]]:<br>[[Count]] ([[percents]]%)",
+
+             "outlineAlpha": 0.4,
+             "depth3D": 15,
+             "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+
+             "angle": 30,
+             "exportConfig": {
+                 menuItems: [{
+                     icon: '/lib/3/images/export.png',
+                     format: 'png'
+                 }]
+             }
+
+
+
+         });
+
+         jQuery('.chart_7_chart_input').off().on('input change', function() {
+             var property = jQuery(this).data('property');
+             var target = chart;
+             var value = Number(this.value);
+             chart.startDuration = 0;
+
+             if (property == 'innerRadius') {
+                 value += "%";
+             }
+
+             target[property] = value;
+             chart.validateNow();
+         });
+
+         $('#chart_comabiditypieLung').closest('.portlet').find('.fullscreen').click(function() {
+             chart.invalidateSize();
+         });
+     }
+
+
+     //CD Score
+     var initchart_cdscoreallLung = function() {
+         var timechartchart_cdscoreall = AmCharts.makeChart("chart_cdscoreallLung", {
+             "theme": "light",
+             "type": "serial",
+             "startDuration": 1.5,
+
+             "fontFamily": 'Open Sans',
+
+             "color":    '#000000',
+
+
+             "dataProvider": @Html.Raw(Json.Encode(@ViewBag.total_co)),
+             //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+             "valueAxes": [{
+                 "position": "left",
+                 "axisAlpha": 0,
+                 "gridAlpha": 0,
+                 "dataPoints": "Count",
+                 "fontSize":18
+
+
+             }],
+
+
+
+             "graphs": [{
+                 //"balloonColor":"#FF0F00",
+                 // "fillColors":"#D91656",
+                 "fillColors":"#009688",
+
+                 //"bold": true,
+                 "fontSize" :"20px" ,
+                 "labelText":"[[Percentage]]%",
+                 "labelColorField": "#FF0F00",
+                 "color": "#000000",
+                 //"labelPosition":"inside",
+                 // "balloonText": "[[category]]: <b>[[value]]</b>",
+                 "colorField": "color",
+                 "fillAlphas": 0.85,
+                 "lineAlpha": 0.1,
+                 "type": "column",
+                 "topRadius": 1,
+                 "fixedColumnWidth": 50,
+                 "valueField": "Count"
+             }
+
+             ],
+
+
+             "depth3D": 40,
+             "angle": 30,
+             "chartCursor": {
+                 "categoryBalloonEnabled": false,
+                 "cursorAlpha": 0,
+                 "zoomable": false
+             },
+
+             "categoryField": "Key",
+             "categoryAxis": {
+                 "gridPosition": "start",
+                 "axisAlpha": 0,
+                 "gridAlpha": 0,
+                 "fontSize":18
+             },
+             "exportConfig": {
+                 "menuTop": "20px",
+                 "menuRight": "20px",
+                 "menuItems": [{
+                     "icon": '/lib/3/images/export.png',
+                     "format": 'png'
+                 }]
+             }
+         }, 0);
+
+
+         $('#chart_cdscoreallLung').closest('.portlet').find('.fullscreen').click(function() {
+             agechart.invalidateSize();
+         });
+     }
+
+
 
 
                 return {
@@ -1259,6 +1470,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 initChartSample4();
                 initChartSample7();
                 initChartSamplediseaseLung();
+                initChartSamplecomabiditypieLung();
+                initchart_cdscoreallLung();
                 }
 
                 };
