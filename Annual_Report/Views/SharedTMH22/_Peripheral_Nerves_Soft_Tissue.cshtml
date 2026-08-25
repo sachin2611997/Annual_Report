@@ -536,11 +536,29 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         </div>
                         <div class="portlet-body" style="height:650px;">
-                            <div id="chart_comabiditypiePNST" class="chart" style="height: 325px; width:900px">
-                            </div>
-                            <div id="chart_cdscoreallPNST" class="chart" style="height: 325px; width:900px">
-                            </div>
+                          
 
+                            <div class="row">
+
+                                <!-- PIE CHART -->
+                                <div class="col-md-6">
+                                    <h4 style="text-align:center; font-weight:bold; margin-top:5px;">Presence of Comorbidity </h4>
+
+                                    <div id="chart_comabiditypiePNST" style="height:330px; width:100%;"> </div>
+
+                                </div>
+
+
+                                <!-- BAR CHART -->
+                                <div class="col-md-6">
+
+                                    <h4 style="text-align:center; font-weight:bold;margin-top:5px;"> No. of Comorbidity </h4>
+
+                                    <div id="chart_cdscoreallPNST" style="height:430px; width:100%;"> </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
@@ -581,6 +599,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <th>
                                                         Old Cases
                                                     </th>
+                                                    <th>
+                                                        Total Cases
+                                                    </th>
 
                                                 </tr>
                                             </thead>
@@ -598,6 +619,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         @ViewBag.oldcase (@ViewBag.oldcaseper%)
 
                                                     </td>
+                                                    <td>
+                                                        @(ViewBag.newcase + ViewBag.oldcase)
+                                                    </td>
 
                                                 </tr>
                                                 <tr>
@@ -610,6 +634,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     </td>
                                                     <td>
                                                         <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                                    </td>
+                                                    <td>
+                                                        @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh)
                                                     </td>
 
                                                 </tr>
@@ -633,26 +660,43 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </tr>
 
 
-                                            </tbody>
-                                            <tfoot>
+                                                <tr>
+
+                                                    <td>
+                                                        Treatment Advice but Not Taken
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.advicenotakennew (@ViewBag.advicenotakennewper)
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
+                                                    </td>
+                                                    <td>
+                                                        @(ViewBag.advicenotakennew + ViewBag.advicenotakenold)
+
+                                                    </td>
+                                                </tr>
 
                                                 <tr>
 
                                                     <td>
-                                                        Non Treated
-
-
-
+                                                        No Treatment
                                                     </td>
                                                     <td>
-
-                                                        @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
+                                                        @ViewBag.norxnnew (@ViewBag.norxnnewper)
                                                     </td>
                                                     <td>
-
-                                                        @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                        @ViewBag.norxnold (@ViewBag.norxnoldper)
+                                                    </td>
+                                                    <td>
+                                                        @(ViewBag.norxnnew + ViewBag.norxnold)
                                                     </td>
                                                 </tr>
+
+                                            </tbody>
+                                            <tfoot>
+
+
 
                                             </tfoot>
                                         </table>
@@ -707,7 +751,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="pnbt">
                                     <div>
                                         @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality(@ViewBag.Totalobjectname)</p>
                                         @*<span class="caption-helper">@ViewBag.System2</span>*@
                                     </div>
 
@@ -770,7 +814,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet light">
                         <div class="pnbt" style="height:80px">
                             <div>
-                                <p class="caption-subject uppercase" style="text-align:center;"> Disease Status</p>
+                                <p class="caption-subject uppercase" style="text-align:center;"> Disease Status(@ViewBag.Totalobjectname)</p>
 
                             </div>
 
@@ -1219,7 +1263,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         //comabidity
 
-        var initChartSamplecomabiditypiePNST = function() {
+        @*var initChartSamplecomabiditypiePNST = function() {
             var chart = AmCharts.makeChart("chart_comabiditypiePNST", {
                 "type": "pie",
                 "theme": "light",
@@ -1268,7 +1312,7 @@ License: You must have a valid license purchased only from themeforest(the above
             $('#chart_comabiditypiePNST').closest('.portlet').find('.fullscreen').click(function() {
                 chart.invalidateSize();
             });
-        }
+        }*@
 
 
         //CD Score
@@ -1334,7 +1378,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     "gridPosition": "start",
                     "axisAlpha": 0,
                     "gridAlpha": 0,
-                    "fontSize":18
+                    "fontSize":18,
+                    "title": "No. of Comorbidity",
+                    "titleFontSize": 15,
                 },
                 "exportConfig": {
                     "menuTop": "20px",
@@ -1395,7 +1441,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                 initTimePeripheralChart();
-                initChartSamplecomabiditypiePNST();
+              //  initChartSamplecomabiditypiePNST();
                 initchart_cdscoreallPNST();
                 initChartSamplediseasePNST();
 
@@ -1405,6 +1451,44 @@ License: You must have a valid license purchased only from themeforest(the above
     }();
 </script>
 
+    <!-- Resources -->
+
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+
+        var chart = am4core.create("chart_comabiditypiePNST", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.combability));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}\n({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="19px";
+            series.radius=100;
+            series.dx = 30;
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+});// end am4core.ready()
+</script>
 
 
 

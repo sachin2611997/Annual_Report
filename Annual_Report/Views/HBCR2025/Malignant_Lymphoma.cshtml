@@ -1,0 +1,436 @@
+﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
+
+@{
+
+    Layout = null;
+}
+@{
+    var system3Values = ViewBag.System3Values as List<string>;  // Casting to List<dynamic>
+}
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Charts - Amchart</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+   
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .col-md-6 {
+            width: 50%;
+            float: left;
+        }
+
+        .col-lg-4 {
+            width: 33.3%;
+            float: left;
+        }
+
+        .total {
+            background-color: #cb5a5e !important;
+        }
+
+        .male {
+            background-color: #c49f47 !important;
+        }
+
+        .female {
+            background-color: #8e5fa2 !important;
+        }
+
+        .ma {
+            background-color: #66bb66 !important;
+        }
+
+        .ta {
+            background-color: #cb5a5e !important;
+            margin: 0 20px 0 0 !important;
+        }
+
+        table tr td .active {
+            background-color: #a6c8e6 !important;
+        }
+
+        .mem {
+            box-shadow: 5px 10px 5px black !important;
+            font-size: 15px;
+        }
+
+        body {
+            background-color: #e9ecf3 !important;
+        }
+
+        .light {
+            background-color: #fff !important;
+        }
+
+        .portlet-body {
+            background-color: #fff !important;
+            font-size: 25px !important;
+        }
+
+        .font-green-haze {
+            color: black !important;
+        }
+
+        .page-title {
+            height: 70px !important;
+        }
+
+        .well {
+            display: none;
+        }
+
+        .geo {
+            background-color: #26a69a !important;
+            margin: 0 10px 0 0 !important;
+        }
+
+        table tr th {
+            font-size: 28px !important;
+        }
+
+        table, tr, td, th {
+            border-top: thin solid !important;
+            border-bottom: thin solid !important;
+        }
+
+        .demo3geo {
+            height: 440px;
+        }
+
+        .caption {
+            font-size: 25px !important;
+        }
+
+        .table-scrollable {
+            margin: 0 0 0 0 !important;
+            width: 830px !important;
+        }
+
+        .caption-subject {
+            padding: 25px 0 9px 0 !important;
+            font-weight: bold !important;
+        }
+
+        .head {
+            background-color: #1066cd !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 10px;
+            font-size: 25px;
+        }
+
+        @@media print {
+
+            .col-md-6 {
+                width: 50%;
+                float: left;
+            }
+
+            .col-lg-4 {
+                width: 33.3%;
+                float: left;
+            }
+
+            .total {
+                background-color: #cb5a5e !important;
+            }
+
+            .male {
+                background-color: #c49f47 !important;
+            }
+
+            .female {
+                background-color: #8e5fa2 !important;
+            }
+
+            .ma {
+                background-color: #66bb66 !important;
+            }
+
+            .ta {
+                background-color: #cb5a5e !important;
+                margin: 0 20px 0 0 !important;
+            }
+
+            table tr td .active {
+                background-color: #a6c8e6 !important;
+            }
+
+            .mem {
+                box-shadow: 5px 10px 5px black !important;
+                font-size: 15px;
+            }
+
+            body {
+                background-color: #e9ecf3 !important;
+            }
+
+            .light {
+                background-color: #fff !important;
+            }
+
+            .portlet-body {
+                background-color: #fff !important;
+                font-size: 25px !important;
+            }
+
+            .font-green-haze {
+                color: black !important;
+            }
+
+            .page-title {
+                height: 70px !important;
+            }
+
+            .well {
+                display: none;
+            }
+
+            .geo {
+                background-color: #26a69a !important;
+                margin: 0 10px 0 0 !important;
+            }
+
+            table tr th {
+                font-size: 28px !important;
+            }
+
+            table, tr, td, th {
+                border-top: thin solid !important;
+                border-bottom: thin solid !important;
+            }
+
+            .demo3geo {
+                height: 440px;
+            }
+
+            .caption {
+                font-size: 25px !important;
+            }
+
+            .table-scrollable {
+            }
+
+            .ts {
+                margin: 0px 0px !important;
+            }
+
+            .caption-subject {
+                padding: 25px 0 9px 0 !important;
+                font-weight: bold !important;
+            }
+
+            .head {
+                background-color: #1066cd !important;
+                color: white !important;
+                font-weight: bold !important;
+                padding: 20px;
+                font-size: 45px;
+            }
+        }
+
+        @@page {
+            margin: 0; /* this affects the margin in the printer settings */
+        }
+    </style>
+
+
+</head>
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo ">
+    <!-- BEGIN HEADER -->
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+
+
+
+
+
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+
+      
+
+
+
+
+
+
+
+
+
+
+
+        <div>
+
+            <div style="text-align: center;  color:white;  background-color: #4184f3;">
+                <p class="head uppercase">&nbsp;&nbsp;&nbsp;&nbsp; @ViewBag.System3 (ICD-10: C82-C85 & C96) &nbsp;&nbsp;&nbsp;&nbsp; TOTAL CASES : @ViewBag.TotalCount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   MALE : @ViewBag.malecount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FEMALE : @ViewBag.femalecount</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+                   
+                  
+                    <!--Treatment Modality-->
+                    <div class="col-md-6">
+                        <!-- BEGIN CHART PORTLET-->
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div>
+                                    @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                    @*<span class="caption-helper">@ViewBag.System2</span>*@
+                                </div>
+
+                            </div>
+                            <div class="portlet-body" style="height:500px">
+                                <div id="chartdiv" class="chart" style="height: 480px; width:950px;">
+                                </div>
+                                <div class="well margin-top-20">
+                                    <div class="row">
+                                        @*<div class="col-sm-3">
+                                                <label class="text-left">Top Radius:</label>
+                                                <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                                            </div>*@
+                                        <div class="col-sm-3">
+                                            <label class="text-left">Angle:</label>
+                                            <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="text-left">Depth:</label>
+                                            <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CHART PORTLET-->
+                    </div>
+                </div>
+            </div>
+            <!-- END ROW -->
+          
+
+
+
+
+
+        </div>
+        <!-- END ROW -->
+
+    </div>
+    <!-- END PAGE CONTENT-->
+    <!-- END CONTENT -->
+    
+
+
+
+
+
+
+
+
+
+    
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
+<script>
+    am4core.ready(function() {
+    
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+          
+            var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+              
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.objectname));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}: {value} ({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="20px";
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+        
+       
+ 
+});// end am4core.ready()
+   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

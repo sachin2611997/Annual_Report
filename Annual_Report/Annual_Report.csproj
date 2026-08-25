@@ -378,6 +378,7 @@
     <Content Include="assets\admin\pages\scripts\ui-toastr.js" />
     <Content Include="assets\admin\pages\scripts\ui-tree.js" />
     <Content Include="assets\admin\pages\scripts\widgets.js" />
+    <Content Include="assets\core.js" />
     <Content Include="assets\global\css\components-md.css" />
     <Content Include="assets\global\css\components-rounded.css" />
     <Content Include="assets\global\css\components.css" />
@@ -2711,6 +2712,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChartsController.cs" />
+    <Compile Include="Controllers\HBCR2025Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProvisionalReportController.cs" />
     <Compile Include="Controllers\Report2024Controller.cs" />
@@ -2921,6 +2923,10 @@
     <Content Include="Views\TMH2022\Chapter_1_Introduction.cshtml" />
     <Content Include="Views\TMH2022\EditChapter_1_Introduction.cshtml" />
     <Content Include="Views\Test\piechart.cshtml" />
+    <Content Include="Views\HBCR2025\Head_Neck_Table.cshtml" />
+    <Content Include="Views\HBCR2025\DistributionCanceCasesSiteICD10.cshtml" />
+    <Content Include="Views\HBCR2025\amchart4.cshtml" />
+    <Content Include="Views\HBCR2025\Malignant_Lymphoma.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

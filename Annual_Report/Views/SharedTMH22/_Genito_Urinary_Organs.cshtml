@@ -609,11 +609,29 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         </div>
                         <div class="portlet-body" style="height:650px;">
-                            <div id="chart_comabiditypieGUO" class="chart" style="height: 325px; width:900px">
-                            </div>
-                            <div id="chart_cdscoreallGUO" class="chart" style="height: 325px; width:900px">
-                            </div>
+                            
 
+                            <div class="row">
+
+                                <!-- PIE CHART -->
+                                <div class="col-md-6">
+                                    <h4 style="text-align:center; font-weight:bold; margin-top:5px;">Presence of Comorbidity </h4>
+
+                                    <div id="chart_comabiditypieGUO" style="height:330px; width:100%;"> </div>
+
+                                </div>
+
+
+                                <!-- BAR CHART -->
+                                <div class="col-md-6">
+
+                                    <h4 style="text-align:center; font-weight:bold;margin-top:5px;"> No. of Comorbidity </h4>
+
+                                    <div id="chart_cdscoreallGUO" style="height:430px; width:100%;"> </div>
+
+                                </div>
+
+                            </div>
 
                         </div>
                     </div>
@@ -640,97 +658,120 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
 
                                 </div>
-                                <div class="portlet-body" style="height:615px">
-                                    <div class="table-scrollable">
-                                        <table class="table" border="1" style="table-layout:fixed">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Type of Case
-                                                    </th>
-                                                    <th>
-                                                        New Cases
-                                                    </th>
-                                                    <th>
-                                                        Old Cases
-                                                    </th>
+                                <table class="table" border="1" style="table-layout:fixed">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Type of Case
+                                            </th>
+                                            <th>
+                                                New Cases
+                                            </th>
+                                            <th>
+                                                Old Cases
+                                            </th>
+                                            <th>
+                                                Total Cases
+                                            </th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                                <tr>
+                                        <tr>
 
-                                                    <td>
-                                                        Total
-                                                    </td>
-                                                    <td>
-                                                        @ViewBag.newcase (@ViewBag.newcaseper%)
-                                                    </td>
-                                                    <td>
-                                                        @ViewBag.oldcase (@ViewBag.oldcaseper%)
+                                            <td>
+                                                Total
+                                            </td>
+                                            <td>
+                                                @ViewBag.newcase (@ViewBag.newcaseper%)
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldcase (@ViewBag.oldcaseper%)
 
-                                                    </td>
+                                            </td>
+                                            <td>
+                                                @(ViewBag.newcase + ViewBag.oldcase)
+                                            </td>
 
-                                                </tr>
-                                                <tr>
+                                        </tr>
+                                        <tr>
 
-                                                    <td>
-                                                        <b>    Treated</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
-                                                    </td>
-                                                    <td>
-                                                        <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
-                                                    </td>
+                                            <td>
+                                                <b>    Treated</b>
+                                            </td>
+                                            <td>
+                                                <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
+                                            </td>
+                                            <td>
+                                                <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                            </td>
+                                            <td>
+                                                @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh)
+                                            </td>
 
-                                                </tr>
-                                                <tr>
-                                                    @if (@ViewBag.unkcase != 0)
-                                                    {
-                                                        <td>
-                                                            Unknown Cases
-                                                        </td>
-
-                                                        <td>
-                                                            @ViewBag.unkcase (@ViewBag.unkcaseper%)
-                                                        </td>
-
-
-                                                        <td>
-                                                            @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
-                                                        </td>
-
-                                                    }
-                                                </tr>
-
-
-                                            </tbody>
-                                            <tfoot>
-
-                                                <tr>
+                                        </tr>
+                                        <tr>
+                                            @if (@ViewBag.unkcase != 0)
+                                            {
+                                                <td>
+                                                    Unknown Cases
+                                                </td>
 
                                                     <td>
-                                                        Non Treated
-
-
-
+                                                        @ViewBag.unkcase (@ViewBag.unkcaseper%)
                                                     </td>
+
+
                                                     <td>
-
-                                                        @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
+                                                        @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
                                                     </td>
-                                                    <td>
 
-                                                        @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
-                                                    </td>
-                                                </tr>
+                                            }
+                                        </tr>
 
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
+
+                                        <tr>
+
+                                            <td>
+                                                Treatment Advice but Not Taken
+                                            </td>
+                                            <td>
+                                                @ViewBag.advicenotakennew (@ViewBag.advicenotakennewper)
+                                            </td>
+                                            <td>
+                                                @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
+                                            </td>
+                                            <td>
+                                                @(ViewBag.advicenotakennew + ViewBag.advicenotakenold)
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>
+                                                No Treatment
+                                            </td>
+                                            <td>
+                                                @ViewBag.norxnnew (@ViewBag.norxnnewper)
+                                            </td>
+                                            <td>
+                                                @ViewBag.norxnold (@ViewBag.norxnoldper)
+                                            </td>
+                                            <td>
+                                                @(ViewBag.norxnnew + ViewBag.norxnold)
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+
+
+
+                                    </tfoot>
+                                </table>
+
                             </div>
                             <!-- END BORDERED TABLE PORTLET-->
                         </div>
@@ -781,7 +822,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="guot">
                                     <div>
                                         @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality(@ViewBag.Totalobjectname)</p>
                                         @*<span class="caption-helper">@ViewBag.System4</span>*@
                                     </div>
 
@@ -830,7 +871,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="guot">
                             <div>
                                 @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status</p>
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status(@ViewBag.Totalobjectname)</p>
                                 @*<span class="caption-helper">@ViewBag.System4</span>*@
                             </div>
 
@@ -1282,7 +1323,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         //comabidity
 
-        var initChartSamplecomabiditypieGUO = function() {
+        @*var initChartSamplecomabiditypieGUO = function() {
             var chart = AmCharts.makeChart("chart_comabiditypieGUO", {
                 "type": "pie",
                 "theme": "light",
@@ -1331,7 +1372,7 @@ License: You must have a valid license purchased only from themeforest(the above
             $('#chart_comabiditypieGUO').closest('.portlet').find('.fullscreen').click(function() {
                 chart.invalidateSize();
             });
-        }
+        }*@
 
 
         //CD Score
@@ -1397,7 +1438,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     "gridPosition": "start",
                     "axisAlpha": 0,
                     "gridAlpha": 0,
-                    "fontSize":18
+                    "fontSize":18,
+                    "title": "No. of Comorbidity",
+                    "titleFontSize": 15,
                 },
                 "exportConfig": {
                     "menuTop": "20px",
@@ -1459,7 +1502,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                 initChartSample4();
                 initChartSample7();
-                initChartSamplecomabiditypieGUO();
+               // initChartSamplecomabiditypieGUO();
                 initchart_cdscoreallGUO();
                 initChartSamplediseaseGUO();
                 }
@@ -1473,5 +1516,42 @@ License: You must have a valid license purchased only from themeforest(the above
 
 </script>
 
+<!-- Resources -->
 
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+
+        var chart = am4core.create("chart_comabiditypieGUO", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.combability));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}\n({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="19px";
+            series.radius=100;
+            series.dx = 30;
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+});// end am4core.ready()
+</script>
 

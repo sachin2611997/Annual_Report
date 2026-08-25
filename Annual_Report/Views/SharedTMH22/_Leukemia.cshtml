@@ -425,7 +425,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             </div>
                             <div class="portlet-body" style="height:480px">
-                                <div id="chart_leup" class="chart" style="height: 600px; width:950px;">
+                                @*<div id="chart_leup"  class="chart" style="height: 600px; width:950px;">
+                                </div>*@
+                                <div id="chartdivLeukemia" chartdivLeukemia class="chart" style="height: 600px; width:950px;">
                                 </div>
                                 <div class="well margin-top-20">
                                     <div class="row">
@@ -831,6 +833,49 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 </script>
+
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+
+            var chart = am4core.create("chartdivLeukemia", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.objectname));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="20px";
+            series.radius=150;
+            series.dy = -100;
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+
+
+
+});// end am4core.ready()
+
+</script>
+
 
 
 

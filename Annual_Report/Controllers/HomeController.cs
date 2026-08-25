@@ -4325,40 +4325,40 @@ namespace Annual_Report.Controllers
 
         //ACTREC PART:-
 
-        public ActionResult Actrec_registration()
-        {
-            ViewBag.male = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.SEX == "M").Count();
-            ViewBag.female = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.SEX == "F").Count();
-            ViewBag.total = db.fnl_alysis.Where(x => x.INST == "ACTREC").Count();
-            ViewBag.mper = Math.Round((ViewBag.male) * 100.0 / (ViewBag.total), 1);
-            ViewBag.feper = Math.Round((ViewBag.female) * 100.0 / (ViewBag.total), 1);
-            var list = db.fnl_alysis.Where(x => x.INST == "ACTREC").GroupBy(x => x.STATE).Select(x => new final_analysisViewModel() { State = x.Key, Statecount = x.Count(), Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.INST == "ACTREC").Select(y => y.STATE).Count(), 1) }).ToList().OrderByDescending(r => r.Percentage).Take(5);
-            var list1 = db.fnl_alysis.Where(x => x.INST == "ACTREC").GroupBy(x => x.STATE).Select(x => new final_analysisViewModel() { State = x.Key, Statecount = x.Count(), Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.INST == "ACTREC").Select(y => y.STATE).Count(), 1) }).ToList().OrderByDescending(r => r.Percentage).Skip(5);
-            ViewBag.other = list1.Sum(y => y.Statecount);
-            ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.INST == "ACTREC").Select(x => x.STATE).Count(), 1);
-            ViewBag.TotalCount = db.fnl_alysis.Where(x => x.INST == "ACTREC").Select(x => x.STATE).Count();
+        //public ActionResult Actrec_registration()
+        //{
+        //    ViewBag.male = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.SEX == "M").Count();
+        //    ViewBag.female = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.SEX == "F").Count();
+        //    ViewBag.total = db.fnl_alysis.Where(x => x.INST == "ACTREC").Count();
+        //    ViewBag.mper = Math.Round((ViewBag.male) * 100.0 / (ViewBag.total), 1);
+        //    ViewBag.feper = Math.Round((ViewBag.female) * 100.0 / (ViewBag.total), 1);
+        //    var list = db.fnl_alysis.Where(x => x.INST == "ACTREC").GroupBy(x => x.STATE).Select(x => new final_analysisViewModel() { State = x.Key, Statecount = x.Count(), Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.INST == "ACTREC").Select(y => y.STATE).Count(), 1) }).ToList().OrderByDescending(r => r.Percentage).Take(5);
+        //    var list1 = db.fnl_alysis.Where(x => x.INST == "ACTREC").GroupBy(x => x.STATE).Select(x => new final_analysisViewModel() { State = x.Key, Statecount = x.Count(), Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.INST == "ACTREC").Select(y => y.STATE).Count(), 1) }).ToList().OrderByDescending(r => r.Percentage).Skip(5);
+        //    ViewBag.other = list1.Sum(y => y.Statecount);
+        //    ViewBag.Otherper = Math.Round(list1.Sum(x => x.Statecount) * 100 / db.fnl_alysis.Where(x => x.INST == "ACTREC").Select(x => x.STATE).Count(), 1);
+        //    ViewBag.TotalCount = db.fnl_alysis.Where(x => x.INST == "ACTREC").Select(x => x.STATE).Count();
 
-            return View(list);
-        }
+        //    return View(list);
+        //}
 
 
-        public ActionResult Actrac_Treatment()
-        {
-           // Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.System3 == "Peripheral Nerves & Soft Tissue").Select(y => y.STATE).Count(), 1) })
-            var nos = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null).Count();
-            var list = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX!=null).GroupBy(y=>y.TMH_RX).
-            Select(y => new final_analysisViewModel() { State = y.Key, Statecount = y.Count(),Percentage=Math.Round(y.Count()*100.0 / nos,1 )}).ToList();
-            ViewBag.nos = nos;
-            var obj = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null).GroupBy(x => x.TMH_RX).Select(y => new { y.Key, Count = y.Count() }).ToList();
+        //public ActionResult Actrac_Treatment()
+        //{
+        //   // Percentage = Math.Round(x.Count() * 100.0 / db.fnl_alysis.Where(y => y.System3 == "Peripheral Nerves & Soft Tissue").Select(y => y.STATE).Count(), 1) })
+        //    var nos = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null).Count();
+        //    var list = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX!=null).GroupBy(y=>y.TMH_RX).
+        //    Select(y => new final_analysisViewModel() { State = y.Key, Statecount = y.Count(),Percentage=Math.Round(y.Count()*100.0 / nos,1 )}).ToList();
+        //    ViewBag.nos = nos;
+        //    var obj = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null).GroupBy(x => x.TMH_RX).Select(y => new { y.Key, Count = y.Count() }).ToList();
 
-            ViewBag.objectname = obj.Where(x => x.Key != null);
-            ViewBag.newactrigs = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null && x.PRVTMTYN == "N").Count();
-            ViewBag.newactrigsper = Math.Round((ViewBag.newactrigs) * 100.0 / (nos) ,1);
+        //    ViewBag.objectname = obj.Where(x => x.Key != null);
+        //    ViewBag.newactrigs = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null && x.PRVTMTYN == "N").Count();
+        //    ViewBag.newactrigsper = Math.Round((ViewBag.newactrigs) * 100.0 / (nos) ,1);
           
-            ViewBag.prioractrigs = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null && x.PRVTMTYN == "Y").Count();
-            ViewBag.prioractrigsper = Math.Round((ViewBag.prioractrigs) * 100.0 / (nos), 1);
-            return View(list);
-        }
+        //    ViewBag.prioractrigs = db.fnl_alysis.Where(x => x.INST == "ACTREC" && x.TMH_RX != null && x.PRVTMTYN == "Y").Count();
+        //    ViewBag.prioractrigsper = Math.Round((ViewBag.prioractrigs) * 100.0 / (nos), 1);
+        //    return View(list);
+        //}
 
       
 

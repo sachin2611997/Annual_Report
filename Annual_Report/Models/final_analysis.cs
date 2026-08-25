@@ -12,12 +12,13 @@ namespace Annual_Report.Models
     
     // [Table("test")]               // 2021 report
      //[Table("Report2022")]   //testTMH 2022
-    [Table("TMH2022")]  //TMH_2022
+    [Table("TMH_2022")]  //TMH_2022
+  //  [Table("HBCR2025")]
 
     public class final_analysis
     {
         [Key]
-        public double year { get; set; }
+       // public double year { get; set; }
         public string System4 { get; set; }
         public string System3 { get; set; }
         public string System2 { get; set; }
@@ -26,7 +27,8 @@ namespace Annual_Report.Models
         public string SEX { get; set; }
         public string N_CLINEXT { get; set; }
         public string TMH_RX { get; set; }
-        public int SIXTMT { get; set; } //TMH-RX-TYPE
+        public int? SIXTMT { get; set; } //TMH-RX-TYPE
+        public string SIXTRT { get; set; }
         public string STATE { get; set; }
         public string BROAD_AGE { get; set; }
         public string final_tti { get; set; }
@@ -35,9 +37,9 @@ namespace Annual_Report.Models
 
         public string gynae_system { get; set; }
         //  public string SIXTMT { get; set; }
-        public string color { get; set; }
+      //  public string color { get; set; }
 
-        public string Year5Age { get; set; }
+      //  public string Year5Age { get; set; }
         public string System1 { get; set; }
         public string NMETHOD { get; set; }
         public string REL_DET { get; set; } //religion property
@@ -46,9 +48,9 @@ namespace Annual_Report.Models
         public string TREATMENT_MUM_All { get; set; }
         public string PRVTMT { get; set; }
         public string AGE_GRP { get; set; }
-        public string MyProperty { get; set; }
+        
         public string TREATMENT_Before { get; set; }
-        public string INST { get; set; }
+       // public string INST { get; set; }
 
         public string n_dissts { get; set; }
 

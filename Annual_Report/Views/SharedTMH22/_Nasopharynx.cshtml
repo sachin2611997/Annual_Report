@@ -495,6 +495,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <th>
                                                     Old Cases
                                                 </th>
+                                                <th>
+                                                    Total Cases
+                                                </th>
 
                                             </tr>
                                         </thead>
@@ -512,6 +515,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     @ViewBag.oldcase (@ViewBag.oldcaseper%)
 
                                                 </td>
+                                                <td>
+                                                    @(ViewBag.newcase + ViewBag.oldcase)
+                                                </td>
 
                                             </tr>
                                             <tr>
@@ -524,6 +530,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </td>
                                                 <td>
                                                     <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                                </td>
+                                                <td>
+                                                    @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh)
                                                 </td>
 
                                             </tr>
@@ -547,26 +556,43 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </tr>
 
 
-                                        </tbody>
-                                        <tfoot>
+                                            <tr>
+
+                                                <td>
+                                                    Treatment Advice but Not Taken
+                                                </td>
+                                                <td>
+                                                    @ViewBag.advicenotakennew (@ViewBag.advicenotakennewper)
+                                                </td>
+                                                <td>
+                                                    @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
+                                                </td>
+                                                <td>
+                                                    @(ViewBag.advicenotakennew + ViewBag.advicenotakenold)
+
+                                                </td>
+                                            </tr>
 
                                             <tr>
 
                                                 <td>
-                                                    Non Treated
-
-
-
+                                                    No Treatment
                                                 </td>
                                                 <td>
-
-                                                    @ViewBag.nontretnewcases (@ViewBag.nontretnewcasesper)
+                                                    @ViewBag.norxnnew (@ViewBag.norxnnewper)
                                                 </td>
                                                 <td>
-
-                                                    @ViewBag.nontretoldcases (@ViewBag.nontretoldcasesper)
+                                                    @ViewBag.norxnold (@ViewBag.norxnoldper)
+                                                </td>
+                                                <td>
+                                                    @(ViewBag.norxnnew + ViewBag.norxnold)
                                                 </td>
                                             </tr>
+
+                                        </tbody>
+                                        <tfoot>
+
+
 
                                         </tfoot>
                                     </table>
@@ -593,7 +619,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet-title">
                                 <div>
                                     @*<i class="icon-bar-chart font-green-haze"></i>*@
-                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality</p>
+                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality(@ViewBag.Totalobjectname)</p>
                                     @*<span class="caption-helper">@ViewBag.System2</span>*@
                                 </div>
 
@@ -628,7 +654,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div>
-                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status</p>
+                                    <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Disease Status(@ViewBag.Totalobjectname)</p>
                                 </div>
 
                             </div>
