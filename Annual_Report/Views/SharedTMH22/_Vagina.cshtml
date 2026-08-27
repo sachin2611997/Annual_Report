@@ -447,7 +447,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                                 </td>
                                                 <td>
-                                                    @(ViewBag.newcase + ViewBag.oldcase)
+                                                    @(ViewBag.newcase + ViewBag.oldcase) (@(ViewBag.newcaseper + ViewBag.oldcaseper)%)
                                                 </td>
 
                                             </tr>
@@ -463,7 +463,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
                                                 </td>
                                                 <td>
-                                                    @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh)
+                                                    <b>    @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) (@Math.Round(((double)(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)</b>
                                                 </td>
 
                                             </tr>
@@ -499,7 +499,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
                                                 </td>
                                                 <td>
-                                                    @(ViewBag.advicenotakennew + ViewBag.advicenotakenold)
+                                                    @(ViewBag.advicenotakennew + ViewBag.advicenotakenold) (@Math.Round(((double)(ViewBag.advicenotakennew + ViewBag.advicenotakenold) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)
 
                                                 </td>
                                             </tr>
@@ -516,7 +516,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     @ViewBag.norxnold (@ViewBag.norxnoldper)
                                                 </td>
                                                 <td>
-                                                    @(ViewBag.norxnnew + ViewBag.norxnold)
+                                                    @(ViewBag.norxnnew + ViewBag.norxnold) (@Math.Round(((double)(ViewBag.norxnnew + ViewBag.norxnold) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)
                                                 </td>
                                             </tr>
 

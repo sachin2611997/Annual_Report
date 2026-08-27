@@ -47,13 +47,39 @@
                 transform-origin: top left;*/
             }
 
-            html {
+            /*html {
                 border: solid 2px !important;
-            }
+            }*/
 
             .a {
-                border: solid 1px;
-            }
+        border: none !important;
+        position: relative;
+        
+    }
+            /* Border repeated on every printed page */
+    .a:before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 0.8px solid #000000;
+        box-sizing: border-box;
+        pointer-events: none;
+        z-index: 9999;
+    }
+     /* Report BELOW the border */
+    /*.a::after {
+        content: "Report";
+        position: fixed;
+        bottom: 3mm;
+        left: 6mm;
+        font-size: 9px;
+        background: white;
+        padding: 0 3px;
+        z-index: 10000;
+    }*/
 
             .page-break {
                 page-break-before: always;
@@ -85,27 +111,27 @@
         Print
     </button>
 
-        @*<div  class="page-break-after" style="display:none">
+        <div  class="page-break-after" style="display:none">
              @Html.Action("map22", "TMH2022")
 
          </div>
 
            <div class="page-break-after">
                  @Html.Action("All_sites", "TMH2022")
-             </div>*@
-     <div class="a">
-             @Html.Action("Head_Neck", "TMH2022")
+             </div>
+  <div class="a">
+              @Html.Action("Head_Neck", "TMH2022")
          </div>
-    @* <div class="a page-break">
-            @Html.Action("Head_Neck_Table", "TMH2022")
-        </div>
+    <div class="a page-break">
+             @Html.Action("Head_Neck_Table", "TMH2022")
+         </div>
       <div class="page-break a">
-            @Html.Action("Buccal_Mucosa", "TMH2022")
-        </div>
-        <div class="a">
-            @Html.Action("Anterior_Tongue", "TMH2022")
-        </div>
-     <div class="page-break a">
+             @Html.Action("Buccal_Mucosa", "TMH2022")
+         </div>
+         <div class="a">
+             @Html.Action("Anterior_Tongue", "TMH2022")
+         </div>
+       <div class="page-break a">
             @Html.Action("Base_Tongue", "TMH2022")
         </div>
     <div class="a">
@@ -122,39 +148,39 @@
            </div>
            <div class="a">
                @Html.Action("Nasopharynx", "TMH2022")
-           </div>*@
-        @*<div class="page-break a">
-                 @Html.Action("Lung", "TMH2022")
-             </div>
-             <div class="page-break a">
-                 @Html.Action("Gastrointestinal_Table", "TMH2022")
-             </div>
-             <div class="page-break a">
-                 @Html.Action("Gastro_intestinal", "TMH2022")
-             </div>
+           </div>
+        <div class="page-break a">
+        @Html.Action("Lung", "TMH2022")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Gastrointestinal_Table", "TMH2022")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Gastro_intestinal", "TMH2022")
+    </div>
 
-             <div class="page-break a">
-                 @Html.Action("Oesophagus", "TMH2022")
-             </div>
-             <div class="a">
-                 @Html.Action("Stomach", "TMH2022")
-             </div>
-             <div class="page-break a">
-                 @Html.Action("Colon", "TMH2022")
-             </div>
-             <div class="a">
-                 @Html.Action("Rectum", "TMH2022")
-             </div>
-             <div class="page-break a">
-                 @Html.Action("Liver", "TMH2022")
-             </div>
+    <div class="page-break a">
+        @Html.Action("Oesophagus", "TMH2022")
+    </div>
+    <div class="a">
+        @Html.Action("Stomach", "TMH2022")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Colon", "TMH2022")
+    </div>
+    <div class="a">
+        @Html.Action("Rectum", "TMH2022")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Liver", "TMH2022")
+    </div>
 
-             <div class="a">
-                 @Html.Action("Gall_Bladder", "TMH2022")
-             </div>
-             <div class="page-break a">
-                 @Html.Action("Pancreas", "TMH2022")
-             </div>
+    <div class="a">
+        @Html.Action("Gall_Bladder", "TMH2022")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Pancreas", "TMH2022")
+    </div>
 
     <div class="page-break a">
          @Html.Action("Female_Breast", "TMH2022")
@@ -182,7 +208,7 @@
     </div>
     <div class="page-break-after a">
         @Html.Action("Vagina", "TMH2022")
-    </div>*@
+    </div>
      <div class="a">
         @Html.Action("Uro_Male_Reproductive", "TMH2022")
     </div>
