@@ -950,11 +950,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round(ViewBag.unkcase * 100.0 / total, 2);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.total), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.total), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.total), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -965,19 +965,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.total), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.total), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3"&& x.PRVTMTYN == "N").Count();
-            ViewBag.advicenotakennewper= Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper= Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.total), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y").Count();
-            ViewBag.advicenotakenoldper= Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper= Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.total), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N").Count();
-            ViewBag.norxnnewper= Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper= Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.total), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y").Count();
-            ViewBag.norxnoldper= Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper= Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.total), 1);
 
             ViewBag.discharge = db.fnl_alysis.Where(x =>  x.SIXTMT!=null).GroupBy(x => x.n_dissts).Select(g => new { Key = g.Key, Count = g.Count() }).ToList()
                             .Select(x => new {
@@ -1094,9 +1094,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System4 == "Head & Neck").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Head & Neck").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Head & Neck").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -1119,19 +1119,19 @@ namespace Annual_Report.Controllers
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System4 == "Head & Neck").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System4 == "Head & Neck").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System4 == "Head & Neck").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System4 == "Head & Neck").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Head & Neck").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Head & Neck").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
             var objj = db.fnl_alysis.Where(x => x.System4 == "Head & Neck" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Head & Neck" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<30 days").ToList();
@@ -1350,30 +1350,30 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Buccal Mucosa").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Buccal Mucosa").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Buccal Mucosa").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
             }
           
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper= Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper= Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Buccal Mucosa").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Buccal Mucosa").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Buccal Mucosa").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Buccal Mucosa").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.totalcase = (ViewBag.newcase + ViewBag.oldcase + ViewBag.unkcase);
@@ -1469,11 +1469,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -1484,19 +1484,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Anterior Tongue").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Anterior Tongue").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Anterior Tongue").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Anterior Tongue").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Anterior Tongue").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -1586,11 +1586,11 @@ namespace Annual_Report.Controllers
           
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Base Tongue").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Base Tongue").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Base Tongue").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -1601,19 +1601,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Base Tongue").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Base Tongue").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Base Tongue").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Base Tongue").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Base Tongue").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Base Tongue").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -1698,11 +1698,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Tonsil").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Tonsil").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Tonsil").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -1713,19 +1713,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Tonsil").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Tonsil").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Tonsil").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Tonsil").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Tonsil").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Tonsil").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -1809,11 +1809,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -1824,19 +1824,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Pyriform Fossa").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Pyriform Fossa").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Pyriform Fossa").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Pyriform Fossa").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -1922,11 +1922,11 @@ namespace Annual_Report.Controllers
           
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Supra Glottic Larynx").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Supra Glottic Larynx").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Supra Glottic Larynx").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -1937,19 +1937,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Supra Glottic Larynx").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Supra Glottic Larynx").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Supra Glottic Larynx").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Supra Glottic Larynx").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Supra Glottic Larynx").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Supra Glottic Larynx").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Pyriform Fossa").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -2034,11 +2034,11 @@ namespace Annual_Report.Controllers
            
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -2049,19 +2049,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Vocal Cord").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Vocal Cord").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Vocal Cord").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Vocal Cord").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Vocal Cord").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -2147,11 +2147,11 @@ namespace Annual_Report.Controllers
           
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -2162,19 +2162,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Nasopharynx").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Nasopharynx").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Nasopharynx").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Nasopharynx").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Nasopharynx").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -2260,9 +2260,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System4 == "Lung").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Lung").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Lung").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -2278,9 +2278,9 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.totaltre = db.fnl_alysis.Where(x => x.System4 == "Lung").Where(x => x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
             ViewBag.notunderwent = (ViewBag.TotalCount - ViewBag.totaltre);
@@ -2289,14 +2289,14 @@ namespace Annual_Report.Controllers
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System4 == "Lung").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System4 == "Lung").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System4 == "Lung").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System4 == "Lung").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Lung").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Lung").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
@@ -2442,9 +2442,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -2474,19 +2474,19 @@ namespace Annual_Report.Controllers
             var objj = db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Gastro-intestinal" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System4 == "Gastro-intestinal").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System4 == "Gastro-intestinal").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System4 == "Gastro-intestinal").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System4 == "Gastro-intestinal").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.timedata = objj.Where(x => x.Key != null);
 
@@ -2662,11 +2662,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Oesophagus").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Oesophagus").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Oesophagus").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -2677,19 +2677,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Oesophagus").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Oesophagus").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Oesophagus").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Oesophagus").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Oesophagus").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Oesophagus").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Oesophagus").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Oesophagus").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -2777,11 +2777,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Stomach").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Stomach").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Stomach").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -2792,19 +2792,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Stomach").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Stomach").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Stomach").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Stomach").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Stomach").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Stomach").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -2893,11 +2893,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Colon").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Colon").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Colon").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -2908,19 +2908,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Colon").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Colon").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Colon").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Colon").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Colon").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Colon").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Colon").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Colon").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -3007,11 +3007,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Rectum").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Rectum").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Rectum").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3022,19 +3022,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Rectum").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Rectum").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Rectum").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Rectum").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Rectum").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Rectum").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Rectum").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Rectum").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -3121,11 +3121,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Liver").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Liver").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Liver").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3136,19 +3136,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Liver").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Liver").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Liver").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Liver").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Liver").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Liver").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Liver").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Liver").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -3234,11 +3234,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3249,19 +3249,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Gall Bladder").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Gall Bladder").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Gall Bladder").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Gall Bladder").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Gall Bladder").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -3346,11 +3346,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Pancreas").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Pancreas").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Pancreas").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3361,19 +3361,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Pancreas").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Pancreas").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Pancreas").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Pancreas").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Pancreas").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Pancreas").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Pancreas").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Pancreas").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -3462,11 +3462,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System2 == "Female Breast").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3477,19 +3477,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System2 == "Female Breast").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System2 == "Female Breast").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System2 == "Female Breast").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System2 == "Female Breast").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System2 == "Female Breast").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Female Breast").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
             var objj = db.fnl_alysis.Where(x => x.System2 == "Female Breast" && x.final_tti != null).GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System2 == "Female Breast" && x.final_tti != null).Select(x => x.final_tti).Count(), 1) }).OrderBy(i => i.Key == ">180 days").ThenBy(i => i.Key == "91-180 days").ThenBy(i => i.Key == "31-90 days").ThenBy(i => i.Key == "<=30 days").ToList();
@@ -3631,11 +3631,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Bone").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Bone").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Bone").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3646,19 +3646,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Bone").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Bone").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Bone").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Bone").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Bone").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Bone").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
@@ -3800,11 +3800,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -3815,19 +3815,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Peripheral Nerves & Soft Tissue").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Peripheral Nerves & Soft Tissue").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
@@ -3936,7 +3936,7 @@ namespace Annual_Report.Controllers
 
             // Order by TotalPercentage in descending order for both Male and Female
             var maleSites = new List<string> {
-        "Other Male Genital Organs", "Penis", "Prostate",  "Testis", "Unspecified Urinary Organs",
+        "Other Male Genital Organs", "Penis", "Prostate",  "Testis",
     };
             var femaleSites = new List<string> {
         "Cervix", "Placenta", "Other Female Genital Organs", "Corpus Uteri", "Vulva", "Vagina", "Ovary"
@@ -4039,9 +4039,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys)).Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -4064,19 +4064,19 @@ namespace Annual_Report.Controllers
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.gynae_system == "Female Gyaec Cancer").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.gynae_system == "Female Gyaec Cancer").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.gynae_system == "Female Gyaec Cancer").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.gynae_system == "Female Gyaec Cancer").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Genito Urinary Organs" && new[] { "C51", "C52", "C53", "C54-C55", "C56", "C57", "C58" }.Contains(x.Sys))
@@ -4229,11 +4229,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Cervix").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Cervix").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Cervix").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4244,19 +4244,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Cervix").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Cervix").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Cervix").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Cervix").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Cervix").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Cervix").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -4342,11 +4342,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4357,19 +4357,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Corpus Uteri").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Corpus Uteri").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Corpus Uteri").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Corpus Uteri").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Corpus Uteri").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -4454,11 +4454,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Ovary").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Ovary").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Ovary").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4469,19 +4469,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Ovary").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Ovary").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Ovary").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Ovary").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Ovary").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Ovary").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Ovary").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Ovary").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -4566,11 +4566,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Vagina").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Vagina").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Vagina").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4581,19 +4581,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Vagina").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Vagina").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Vagina").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Vagina").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Vagina").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Vagina").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -4682,9 +4682,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -4707,19 +4707,19 @@ namespace Annual_Report.Controllers
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.gynae_system == "Uro and Male Reproductive Organs").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.gynae_system == "Uro and Male Reproductive Organs").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
@@ -4865,11 +4865,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Kidney").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Kidney").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Kidney").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4880,19 +4880,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Kidney").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Kidney").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Kidney").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Kidney").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Kidney").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Kidney").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Kidney").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Kidney").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -4976,11 +4976,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Prostate").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Prostate").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Prostate").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -4991,19 +4991,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Prostate").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Prostate").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Prostate").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Prostate").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Prostate").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Prostate").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Prostate").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Prostate").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -5087,11 +5087,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Testis").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Testis").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Testis").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -5102,19 +5102,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Testis").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Testis").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Testis").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Testis").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Testis").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Testis").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Testis").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Testis").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -5198,11 +5198,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -5213,19 +5213,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Urinary Bladder").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Urinary Bladder").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Urinary Bladder").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Urinary Bladder").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Urinary Bladder").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -5311,9 +5311,9 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
 
 
@@ -5336,19 +5336,19 @@ namespace Annual_Report.Controllers
             ViewBag.Per1 = Math.Round((ViewBag.notunderwent) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System4 == "Haematopoetic Cancers").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System4 == "Haematopoetic Cancers").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System4 == "Haematopoetic Cancers").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System4 == "Haematopoetic Cancers").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System4 == "Haematopoetic Cancers").Select(x => x.BROAD_AGE).Count(), 1) }).OrderBy(i => i.Key == ">=60").ThenBy(i => i.Key == "46-59").ThenBy(i => i.Key == "20-45").ThenBy(i => i.Key == "0-19").ToList();
 
@@ -5493,11 +5493,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -5508,19 +5508,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Non-Hodgkins Lymphoma").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Non-Hodgkins Lymphoma").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Non-Hodgkins Lymphoma").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Non-Hodgkins Lymphoma").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Non-Hodgkins Lymphoma").Select(x => x.final_tti).Count(), 1) }).ToList();
@@ -5631,11 +5631,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.System3 == "Hodgkins Disease").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Hodgkins Disease").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.System3 == "Hodgkins Disease").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -5646,19 +5646,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.System3 == "Hodgkins Disease").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.System3 == "Hodgkins Disease").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.System3 == "Hodgkins Disease").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.System3 == "Hodgkins Disease").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.System3 == "Hodgkins Disease").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => x.System3 == "Hodgkins Disease").Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
@@ -5744,11 +5744,11 @@ namespace Annual_Report.Controllers
             ViewBag.unkcaseper = Math.Round((ViewBag.unkcase) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.NewTretedTmh = db.fnl_alysis.Where(x => x.Lead_site == "Leukemia").Where(x => x.PRVTMTYN == "N" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.NewTretedTmhper = Math.Round((ViewBag.NewTretedTmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.oldtreatedtmh = db.fnl_alysis.Where(x => x.Lead_site == "Leukemia").Where(x => x.PRVTMTYN == "Y" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.oldtreatedtmhper = Math.Round((ViewBag.oldtreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.untreatedtmh = db.fnl_alysis.Where(x => x.Lead_site == "Leukemia").Where(x => x.PRVTMTYN == "U" && x.SIXTMT > 0).Select(y => y.SIXTMT).Count();
-            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.unkcase), 1);
+            ViewBag.untreatedtmhper = Math.Round((ViewBag.untreatedtmh) * 100.0 / (ViewBag.TotalCount), 1);
             if (double.IsNaN(ViewBag.untreatedtmhper))
             {
                 ViewBag.untreatedtmhper = 0;
@@ -5759,19 +5759,19 @@ namespace Annual_Report.Controllers
             ViewBag.tottreatmhper = Math.Round((ViewBag.tottreatmh) * 100.0 / (ViewBag.totalcase), 1);
 
             ViewBag.nontretnewcases = ((ViewBag.newcase) - (ViewBag.NewTretedTmh));
-            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.nontretnewcasesper = Math.Round((ViewBag.nontretnewcases) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.nontretoldcases = ((ViewBag.oldcase) - (ViewBag.oldtreatedtmh));
-            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.nontretoldcasesper = Math.Round((ViewBag.nontretoldcases) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.advicenotakennew = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "N" && x.Lead_site == "Leukemia").Count();
-            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.advicenotakennewper = Math.Round((ViewBag.advicenotakennew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.advicenotakenold = db.fnl_alysis.Where(x => x.SIXTRT == "3" && x.PRVTMTYN == "Y" && x.Lead_site == "Leukemia").Count();
-            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.advicenotakenoldper = Math.Round((ViewBag.advicenotakenold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.norxnnew = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "N" && x.Lead_site == "Leukemia").Count();
-            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.newcase), 1);
+            ViewBag.norxnnewper = Math.Round((ViewBag.norxnnew) * 100.0 / (ViewBag.TotalCount), 1);
             ViewBag.norxnold = db.fnl_alysis.Where(x => x.SIXTRT == "2" && x.PRVTMTYN == "Y" && x.Lead_site == "Leukemia").Count();
-            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.oldcase), 1);
+            ViewBag.norxnoldper = Math.Round((ViewBag.norxnold) * 100.0 / (ViewBag.TotalCount), 1);
 
             ViewBag.agedata = db.fnl_alysis.Where(x => x.Lead_site == "Leukemia").GroupBy(x => x.BROAD_AGE).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => new[] { "Myeloid  Leukemia", "Lymphoid  Leukemia", "Leukemia Uns" }.Contains(x.System3)).Select(x => x.BROAD_AGE).Count(), 1) }).ToList();
             var objj = db.fnl_alysis.Where(x => x.Lead_site == "Leukemia").GroupBy(x => x.final_tti).Select(y => new { y.Key, Count = Math.Round(y.Count() * 100.0 / db.fnl_alysis.Where(x => new[] { "Myeloid  Leukemia", "Lymphoid  Leukemia", "Leukemia Uns" }.Contains(x.System3)).Select(x => x.final_tti).Count(), 1) }).ToList();
