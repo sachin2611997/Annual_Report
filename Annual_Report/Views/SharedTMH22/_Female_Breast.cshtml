@@ -529,15 +529,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <tr>
                                             <th scope="col" style="padding: 50px;border-bottom: thin solid; text-align: center;" rowspan="2">Factors</th>
 
-                                            <th scope="col" colspan="2">Male</th>
-                                            <th scope="col" colspan="2">Female</th>
+                                            @*<th scope="col" colspan="2">Male</th>*@
+                                            @*<th scope="col" colspan="2">Female</th>*@
                                             <th scope="col" colspan="2">Total</th>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Nos</th>
-                                            <th scope="col">%</th>
-                                            <th scope="col">Nos</th>
-                                            <th scope="col">%</th>
+                                            @*<th scope="col">Nos</th>
+                                            <th scope="col">%</th>*@
+                                            @*<th scope="col">Nos</th>
+                                            <th scope="col">%</th>*@
                                             <th scope="col">Nos</th>
                                             <th scope="col">%</th>
                                         </tr>
@@ -548,41 +548,41 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                         <tr>
                                             <td> Smoking Tobacco</td>
-                                            <td>@(ViewBag.RiskSmokefactorMale == 0 ? "-" : ViewBag.RiskSmokefactorMale.ToString())</td>
-                                            <td>@(ViewBag.RiskSmokefactorMale == 0 ? "-" : Math.Round(ViewBag.RiskSmokefactorMaleper,1).ToString())</td>
-                                            <td>@ViewBag.RiskSmokefactorFemale</td>
-                                            <td>@ViewBag.RiskSmokefactorFemaleper</td>
+                                            @*<td>@(ViewBag.RiskSmokefactorMale == 0 ? "-" : ViewBag.RiskSmokefactorMale.ToString())</td>
+                                            <td>@(ViewBag.RiskSmokefactorMale == 0 ? "-" : Math.Round(ViewBag.RiskSmokefactorMaleper,1).ToString())</td>*@
+                                            @*<td>@ViewBag.RiskSmokefactorFemale</td>
+                                            <td>@ViewBag.RiskSmokefactorFemaleper</td>*@
                                             <td>@ViewBag.TotalSmokeRiskfactor</td>
                                             <td>@ViewBag.TotalSmokeRiskfactorper</td>
 
                                         </tr>
                                         <tr>
                                             <td>Smokless Tobacco </td>
-                                            <td>@(ViewBag.RiskChewfactorMale == 0 ? "-" : ViewBag.RiskChewfactorMale.ToString())</td>
-                                            <td>@(ViewBag.RiskChewfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskChewfactorMaleper,1).ToString())</td>
+                                            @*<td>@(ViewBag.RiskChewfactorMale == 0 ? "-" : ViewBag.RiskChewfactorMale.ToString())</td>
+                                            <td>@(ViewBag.RiskChewfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskChewfactorMaleper,1).ToString())</td>*@
                                            
-                                            <td>@ViewBag.RiskChewfactorFemale</td>
-                                            <td>@ViewBag.RiskChewfactorFemaleper</td>
+                                            @*<td>@ViewBag.RiskChewfactorFemale</td>
+                                            <td>@ViewBag.RiskChewfactorFemaleper</td>*@
                                             <td>@ViewBag.TotalChewRiskfactor</td>
                                             <td>@ViewBag.TotalChewRiskfactorper</td>
                                         </tr>
                                         <tr>
                                             <td> Alcohol</td>
-                                            <td>@(ViewBag.RiskDrinkfactorMale== 0 ? "-" : ViewBag.RiskDrinkfactorMale.ToString())</td>
-                                            <td>@(ViewBag.RiskDrinkfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskDrinkfactorMaleper,1).ToString())</td>
+                                            @*<td>@(ViewBag.RiskDrinkfactorMale== 0 ? "-" : ViewBag.RiskDrinkfactorMale.ToString())</td>
+                                            <td>@(ViewBag.RiskDrinkfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskDrinkfactorMaleper,1).ToString())</td>*@
                                           
-                                              <td>@ViewBag.RiskDrinkfactorFemale</td>
-                                            <td>@ViewBag.RiskDrinkfactorFemaleper</td>
+                                            @*<td>@ViewBag.RiskDrinkfactorFemale</td>
+                                            <td>@ViewBag.RiskDrinkfactorFemaleper</td>*@
                                             <td>@ViewBag.TotalDrinkRiskfactor</td>
                                             <td>@ViewBag.TotalDrinkRiskfactorper</td>
                                         </tr>
                                         <tr>
                                             <td> Family History </td>
-                                            <td>@(ViewBag.RiskFamHistfactorMale== 0 ? "-" : ViewBag.RiskFamHistfactorMale.ToString())</td>
-                                            <td>@(ViewBag.RiskFamHistfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskFamHistfactorMaleper,1).ToString())</td>
+                                            @*<td>@(ViewBag.RiskFamHistfactorMale== 0 ? "-" : ViewBag.RiskFamHistfactorMale.ToString())</td>
+                                            <td>@(ViewBag.RiskFamHistfactorMale == 0 ? "-" : Math.Round(ViewBag.RiskFamHistfactorMaleper,1).ToString())</td>*@
                                             
-                                            <td>@ViewBag.RiskFamHistfactorFemale</td>
-                                            <td>@ViewBag.RiskFamHistfactorFemaleper</td>
+                                            @*<td>@ViewBag.RiskFamHistfactorFemale</td>
+                                            <td>@ViewBag.RiskFamHistfactorFemaleper</td>*@
                                             <td>@ViewBag.TotalFamHistRiskfactor</td>
                                             <td>@ViewBag.TotalFamHistRiskfactorper</td>
                                         </tr>
@@ -1471,7 +1471,7 @@ License: You must have a valid license purchased only from themeforest(the above
                  "type": "column",
                  "topRadius": 1,
                  "fixedColumnWidth": 50,
-                 "valueField": "Count"
+                 "valueField": "Percentage"
              }
 
              ],

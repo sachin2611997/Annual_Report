@@ -1,0 +1,158 @@
+﻿
+  @model  List<Annual_Report.Models.System3StatsViewModel>
+ 
+@{
+    int totalMale = ViewBag.TotalMale;
+    int totalFemale = ViewBag.TotalFemale;
+    int grandTotal = ViewBag.GrandTotal;
+}
+@{
+    Layout = null;
+}
+<style>
+    .reportTable {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Times New Roman";
+        font-size: 17px;
+    }
+
+        .reportTable th,
+        .reportTable td {
+            border: 1px solid black;
+            padding: 7px;
+        }
+
+        .reportTable thead tr:first-child th {
+            background: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+    .subHead {
+        background: #d9eef4;
+    }
+
+    .reportTable tbody tr:nth-child(even) {
+        background: #d9eef4;
+    }
+
+    .reportTable td {
+        text-align: center;
+    }
+
+        .reportTable td:first-child {
+            text-align: left;
+        }
+
+    .grandTotal {
+        background: #d9eef4;
+        font-weight: bold;
+    }
+     .tmc-title {
+             text-decoration: underline;
+             font-weight: 700;
+             text-align: center;
+         }
+</style>
+<h3 class="tmc-title mb-6">
+    Table 2(b):  System-wise Cancer Cases Year: @ViewBag.year
+</h3>
+<table class="reportTable">
+
+    <thead>
+
+        <tr>
+
+            <th rowspan="2" style="width:35%">System</th>
+
+            <th colspan="2">Male</th>
+
+            <th colspan="2">Female</th>
+
+            <th colspan="2">Total</th>
+
+        </tr>
+
+        <tr class="subHead">
+
+            <th>Nos.</th>
+            <th>%</th>
+
+            <th>Nos.</th>
+            <th>%</th>
+
+            <th>Nos.</th>
+            <th>%</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.System</td>
+
+                <td>@item.MaleCount</td>
+
+                <td>
+                    @(grandTotal == 0 ? "0.0" :
+                    (item.MaleCount * 100.0 / grandTotal).ToString("0.0"))
+                </td>
+
+                <td>@item.FemaleCount</td>
+
+                <td>
+                    @(grandTotal == 0 ? "0.0" :
+                    (item.FemaleCount * 100.0 / grandTotal).ToString("0.0"))
+                </td>
+
+                <td>@item.TotalCount</td>
+
+                <td>
+                    @(grandTotal == 0 ? "0.0" :
+                    (item.TotalCount * 100.0 / grandTotal).ToString("0.0"))
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+    <tfoot>
+
+        <tr class="grandTotal">
+
+            <td>Grand Total</td>
+
+            <td>@totalMale</td>
+
+            <td>
+                @(grandTotal == 0 ? "0.0" :
+                (totalMale * 100.0 / grandTotal).ToString("0.0"))
+            </td>
+
+            <td>@totalFemale</td>
+
+            <td>
+                @(grandTotal == 0 ? "0.0" :
+                (totalFemale * 100.0 / grandTotal).ToString("0.0"))
+            </td>
+
+            <td>@grandTotal</td>
+
+            <td>100.0</td>
+
+        </tr>
+
+    </tfoot>
+
+</table>
+
+<p>
+    Table 2(b) illustrates the distribution of cases after reclassification, based on the final diagnosis confirmed by the clinician.
+</p>

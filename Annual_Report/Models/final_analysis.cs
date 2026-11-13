@@ -9,20 +9,21 @@ using System.Web.Mvc;
 
 namespace Annual_Report.Models
 {
-    
-    // [Table("test")]               // 2021 report
-     //[Table("Report2022")]   //testTMH 2022
-    [Table("TMH_2022")]  //TMH_2022
-  //  [Table("HBCR2025")]
 
+    // [Table("test")]               // 2021 report
+    // [Table("TMH_2022")]           //TMH_2022
+    // [Table("ACTREC_2022")]        //ACTREC_2022  
+    [Table("Guwahti2023")]          //Guwahti_2023
     public class final_analysis
     {
         [Key]
-       // public double year { get; set; }
+     
         public string System4 { get; set; }
         public string System3 { get; set; }
         public string System2 { get; set; }
         public double AGE_AT_REG { get; set; }
+
+        public string DISTRICT { get; set; }
         public string PRVTMTYN { get; set; }
         public string SEX { get; set; }
         public string N_CLINEXT { get; set; }
@@ -34,12 +35,7 @@ namespace Annual_Report.Models
         public string final_tti { get; set; }
         public string Lead_site { get; set; }
         public string Sys { get; set; }
-
         public string gynae_system { get; set; }
-        //  public string SIXTMT { get; set; }
-      //  public string color { get; set; }
-
-      //  public string Year5Age { get; set; }
         public string System1 { get; set; }
         public string NMETHOD { get; set; }
         public string REL_DET { get; set; } //religion property
@@ -47,20 +43,20 @@ namespace Annual_Report.Models
         public string EDU_DET { get; set; } //education
         public string TREATMENT_MUM_All { get; set; }
         public string PRVTMT { get; set; }
-        public string AGE_GRP { get; set; }
-        
+        public string AGE_GRP { get; set; }      
         public string TREATMENT_Before { get; set; }
-       // public string INST { get; set; }
-
+        public string INST { get; set; }
         public string n_dissts { get; set; }
-
         public string CHEW { get; set; }
         public string SMOKE { get; set; }
         public string DRINK { get; set; }
         public string FAM_HIST { get; set; }
         public string COMORBID { get; set; }
         public string total_co { get; set; }
-
+        public string REGNO { get; set; }
+        public string FNAME { get; set; }
+        public string n_COMORBID { get; set; }
+        public string N_total_co { get; set; }
     }
    
     public class final_analysisViewModel
@@ -70,9 +66,13 @@ namespace Annual_Report.Models
         public double NewCaseCount { get; set; }
         [DisplayName("Nos")]
         public double Statecount { get; set; }
+        [DisplayName("Nos")]
+        public double DISTRICTcount { get; set; }
 
         [DisplayName("Region")]
         public string State { get; set; }
+        [DisplayName("Region")]
+        public string DISTRICT { get; set; }
         public int othercount { get; set; }
         public double Percentage { get; set; }
         public string Unknown { get; set; }

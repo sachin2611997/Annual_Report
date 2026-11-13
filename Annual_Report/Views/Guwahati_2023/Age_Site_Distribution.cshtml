@@ -1,0 +1,313 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Metronic | Data Tables - Responsive Datatables</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN T~STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+    <style>
+        .table th{
+            text-align:center;
+           
+        }
+         .button-container {
+            display: flex;
+            justify-content: center;   /* Horizontally centers the button */
+            align-items: center;       /* Vertically centers the button */
+                     
+        }
+          .texthead{
+             font-size:x-large !important;
+             color:white !important;
+             font-weight:bold !important;
+         }
+           .syss{
+             background-color:#a6c8e6 !important;
+         }
+        .portlet-title {
+            background-color: #09499a !important;
+            border: 1px solid #30d0c1 !important;
+        }
+           .portlet-title-agem{
+               background-color: #26a69a !important;
+            
+           }
+          
+           .agb{
+        background-color:#a6c8e6 !important;
+    }
+        @@media print {
+           
+
+        .button-container{
+            display:none !important;
+        }
+         .portlet-title{
+             background-color:#09499a !important;
+             border:1px solid #30d0c1 !important;
+            
+         }
+         .portlet-title-agem{
+               background-color: #26a69a !important;
+            
+           }
+         .texthead{
+             font-size:x-large !important;
+             color:white !important;
+             
+         }
+          .table .agb{
+                background-color:#a6c8e6 !important;
+           }
+        table thead .active{
+               background-color:#a6c8e6 !important;
+         }
+        table tbody .active{
+             background-color:#a6c8e6 !important;
+        }
+        .active {
+            background-color:#a6c8e6 !important;
+        }  
+        
+   
+
+    .agb td,
+    .agb th {
+        background-color: #a6c8e6 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    }
+        
+    </style>
+</head> 
+<body>
+    <div class="portlet box green" style="text-align: center;">
+        <div class="portlet-title-agem">
+            @*<div class="texthead" style="text-align: center; font-size:x-large">*@
+            <div class="texthead">
+             Table 1(a) &nbsp;   Age & Site Distribution of Cancer Patients -TMC, Mumbai  &nbsp;&nbsp;&nbsp;&nbsp;     Sex: Male  &nbsp;&nbsp;&nbsp;&nbsp;  Year: @ViewBag.year
+            </div>
+           
+        </div>
+        <div class="portlet-body flip-scroll">
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content" style="text-align: center;">
+                    <tr id="header-row">
+                        <th width="5%" class="agb">
+                            ICD-10
+                        </th>
+                       
+                        <th width="10%" class="agb">Site</th>
+                        <th class="active">0-04</th>
+                        <th class="active">05-09</th>
+                        <th class="active">10-14</th>
+                        <th class="active">15-19</th>
+                        <th class="active">20-24</th>
+                        <th class="active">25-29</th>
+                        <th class="active">30-34</th>
+                        <th class="active">35-39</th>
+                        <th class="active">40-44</th>
+                        <th class="active">45-49</th>
+                        <th class="active">50-54</th>
+                        <th class="active">55-59</th>
+                        <th class="active">60-64</th>
+                        <th class="active">65-69</th>
+                        <th class="active">70-74</th>
+                        <th class="active">75+</th>
+                        <th class="active">TOTAL</th>
+                        <th class="active">%</th>
+
+                    </tr>
+                </thead>                                                                                                   
+                <tbody>
+    @if (ViewBag.Year5AgeCounts != null)
+    {
+        var year5AgeCounts = Json.Decode<List<Dictionary<string, object>>>(Json.Encode(ViewBag.Year5AgeCounts));
+
+        var totalCount = ViewBag.TotalCount;  // Get the total count from ViewBag
+
+
+        // Initialize the sums for each age group
+        var ageGroupSums = new Dictionary<string, int>
+        {
+            { "0-04", 0 },
+            { "05-09", 0 },
+            { "10-14", 0 },
+            { "15-19", 0 },
+            { "20-24", 0 },
+            { "25-29", 0 },
+            { "30-34", 0 },
+            { "35-39", 0 },
+            { "40-44", 0 },
+            { "45-49", 0 },
+            { "50-54", 0 },
+            { "55-59", 0 },
+            { "60-64", 0 },
+            { "65-69", 0 },
+            { "70-74", 0 },
+            { "75+", 0 }
+        };
+
+
+
+
+        foreach (var row in year5AgeCounts)
+        {
+            var ageGroups = row["AgeGroups"] as Dictionary<string, object>;
+
+            <tr>
+                <td class="active sys">@row["SysValue"]</td>
+                <td class="active">@row["SiteName"]</td>
+                <td>@(ageGroups.ContainsKey("0-04") ? ageGroups["0-04"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("05-09") ? ageGroups["05-09"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("10-14") ? ageGroups["10-14"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("15-19") ? ageGroups["15-19"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("20-24") ? ageGroups["20-24"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("25-29") ? ageGroups["25-29"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("30-34") ? ageGroups["30-34"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("35-39") ? ageGroups["35-39"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("40-44") ? ageGroups["40-44"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("45-49") ? ageGroups["45-49"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("50-54") ? ageGroups["50-54"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("55-59") ? ageGroups["55-59"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("60-64") ? ageGroups["60-64"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("65-69") ? ageGroups["65-69"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("70-74") ? ageGroups["70-74"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("75+") ? ageGroups["75+"] : 0)</td>
+                <td class="active sys">@(ageGroups.Values.Cast<int?>().Sum(x => x ?? 0)) </td>  <!-- Sum all the values and handle nulls by using ?? 0 -->
+                <td class="active sys">
+                    @(totalCount > 0 ? ((double)(ageGroups.Values.Cast<int?>().Sum(x => x ?? 0)) / totalCount * 100).ToString("F1") : "0.0")%
+                </td>
+            </tr>
+            // Update the sum for each age group
+            ageGroupSums["0-04"] += ageGroups.ContainsKey("0-04") ? (int)ageGroups["0-04"] : 0;
+            ageGroupSums["05-09"] += ageGroups.ContainsKey("05-09") ? (int)ageGroups["05-09"] : 0;
+            ageGroupSums["10-14"] += ageGroups.ContainsKey("10-14") ? (int)ageGroups["10-14"] : 0;
+            ageGroupSums["15-19"] += ageGroups.ContainsKey("15-19") ? (int)ageGroups["15-19"] : 0;
+            ageGroupSums["20-24"] += ageGroups.ContainsKey("20-24") ? (int)ageGroups["20-24"] : 0;
+            ageGroupSums["25-29"] += ageGroups.ContainsKey("25-29") ? (int)ageGroups["25-29"] : 0;
+            ageGroupSums["30-34"] += ageGroups.ContainsKey("30-34") ? (int)ageGroups["30-34"] : 0;
+            ageGroupSums["35-39"] += ageGroups.ContainsKey("35-39") ? (int)ageGroups["35-39"] : 0;
+            ageGroupSums["40-44"] += ageGroups.ContainsKey("40-44") ? (int)ageGroups["40-44"] : 0;
+            ageGroupSums["45-49"] += ageGroups.ContainsKey("45-49") ? (int)ageGroups["45-49"] : 0;
+            ageGroupSums["50-54"] += ageGroups.ContainsKey("50-54") ? (int)ageGroups["50-54"] : 0;
+            ageGroupSums["55-59"] += ageGroups.ContainsKey("55-59") ? (int)ageGroups["55-59"] : 0;
+            ageGroupSums["60-64"] += ageGroups.ContainsKey("60-64") ? (int)ageGroups["60-64"] : 0;
+            ageGroupSums["65-69"] += ageGroups.ContainsKey("65-69") ? (int)ageGroups["65-69"] : 0;
+            ageGroupSums["70-74"] += ageGroups.ContainsKey("70-74") ? (int)ageGroups["70-74"] : 0;
+            ageGroupSums["75+"] += ageGroups.ContainsKey("75+") ? (int)ageGroups["75+"] : 0;
+        }
+
+
+        <tfoot>
+        <tr class="agb">
+            <td colspan="2"><strong>Total</strong></td>
+             <!-- Empty cell for SiteName -->
+            <td>@ageGroupSums["0-04"]</td>
+            <td>@ageGroupSums["05-09"]</td>
+            <td>@ageGroupSums["10-14"]</td>
+            <td>@ageGroupSums["15-19"]</td>
+            <td>@ageGroupSums["20-24"]</td>
+            <td>@ageGroupSums["25-29"]</td>
+            <td>@ageGroupSums["30-34"]</td>
+            <td>@ageGroupSums["35-39"]</td>
+            <td>@ageGroupSums["40-44"]</td>
+            <td>@ageGroupSums["45-49"]</td>
+            <td>@ageGroupSums["50-54"]</td>
+            <td>@ageGroupSums["55-59"]</td>
+            <td>@ageGroupSums["60-64"]</td>
+            <td>@ageGroupSums["65-69"]</td>
+            <td>@ageGroupSums["70-74"]</td>
+            <td>@ageGroupSums["75+"]</td>
+            <!-- Total Count (Sum of all columns) -->
+            <td>@ageGroupSums.Values.Sum()</td>
+            <!-- Total Percentage (One Decimal Place) -->
+            <td>
+                @(totalCount > 0 ? ((double)ageGroupSums.Values.Sum() / totalCount * 100).ToString("F1") : "0.0")%
+            </td>
+        </tr>
+        <!-- Second Row for Percentages -->
+        <tr class="agb">
+            <td colspan="2"><strong>%</strong></td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["0-04"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["05-09"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["10-14"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["15-19"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["20-24"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["25-29"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["30-34"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["35-39"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["40-44"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["45-49"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["50-54"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["55-59"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["60-64"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["65-69"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["70-74"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["75+"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>100%</td>
+            <td></td>
+            
+</tfoot>
+    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE~INS -->
+<script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {
+                        // initiate layout and plugins
+                        Metronic.init(); // init metronic core components
+                        Layout.init(); // init current layout
+                        Demo.init(); // init demo features
+                    });
+</script>
+
+
+
+
+
+

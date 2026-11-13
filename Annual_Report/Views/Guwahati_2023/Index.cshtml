@@ -1,0 +1,262 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <style>
+        /*body{
+             border: 2px solid black;
+
+        }*/
+        button {
+            padding: 1.3em 3em;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+        }
+
+            button:hover {
+                background-color: #23c483;
+                box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+                color: #fff;
+                transform: translateY(-7px);
+            }
+
+            button:active {
+                transform: translateY(-1px);
+            }
+
+        @@media print {
+            body {
+                /*background-color: white !important;*/
+                zoom: 43%;
+                /*-webkit-print-color-adjust: exact;
+                transform-origin: top left;*/
+            }
+
+            /*html {
+                border: solid 2px !important;
+            }*/
+
+            .a {
+        border: none !important;
+        position: relative;
+        
+    }
+            /* Border repeated on every printed page */
+    .a:before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 0.8px solid #000000;
+        box-sizing: border-box;
+        pointer-events: none;
+        z-index: 9999;
+    }
+     /* Report BELOW the border */
+    /*.a::after {
+        content: "Report";
+        position: fixed;
+        bottom: 3mm;
+        left: 6mm;
+        font-size: 9px;
+        background: white;
+        padding: 0 3px;
+        z-index: 10000;
+    }*/
+
+            .page-break {
+                page-break-before: always;
+            }
+
+            .page-break-after {
+                page-break-after: always;
+            }
+
+            .button-container {
+                display: none !important;
+            }
+                
+        }
+
+        @@page {
+            margin-top: 5mm !important;
+            margin-right: 4mm !important;
+            margin-bottom: 5mm !important;
+            margin-left: 8mm !important;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+</head>
+<body>
+    <button style="text-align:right;float:right;" class="button-container" onclick="print()">
+
+        Print
+    </button>
+
+        
+
+             <div class="page-break-after">
+                   @Html.Action("All_sites", "Guwahati_2023")
+               </div>
+    <div class="a">
+                @Html.Action("Head_Neck", "Guwahati_2023")
+           </div>
+     <div class="a page-break">
+                   @Html.Action("Head_Neck_Table", "Guwahati_2023")
+               </div>
+            <div class="page-break a">
+                  @Html.Action("Buccal_Mucosa", "Guwahati_2023")
+              </div>
+              <div class="a">
+                  @Html.Action("Anterior_Tongue", "Guwahati_2023")
+              </div>
+        <div class="page-break a">
+            @Html.Action("Base_Tongue", "Guwahati_2023")
+        </div>
+    <div class="a">
+               @Html.Action("Tonsil", "Guwahati_2023")
+           </div>
+         <div class="page-break a">
+         @Html.Action("Pyriform_Fossa", "Guwahati_2023")
+     </div>
+    @*<div class="a">
+         @Html.Action("Supra_Glottic_Larynx", "Guwahati_2023")
+     </div>*@
+    <div class="a">
+         @Html.Action("Vocal_Cord", "Guwahati_2023")
+     </div>
+    <div class="a">
+         @Html.Action("Nasopharynx", "Guwahati_2023")
+     </div>
+        <div class="page-break a">
+        @Html.Action("Lung", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Gastrointestinal_Table", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Gastro_intestinal", "Guwahati_2023")
+    </div>
+
+    <div class="page-break a">
+        @Html.Action("Oesophagus", "Guwahati_2023")
+    </div>
+    <div class="a">
+        @Html.Action("Stomach", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Colon", "Guwahati_2023")
+    </div>
+    <div class="a">
+        @Html.Action("Rectum", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Liver", "Guwahati_2023")
+    </div>
+
+    <div class="a">
+        @Html.Action("Gall_Bladder", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Pancreas", "Guwahati_2023")
+    </div>
+
+    <div class="page-break a">
+           @Html.Action("Female_Breast", "Guwahati_2023")
+       </div>
+       <div class="page-break a">
+           @Html.Action("Bone", "Guwahati_2023")
+       </div>
+       <div class="page-break a">
+           @Html.Action("Peripheral_Nerves_Soft_Tissue", "Guwahati_2023")
+       </div>
+      <div class="page-break a">
+          @Html.Action("Genito_UrinarySystem", "Guwahati_2023")
+      </div>
+      <div class="page-break a">
+          @Html.Action("Female_Gynaecological", "Guwahati_2023")
+      </div>
+     <div class="page-break a">
+              @Html.Action("Cervix", "Guwahati_2023")
+          </div>
+          <div class="a">
+              @Html.Action("Corpus_Uteri", "Guwahati_2023")
+          </div>
+          <div class="page-break-after a">
+              @Html.Action("Ovary", "Guwahati_2023")
+          </div>
+          @*<div class="page-break-after a">
+              @Html.Action("Vagina", "Guwahati_2023")
+          </div>*@
+          <div class="a">
+          @Html.Action("Uro_Male_Reproductive", "Guwahati_2023")
+      </div>
+      <div class="page-break a">
+          @Html.Action("Kidney", "Guwahati_2023")
+      </div>
+      <div class="a">
+          @Html.Action("Prostate", "Guwahati_2023")
+      </div>
+      <div class="page-break a">
+          @Html.Action("Testis", "Guwahati_2023")
+      </div>
+      <div class="page-break-after a">
+          @Html.Action("Urinary_Bladder", "Guwahati_2023")
+      </div>
+    <div class="page-break-after a">
+        @Html.Action("Brain_Nervous_System", "Guwahati_2023")
+    </div>
+    <div class="page-break-after a">
+        @Html.Action("EndocrineGlands", "Guwahati_2023")
+    </div>
+    <div class="page-break-after a">
+        @Html.Action("Thyroid", "Guwahati_2023")
+    </div>
+        <div class="a">
+            @Html.Action("Haematopoetic", "Guwahati_2023")
+        </div>
+
+       <div class="page-break a">
+        @Html.Action("Malignant_Lymphoma", "Guwahati_2023")
+    </div>
+    <div class="page-break a">
+        @Html.Action("Hodgkins_Disease", "Guwahati_2023")
+    </div>
+    <div class="a">
+        @Html.Action("Leukemia", "Guwahati_2023")
+    </div>
+
+        <div class="button-container" style="text-align:center">
+
+            <a href="@Url.Action("ICD_10TableIndex", "Guwahati_2023")" class="btn red" target="_blank">
+                Tables by ICD-10
+            </a>
+
+
+        </div>
+        <br /><br />
+
+    </body>
+    </html>
+
+
+
+

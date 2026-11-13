@@ -1,0 +1,76 @@
+﻿@model Annual_Report.Models.KeyFinding
+
+@{
+    Layout = null;
+}
+
+<style>
+    body {
+        background: #f6f7f9;
+    }
+
+    .report-page {
+        max-width: 760px;
+        margin: 40px auto;
+        background: #fff;
+        border: 1px solid #d9dfe7;
+        box-shadow: 0 1px 2px rgba(28,36,48,0.06), 0 12px 28px rgba(28,36,48,0.07);
+        padding: 56px 64px 64px;
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #1c2430;
+        line-height: 1.7;
+    }
+
+        .report-page h1 {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 34px;
+        }
+
+    .report-body {
+        font-size: 15px;
+    }
+
+        .report-body p {
+            margin: 0 0 16px;
+        }
+
+    .toolbar-row {
+        max-width: 760px;
+        margin: 0 auto 12px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-edit {
+        display: inline-block;
+        padding: 8px 18px;
+        background: #1f6f78;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 13px;
+    }
+
+        .btn-edit:hover {
+            background: #175258;
+            color: #fff;
+        }
+</style>
+<div class="toolbar-row">
+    @*<a class="btn-edit" asp-action="EditChapter_1_Introduction" asp-route-id="@Model.Id">Edit</a>*@
+    @Html.ActionLink("Edit", "EditChapter_1_Introduction", new { id = @Model.Id }, new { @class = "btn btn-primary btn-sm hide" })
+
+
+
+
+</div>
+<div class="report-page">
+    <h1>@Model.Heading</h1>
+    @* Model.Key holds the saved rich-text HTML (bold, underline, lists, etc.) *@
+
+    <div class="report-body">
+        @Html.Raw(Model.Key)
+    </div>
+</div>

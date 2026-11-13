@@ -1,0 +1,203 @@
+﻿@model List<Annual_Report.Models.System3StatsViewModel>
+
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "Site Distribution Report";
+
+    int totalMale = ViewBag.TotalMale;
+    int totalFemale = ViewBag.TotalFemale;
+    int grandTotal = ViewBag.GrandTotal;
+}
+
+<style>
+
+body{
+    font-family:"Times New Roman";
+}
+
+h3{
+    text-align:center;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.reportTable{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    font-size:16px;
+}
+
+.reportTable th,
+.reportTable td{
+    border:1px solid #a8c96b;
+    padding:3px;
+    vertical-align:middle;
+}
+
+.reportTable th{
+    text-align:center;
+    font-weight:bold;
+}
+
+.reportTable td{
+    text-align:center;
+}
+
+.reportTable td:nth-child(2){
+    text-align:left;
+}
+
+.reportTable tbody tr:nth-child(odd){
+    background:#f8fbf3;
+}
+
+.reportTable tbody tr:nth-child(even){
+    background:#eef6df;
+}
+
+.subHeader th{
+    background:#eef6df;
+    font-weight:normal;
+}
+
+.grandTotal{
+    font-weight:bold;
+    background:#eef6df;
+}
+
+@@media print{
+
+    @@page{
+        size:A4 portrait;
+        margin:10mm;
+    }
+
+    body{
+        margin:0;
+    }
+
+    thead{
+        display:table-header-group;
+    }
+
+    tbody{
+        display:table-row-group;
+    }
+
+    tr{
+        page-break-inside:avoid;
+    }
+
+    .grandTotal{
+        page-break-inside:avoid;
+    }
+    h3{
+         text-decoration: underline;
+             font-weight: 700;
+             text-align: center;
+    }
+
+}
+
+</style>
+
+<h3>
+    Table 3(a): Distribution of Cancer Cases by Site (ICD-10) at TMC, Mumbai for the year @ViewBag.year
+</h3>
+
+<table class="reportTable">
+
+    <colgroup>
+        <col style="width:11%;" />
+        <col style="width:27%;" />
+        <col style="width:9%;" />
+        <col style="width:7%;" />
+        <col style="width:9%;" />
+        <col style="width:7%;" />
+        <col style="width:9%;" />
+        <col style="width:7%;" />
+    </colgroup>
+
+    <thead>
+
+        <tr>
+
+            <th rowspan="2">ICD-10</th>
+
+            <th rowspan="2">Site</th>
+
+            <th colspan="2">Male</th>
+
+            <th colspan="2">Female</th>
+
+            <th colspan="2">Total</th>
+
+        </tr>
+
+        <tr class="subHeader">
+
+            <th>Nos</th>
+            <th>%</th>
+
+            <th>Nos</th>
+            <th>%</th>
+
+            <th>Nos</th>
+            <th>%</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td><b>@item.ICD10</b></td>
+
+                <td>@item.System</td>
+
+                <td>@item.MaleCount</td>
+
+                <td>@((item.MaleCount * 100.0 / totalMale).ToString("0.0"))</td>
+
+                <td>@item.FemaleCount</td>
+
+                <td>@((item.FemaleCount * 100.0 / totalFemale).ToString("0.0"))</td>
+
+                <td>@item.TotalCount</td>
+
+                <td>@((item.TotalCount * 100.0 / grandTotal).ToString("0.0"))</td>
+
+            </tr>
+        }
+
+        <tr class="grandTotal">
+
+            <td colspan="2">
+                Grand Total
+            </td>
+
+            <td style="text-align:center">@totalMale</td>
+
+            <td>100.0</td>
+
+            <td>@totalFemale</td>
+
+            <td>100.0</td>
+
+            <td>@grandTotal</td>
+
+            <td>100.0</td>
+
+        </tr>
+
+    </tbody>
+
+</table>

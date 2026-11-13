@@ -1,0 +1,228 @@
+﻿@model Annual_Report.Models.KeyFinding
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    :root {
+        --ink-900:#1c2430;
+        --ink-700:#3a4657;
+        --ink-500:#68758a;
+        --ink-200:#d9dfe7;
+        --paper:#f6f7f9;
+        --paper-raised:#ffffff;
+        --teal:#1f6f78;
+        --teal-dim:#e4f0f0;
+    }
+
+    body {
+        background: var(--paper);
+    }
+
+    .edit-wrap {
+        max-width: 760px;
+        margin: 32px auto 60px;
+    }
+
+    .heading-field {
+        width: 100%;
+        font-family: Georgia, serif;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px 12px;
+        border: 1px solid var(--ink-200);
+        border-radius: 6px;
+        margin-bottom: 14px;
+    }
+
+    #toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-200);
+        border-bottom: none;
+        border-radius: 6px 6px 0 0;
+    }
+
+    .grp {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 0 8px;
+        border-right: 1px solid var(--ink-200);
+    }
+
+        .grp:last-child {
+            border-right: none;
+        }
+
+    button.tool {
+        width: 30px;
+        height: 28px;
+        border: 1px solid transparent;
+        background: transparent;
+        border-radius: 6px;
+        cursor: pointer;
+        color: var(--ink-700);
+        font-size: 14px;
+    }
+
+        button.tool:hover {
+            background: var(--teal-dim);
+            color: var(--teal);
+        }
+
+        button.tool.active {
+            background: var(--teal);
+            color: #fff;
+        }
+
+    select, input[type=color] {
+        height: 28px;
+        border: 1px solid var(--ink-200);
+        border-radius: 6px;
+        background: #fff;
+        font-size: 12px;
+    }
+
+    #editor {
+        min-height: 420px;
+        background: var(--paper-raised);
+        border: 1px solid var(--ink-200);
+        border-radius: 0 0 6px 6px;
+        padding: 24px 28px;
+        font-family: Georgia, serif;
+        font-size: 15px;
+        line-height: 1.7;
+        outline: none;
+    }
+
+    .actions {
+        margin-top: 16px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 9px 20px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 13px;
+    }
+
+    .btn-save {
+        background: var(--teal);
+        color: #fff;
+    }
+
+    .btn-cancel {
+        background: #fff;
+        border: 1px solid var(--ink-200);
+        color: var(--ink-700);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+</style>
+<div class="edit-wrap" >
+    @*<form asp-action="EditChapter_1_Introduction" asp-route-id="@Model.Id" method="post" id="editForm">*@
+@using (Html.BeginForm("EditChapter_1_Introduction", "TMH2022", FormMethod.Post,new { id = "editForm" }))
+{
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+       @Html.TextBoxFor(m => m.Heading, new { @class = "heading-field" })
+        <div id="toolbar">
+            <div class="grp">
+                <button type="button" class="tool" data-cmd="bold" title="Bold"><b>B</b></button>
+                <button type="button" class="tool" data-cmd="italic" title="Italic"><i>I</i></button>
+                <button type="button" class="tool" data-cmd="underline" title="Underline"><u>U</u></button>
+                <button type="button" class="tool" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+            </div>
+            <div class="grp">
+                <select id="fontSize" title="Font size">
+                    <option value="2">13</option>
+                    <option value="3" selected>16</option>
+                    <option value="4">18</option>
+                    <option value="5">24</option>
+                    <option value="6">32</option>
+                </select>
+                <input type="color" id="textColor" title="Text color" value="#1c2430">
+            </div>
+            <div class="grp">
+                <button type="button" class="tool" data-cmd="justifyLeft" title="Align left">⟸</button>
+                <button type="button" class="tool" data-cmd="justifyCenter" title="Align center">≡</button>
+                <button type="button" class="tool" data-cmd="justifyRight" title="Align right">⟹</button>
+            </div>
+            <div class="grp">
+                <button type="button" class="tool" data-cmd="insertUnorderedList" title="Bulleted list">•≡</button>
+                <button type="button" class="tool" data-cmd="insertOrderedList" title="Numbered list">1≡</button>
+            </div>
+        </div>
+        @* Pre-filled with the HTML already saved in the database *@
+        <div id="editor" contenteditable="true">@Html.Raw(Model.Key)</div>
+        @* This hidden field is what actually posts back to Model.Key *@
+@Html.HiddenFor(m => m.Key, new { id = "KeyHidden" })
+            <div class="actions">
+            <button type="submit" class="btn btn-save">Save changes</button>
+            <a class="btn btn-cancel" asp-action="Details" asp-route-id="@Model.Id">Cancel</a>
+        </div>
+}
+    @*</form>*@
+</div>
+<script>
+    // ---- MVC-style split, kept lightweight for this page ----
+    // Model: the editor's DOM + execCommand calls
+    const EditorModel = {
+        el: document.getElementById('editor'),
+        applyCommand(cmd, value = null) { this.el.focus(); document.execCommand(cmd, false, value); },
+        applyFontSize(v) { this.el.focus(); document.execCommand('fontSize', false, v); },
+        applyTextColor(v) { this.el.focus(); document.execCommand('foreColor', false, v); },
+        getActiveState() {
+            return {
+                bold: document.queryCommandState('bold'),
+                italic: document.queryCommandState('italic'),
+                underline: document.queryCommandState('underline'),
+                strikeThrough: document.queryCommandState('strikeThrough'),
+                justifyLeft: document.queryCommandState('justifyLeft'),
+                justifyCenter: document.queryCommandState('justifyCenter'),
+                justifyRight: document.queryCommandState('justifyRight'),
+                insertUnorderedList: document.queryCommandState('insertUnorderedList'),
+                insertOrderedList: document.queryCommandState('insertOrderedList'),
+            };
+        }
+    };
+
+    // View: reflects active state on the toolbar buttons
+    const EditorView = {
+        buttons: document.querySelectorAll('button.tool[data-cmd]'),
+        render(state) {
+            this.buttons.forEach(btn => btn.classList.toggle('active', !!state[btn.dataset.cmd]));
+        }
+    };
+
+    // Controller: wires toolbar + form submit to the Model/View
+    document.querySelectorAll('button.tool[data-cmd]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            EditorModel.applyCommand(btn.dataset.cmd);
+            EditorView.render(EditorModel.getActiveState());
+        });
+    });
+    document.getElementById('fontSize').addEventListener('change', e => EditorModel.applyFontSize(e.target.value));
+    document.getElementById('textColor').addEventListener('input', e => EditorModel.applyTextColor(e.target.value));
+    EditorModel.el.addEventListener('keyup', () => EditorView.render(EditorModel.getActiveState()));
+    EditorModel.el.addEventListener('mouseup', () => EditorView.render(EditorModel.getActiveState()));
+
+    // On submit, copy the editor's live HTML into the hidden field that
+    // actually gets posted to the controller as model.Key.
+    document.getElementById('editForm').addEventListener('submit', function () {
+        document.getElementById('KeyHidden').value = EditorModel.el.innerHTML;
+    });
+</script>

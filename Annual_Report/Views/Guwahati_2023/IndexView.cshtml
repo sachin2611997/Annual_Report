@@ -1,0 +1,329 @@
+﻿@model List<Annual_Report.Models.Index>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/toc.css" />
+    <style>
+        :root {
+  --toc-bg: #FAF7F1;
+  --toc-page: #FFFFFF;
+  --toc-ink: #241F1A;
+  --toc-muted: #7A7266;
+  --toc-rule: #DAD2C2;
+  --toc-accent: #A8461C;      /* rust / burnt sienna */
+  --toc-accent-soft: #F2E4D8;
+  --toc-spine: #241F1A;
+  --toc-radius: 2px;
+  --font-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body.toc-body {
+  
+  margin: 0;
+  background: var(--toc-bg);
+  color: var(--toc-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.toc-shell {
+  max-width: 960px;
+  margin: 56px auto 96px;
+  padding: 0 24px;
+}
+
+/* --- Report label above the page, like a folder tab --- */
+.toc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--toc-muted);
+  margin-bottom: 14px;
+}
+.toc-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--toc-accent);
+}
+
+/* --- The bound page itself --- */
+.toc-page {
+  position: relative;
+  background: var(--toc-page);
+  border: 1px solid var(--toc-rule);
+  border-radius: var(--toc-radius);
+  box-shadow: 0 1px 2px rgba(36, 31, 26, 0.04), 0 12px 32px -20px rgba(36, 31, 26, 0.35);
+  padding: 56px clamp(24px, 6vw, 76px) 64px;
+  overflow: hidden;
+}
+
+/* spine accent running down the left edge of the page */
+.toc-page::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, var(--toc-accent) 0%, #7A2F12 100%);
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin: 0 0 6px;
+}
+
+.toc-subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: var(--toc-muted);
+  letter-spacing: 0.04em;
+  margin: 0 0 40px;
+}
+
+.toc-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--toc-ink);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--toc-muted);
+}
+
+/* --- Section divider (TMH MUMBAI REPORT 2021 / ACTREC REPORT 2021) --- */
+.toc-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 34px 0 10px;
+}
+.toc-section:first-of-type { margin-top: 22px; }
+.toc-section-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+   
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--toc-accent);
+  /*white-space: nowrap;*/
+}
+.toc-section-rule {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--toc-rule) 0, var(--toc-rule) 5px, transparent 5px, transparent 9px);
+}
+.toc-section-page {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: var(--toc-muted);
+  min-width: 2.5ch;
+  text-align: right;
+}
+
+/* --- Chapter row --- */
+/* flex-wrap lets long titles break onto a second line instead of
+   overflowing the card; margin-left:auto on the page number pins it
+   to the right edge of whichever line it ends up on. */
+.toc-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 2px;
+  padding: 9px 0;
+  border-bottom: 1px solid transparent;
+}
+.toc-row.level-1 {
+  font-family: var(--font-display);
+  /*font-size: 17px;*/
+  font-weight: 600;
+  margin-top: 4px;
+}
+.toc-row.level-1 .toc-chip {
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--toc-accent);
+  background: var(--toc-accent-soft);
+  border-radius: 999px;
+  padding: 3px 9px;
+  transform: translateY(-1px);
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.toc-row.level-2 {
+  font-size: 14px;
+  color: #3E382F;
+  padding: 6px 0 6px 34px;
+}
+.toc-row.level-2 .toc-marker {
+  flex: none;
+  color: var(--toc-accent);
+  font-size: 12px;
+  transform: translateY(-1px);
+  align-self: flex-start;
+  margin-top: 3px;
+}
+
+.toc-label {
+  flex: 1 1 400px;
+  min-width: 180px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.35;
+}
+
+.toc-leader {
+  order: 2;
+  flex: 1 1 24px;
+  min-width: 16px;
+  border-bottom: 1px dotted var(--toc-rule);
+  transform: translateY(-4px);
+  align-self: flex-end;
+}
+
+.toc-page-no {
+  order: 3;
+  flex: none;
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  min-width: 3.5ch;
+  text-align: right;
+  color: var(--toc-ink);
+}
+.toc-row.level-2 .toc-page-no {
+  color: var(--toc-muted);
+  font-size: 13px;
+}
+.toc-page-no.is-empty {
+  color: var(--toc-rule);
+}
+.toc-page-no.is-empty::after {
+  content: "—";
+}
+
+.toc-row:hover {
+  background: linear-gradient(90deg, transparent, var(--toc-accent-soft) 4%, transparent 96%);
+}
+
+/* --- Footer note --- */
+.toc-footer {
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid var(--toc-rule);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--toc-muted);
+}
+
+@@media print {
+  html, body { background: #FFFFFF !important;  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+  .toc-eyebrow { display: none; }
+  .toc-shell { max-width: none; width: 100%; margin: 0; padding: 0; }
+  .toc-page { border: none; box-shadow: none; border-radius: 0; padding: 20px; width: 100%; max-width: 100%; }
+  .toc-page::before { width: 4px; }
+  .toc-title { font-size: 22pt; }
+  .toc-subtitle { margin-bottom: 24px; }
+  .toc-row, .toc-section { break-inside: avoid; }
+  .toc-row:hover { background: none; }
+  .toc-footer { position: fixed; bottom: 6mm; left: 0; right: 0; }
+}
+@@page { size: A4; 
+         
+         margin-top: 5mm !important;
+            margin-right: 4mm !important;
+            margin-bottom: 5mm !important;
+            margin-left: 8mm !important;
+
+}
+
+    </style>
+</head>
+<body class="toc-body">
+    
+    <div class="toc-shell">
+        <div class="toc-page">
+            <h1 class="toc-title">Contents</h1>
+            <div class="toc-header-row">
+                <span>Chapters</span>
+                <span>Page No.</span>
+            </div>
+            @foreach (var entry in Model)
+            {
+                if (entry.IsSectionDivider)
+                {
+                    <div class="toc-section">
+                        <span class="toc-section-label">@entry.Title</span>
+                        <span class="toc-section-rule"></span>
+                        @if (!string.IsNullOrWhiteSpace(entry.PageNo))
+                        {
+                            <span class="toc-section-page">@entry.PageNo</span>
+                        }
+                    </div>
+                }
+                else if (entry.Level == 1)
+                {
+                    <div class="toc-row level-1">
+                        @if (!string.IsNullOrWhiteSpace(entry.Number))
+                        {
+                            <span class="toc-chip">@entry.Number</span>
+                        }
+                        <span class="toc-label">@entry.Title</span>
+                        <span class="toc-leader"></span>
+                        <span class="toc-page-no @(string.IsNullOrWhiteSpace(entry.PageNo) ? "is-empty" : "")">@entry.PageNo</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="toc-row level-2">
+                        <span class="toc-marker">&#9656;</span>
+                        <span class="toc-label">@entry.Title</span>
+                        <span class="toc-leader"></span>
+                        <span class="toc-page-no @(string.IsNullOrWhiteSpace(entry.PageNo) ? "is-empty" : "")">@entry.PageNo</span>
+                    </div>
+                }
+            }
+            @*<div class="toc-footer">
+                <span>TMH Mumbai Report 2021</span>
+                <span>Cancer Registry &amp; Epidemiology</span>
+            </div>*@
+        </div>
+    </div>
+</body>
+</html>
+

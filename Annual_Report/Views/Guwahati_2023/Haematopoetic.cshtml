@@ -1,0 +1,1451 @@
+﻿﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
+
+@{
+    Layout = "~/Views/SharedTMH22/_PrintLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8" />
+    <title>HBCR Report | 2020</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
+    @*
+        <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    *@
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        .col-md-6 {
+            width: 50% !important;
+            float: left !important;
+        }
+
+        .col-lg-4 {
+            width: 33.3%;
+            float: left;
+        }
+
+        .total {
+            background-color: #cb5a5e !important;
+        }
+
+        .male {
+            background-color: #c49f47 !important;
+        }
+
+        .female {
+            background-color: #8e5fa2 !important;
+        }
+
+        .ma {
+            background-color: #66bb66 !important;
+        }
+
+        .ta {
+            background-color: #cb5a5e !important;
+            margin: 0 20px 0 0 !important;
+        }
+
+        table tr td .active {
+            background-color: #a6c8e6 !important;
+        }
+
+        .mem {
+            box-shadow: 5px 10px 5px black !important;
+            font-size: 15px;
+        }
+
+        .well {
+            display: none;
+        }
+
+        body {
+            background-color: #e9ecf3 !important;
+        }
+
+        .light {
+            background-color: #fff !important;
+        }
+
+        .portlet-body {
+            background-color: #fff !important;
+            font-size: 25px !important;
+        }
+
+        .portlet-title {
+            /*background: #80C4E9 !important;*/
+            /*background: #F6995C !important;*/
+            /*background:#ff8923 !important;*/
+            /*background:#1066cd !important;*/
+            /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
+            background: #3da9ab !important;
+        }
+
+        .page-title {
+            /*position: fixed !important;*/
+            height: 80px !important;
+        }
+
+        .font-green-haze {
+            color: black !important;
+        }
+
+        .geo {
+            background-color: #26a69a !important;
+            margin: 0 20px 0 0 !important;
+        }
+
+        .tre {
+            margin: 0 10px 0 0 !important;
+        }
+
+        table tr th {
+            font-size: 28px !important;
+        }
+
+
+        table td {
+            font-size: 28px !important;
+        }
+
+        table, tr, td, th {
+            border-top: thin solid !important;
+            border-bottom: thin solid !important;
+        }
+
+        .table-scrollable {
+            margin: 20px 0 0 0 !important;
+            /*width: 800px !important;*/
+            width: -webkit-fill-available !important;
+        }
+
+        .caption {
+            font-size: 32px !important;
+            padding: 25px 0 9px 0 !important;
+        }
+
+        .caption-subject {
+            padding: 25px 0 9px 0 !important;
+        }
+
+        .btn {
+            display: none;
+        }
+
+        .caption-subject {
+            font-size: 28px !important;
+            color: #000000 !important;
+            font-weight: bold;
+        }
+
+        .alert-dismissable {
+            height: 70px !important;
+            font-size: 28px !important;
+            background-color: #d58fdf !important;
+        }
+
+        .head {
+            /*background-color: #0089ff !important;*/
+            /*background-color: #7E60BF !important;*/
+            background-color: #1066cd !important;
+            color: white !important;
+            font-weight: bold !important;
+            padding: 10px;
+            font-size: 25px;
+        }
+
+        .hehd {
+            font-weight: bold !important;
+            background-color: #EB5B00 !important;
+            padding: 20px;
+            color: white !important;
+            font-size: xx-large !important;
+        }
+
+        .het {
+            /*background: #FF9A9A !important;*/
+            background: #FFAE6E !important;
+        }
+
+
+
+
+        @@media print {
+
+            .col-md-6 {
+                width: 50% !important;
+                float: left !important;
+            }
+
+            .thead {
+                background: #C4D7FF !important;
+            }
+
+            .col-lg-4 {
+                width: 33.3%;
+                float: left;
+            }
+
+            .total {
+                background-color: #cb5a5e !important;
+            }
+
+            .male {
+                background-color: #c49f47 !important;
+            }
+
+            .female {
+                background-color: #8e5fa2 !important;
+            }
+
+            .ma {
+                background-color: #66bb66 !important;
+            }
+
+            .ta {
+                background-color: #cb5a5e !important;
+                margin: 0 20px 0 0 !important;
+            }
+
+            table tr td .active {
+                background-color: #a6c8e6 !important;
+            }
+
+
+            .mem {
+                box-shadow: 5px 10px 5px black !important;
+                font-size: 15px;
+            }
+
+            .well {
+                display: none;
+            }
+
+            body {
+                background-color: #e9ecf3 !important;
+            }
+
+            .light {
+                background-color: #fff !important;
+            }
+
+            .portlet-body {
+                background-color: #fff !important;
+                font-size: 25px !important;
+            }
+
+            .portlet-title {
+                /*background: #F6995C !important;*/
+                /*background:#ff8923 !important;*/
+                /*background:#1066cd !important;*/
+                /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
+                background: #3da9ab !important;
+            }
+
+            .page-title {
+                /*position: fixed !important;*/
+                height: 80px !important;
+            }
+
+            .font-green-haze {
+                color: black !important;
+            }
+
+            .geo {
+                background-color: #26a69a !important;
+                margin: 0 20px 0 0 !important;
+            }
+
+            .tre {
+                margin: 0 10px 0 0 !important;
+            }
+
+            table tr th {
+                font-size: 28px !important;
+            }
+
+            table td {
+                font-size: 28px !important;
+            }
+
+            table, tr, td, th {
+                border-top: thin solid !important;
+                border-bottom: thin solid !important;
+            }
+
+            .table-scrollable {
+            }
+
+            .caption {
+                font-size: 32px !important;
+                padding: 25px 0 9px 0 !important;
+            }
+
+            .caption-subject {
+                padding: 25px 0 9px 0 !important;
+                font-weight: bold !important;
+            }
+
+            .btn {
+                display: none;
+            }
+
+            .caption-subject {
+                font-size: 28px !important;
+                color: #000000 !important;
+            }
+
+            .alert-dismissable {
+                height: 70px !important;
+                font-size: 28px !important;
+                background-color: #d58fdf !important;
+            }
+
+            .head {
+                /*background-color: #001A6E !important;*/
+                /*background-color:#0089ff !important;*/
+                /*background-color: #7E60BF !important;*/
+                background-color: #1066cd !important;
+                color: white !important;
+                font-weight: bold !important;
+                padding: 20px;
+                font-size: 45px;
+            }
+
+            .hehd {
+                font-weight: bold !important;
+                background-color: #EB5B00 !important;
+                padding: 20px;
+                color: white !important;
+                font-size: xx-large !important;
+            }
+
+            .het {
+                /*background: #FF9A9A !important;*/
+                background: #FFAE6E !important;
+            }
+        }
+
+        @@page {
+            /*size: A4;*/
+            margin: 0;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- BEGIN HEADER -->
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+
+
+
+
+    <div class="page-container">
+        <!-- BEGIN SIDEBAR -->
+        <!-- END SIDEBAR -->
+        <!-- BEGIN CONTENT -->
+
+        <br />
+
+
+        <div style="text-align: center;  color:white;">
+            <p class="uppercase hehd"> @ViewBag.System4 (ICD-10: C81-C96)  &nbsp;&nbsp;&nbsp;&nbsp; TOTAL CASES : @ViewBag.TotalCount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   MALE : @ViewBag.malecount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FEMALE : @ViewBag.femalecount</p>
+        </div>
+        <br /><br />
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!--Age-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light " id="age">
+                        <div class="het">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Age Category</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+
+                        <div class="portlet-body">
+                            <div id="chart_Haemat_age" class="chart" style="height: 600px;width:830px">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- demo 2nd chart-->
+                    <!-- End demo 2nd chart-->
+                    <!-- END CHART PORTLET-->
+                </div>
+
+                <!--Geographic Distribution-->
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="het" style="height:80px">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center"> Geographic Distribution</p>
+                            </div>
+
+                        </div>
+                        <div class="portlet-body" style="height:600px">
+                            <div class="table-scrollable">
+                                <table class="table" border="1">
+                                    <thead class="thead">
+                                        <tr>
+                                            <th scope="col" style="border-bottom:thin solid">
+
+                                                @Html.DisplayNameFor(model => model.DISTRICT)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.DISTRICTcount)
+                                            </th>
+                                            <th scope="col">
+                                                @Html.DisplayNameFor(model => model.Percentage)
+                                            </th>
+
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DISTRICT)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.DISTRICTcount)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Percentage)%
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                            <td>Other DISTRICT</td>
+                                            <td>@ViewBag.other</td>
+                                            <td>@ViewBag.Otherper %</td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <b>  Total</b>
+                                            </td>
+                                            <td>
+                                                <b>   @ViewBag.TotalCount</b>
+                                            </td>
+                                            <td><b> 100 %</b></td>
+                                        </tr>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- END ROW -->
+        <!-- BEGIN ROW -->
+        <!-- Risk Factor and Comabidity -->
+      
+
+
+        <br /><br />
+
+
+
+
+        <div class="row">
+
+            <!--Type of cases-->
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <!-- BEGIN BORDERED TABLE PORTLET-->
+                    <div class="portlet light">
+                        <div class="het" style="height:80px">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center">Type of Case</p>
+                            </div>
+
+                        </div>
+                        <div class="portlet-body" style="height:600px">
+                            <div class="table-scrollable">
+                                <table class="table" border="1" style="table-layout:fixed">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Type of Case
+                                            </th>
+                                            <th>
+                                                New Cases
+                                            </th>
+                                            <th>
+                                                Old Cases
+                                            </th>
+                                            <th>
+                                                Total Cases
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+
+                                            <td>
+                                                Total
+                                            </td>
+                                            <td>
+                                                @ViewBag.newcase (@ViewBag.newcaseper%)
+                                            </td>
+                                            <td>
+                                                @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
+                                            </td>
+                                            <td>
+                                                @(ViewBag.newcase + ViewBag.oldcase) (@(ViewBag.newcaseper + ViewBag.oldcaseper)%)
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+
+                                            <td>
+                                                <b>    Treated</b>
+                                            </td>
+                                            <td>
+                                                <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
+                                            </td>
+                                            <td>
+                                                <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                            </td>
+                                            <td>
+                                                <b> @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) (@Math.Round(((double)(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)</b>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            @if (@ViewBag.unkcase != 0)
+                                            {
+                                                <td>
+                                                    Unknown Cases
+                                                </td>
+
+                                                        <td>
+                                                            @ViewBag.unkcase (@ViewBag.unkcaseper%)
+                                                        </td>
+
+
+                                                        <td>
+                                                            @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
+                                                        </td>
+
+                                            }
+                                        </tr>
+
+
+                                        <tr>
+
+                                            <td>
+                                                Treatment Advice but Not Taken
+                                            </td>
+                                            <td>
+                                                @ViewBag.advicenotakennew (@ViewBag.advicenotakennewper)
+                                            </td>
+                                            <td>
+                                                @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
+                                            </td>
+                                            <td>
+                                                @(ViewBag.advicenotakennew + ViewBag.advicenotakenold) (@Math.Round(((double)(ViewBag.advicenotakennew + ViewBag.advicenotakenold) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td>
+                                                No Treatment
+                                            </td>
+                                            <td>
+                                                @ViewBag.norxnnew (@ViewBag.norxnnewper)
+                                            </td>
+                                            <td>
+                                                @ViewBag.norxnold (@ViewBag.norxnoldper)
+                                            </td>
+                                            <td>
+                                                @(ViewBag.norxnnew + ViewBag.norxnold) (@Math.Round(((double)(ViewBag.norxnnew + ViewBag.norxnold) / (ViewBag.newcase + ViewBag.oldcase)) * 100, 1)%)
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+
+
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END BORDERED TABLE PORTLET-->
+                </div>
+
+                <!--Treatment Modality-->
+
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="het">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Treatment Modality of Treated Cases (@ViewBag.Totalobjectname)</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+                        @*<div class="portlet-body">
+                                <div id="chart_7_Haemat"  class="chart" style="height: 500px; width:850px">
+                                </div>
+
+                            </div>*@
+                        <div class="portlet-body">
+                            <div id="chartdivHaemat" class="chart" style="height: 600px; width:850px">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END CHART PORTLET-->
+                </div>
+            </div>
+
+
+            <!--Clinical Extent of Disease-->
+
+
+        </div>
+        <!-- END CHART PORTLET-->
+        <!-- END ROW -->
+
+
+<br /><br />
+        <div class="row">
+            <div class="col-md-12">
+
+
+
+                <!--Time to treatment Initiation (In days)-->
+                <div class="col-md-6">
+                    <!-- BEGIN CHART PORTLET-->
+                    <div class="portlet light">
+                        <div class="het">
+                            <div>
+                                @*<i class="icon-bar-chart font-green-haze"></i>*@
+                                <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Time to treatment Initiation (In days)</p>
+                                @*<span class="caption-helper">@ViewBag.System4</span>*@
+                            </div>
+
+                        </div>
+                        <div class="portlet-body">
+                            <div id="Timechart_Haemat" class="chart" style="height: 600px;">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END CHART PORTLET-->
+                </div>
+
+                <!--Disease Status-->
+
+                <div class="col-md-6">
+                    <div class="portlet light">
+                        <div class="het" style="height:80px">
+                            <div>
+                                <p class="caption-subject uppercase" style="text-align:center"> Disease Status of Treated Cases (@ViewBag.Totalobjectname)</p>
+                            </div>
+
+                        </div>
+                        <div class="portlet-body" style="height:600px">
+                            <div id="chart_diseaseHemat" class="chart" style="height: 610px; width:950px;">
+                            </div>
+                            <div class="well margin-top-20">
+                                <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <label class="text-left">Angle:</label>
+                                        <input class="chart_7_chart_diseaseHemat" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="text-left">Depth:</label>
+                                        <input class="chart_7_chart_diseaseHemat" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <!-- END PAGE CONTENT-->
+    </div>
+    <!-- END CONTENT -->
+
+
+
+
+
+
+
+    <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+    <!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="~/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+    <!-- IMPORTAN~llcalendar depends on jquery-ui.min.js for drag & drop support -->
+    <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+
+    <script src="~/assets/global/plugins/flot/jquery.flot.min.js"></script>
+    <script src="~/assets/global/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/assets/global/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="~/assets/global/plugins/flot/jquery.flot.stack.min.js"></script>
+    <script src="~/assets/global/plugins/flot/jquery.flot.crosshair.min.js"></script>
+    <script src="~/assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/charts-flotcharts.js"></script>
+
+
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+
+    <script>
+        jQuery(document).ready(function() {
+            // initiate layout and plugins
+            Metronic.init(); // init metronic core components
+             Layout.init(); // init current layout
+            Demo.init(); // init demo features
+          //  ChartsAmcharts.init();
+            ChartsAgeHaematcharts.init();
+            ChartsTimeHaematcharts.init();
+            ChartsdemoHaematcharts.init();
+
+           // ChartsHorcharts.initBarCharts();
+
+
+        });
+    </script>
+
+    <!-- END PAGE LEVEL SCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
+
+
+<script>
+    var ChartsAgeHaematcharts = function () {
+        var initHaematChart = function() {
+            var agechart = AmCharts.makeChart("chart_Haemat_age", {
+                 "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.agedata)),
+
+
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+
+                    "fontSize":23
+
+                }],
+                "graphs": [{
+
+                    "fillColors":"#6A42C2",
+                    "offset":0,
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 1,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count",
+
+
+                }
+
+                ],
+                "depth3D": 40,
+                "angle": 20,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+
+            }, 0);
+            jQuery('.chart_age_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                chart.startDuration = 0;
+
+                if (property == 'topRadius') {
+                    target = chart.graphs[0];
+                }
+
+                target[property] = this.value;
+                chart.validateNow();
+            });
+
+            $('#chart_Haemat_age').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+        return {
+
+
+            init: function () {
+
+
+                initHaematChart();
+
+
+            }
+
+        };
+    }();
+</script>
+
+<script>
+    var ChartsTimeHaematcharts = function () {
+        var initTimeHaematChart = function() {
+            var timechart = AmCharts.makeChart("Timechart_Haemat", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.timedata)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":23
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                    "fillColors":"#D91656",
+                    //"fillColors":"#700B97",
+
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+
+            $('#Timechart_Haemat').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+        return {
+
+
+            init: function () {
+
+
+                initTimeHaematChart();
+
+
+            }
+
+        };
+    }();
+</script>
+
+
+<script>
+    var ChartsdemoHaematcharts = function () {
+
+        var initChartHaematSample4 = function () {
+            var chart = AmCharts.makeChart("chart_4_Haemat", {
+                "type": "serial",
+                "theme": "light",
+                "startDuration": 1.5,
+                "fontFamily": 'Arial',
+                "color":    '#000000',
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.data)),
+                "colors":[["#33b2df"] ,["#546E7A"]],
+
+                "valueAxes": [{
+                "position": "left",
+                "axisAlpha": 0,
+                "gridAlpha": 0,
+                "dataPoints": "Count",
+
+                "fontSize":20
+                }],
+
+
+
+                "graphs": [{
+                //"balloonColor":"#FF0F00",
+                    //"fillColors":"#7E60BF",
+                    //"fillColors":"#5356FF",
+               // "fillColors":
+
+                //"bold": true,
+                "fontSize" :"23px" ,
+                "labelText":"[[Count]]",
+                "labelColorField": "#FF0F00",
+                "color": "#000000",
+                //"labelPosition":"inside",
+                "balloonText": "[[category]]: <b>[[value]]</b>",
+                "colorField": "color",
+                "fillAlphas": 0.85,
+                "lineAlpha": 0.1,
+                "type": "column",
+                "topRadius": 1,
+                "fixedColumnWidth": 90,
+                "valueField": "Count"
+                }],
+
+                "depth3D": 40,
+                "angle": 20,
+                "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+                },
+                "categoryField": "Key",
+                "categoryAxis": {
+                "gridPosition": "start",
+                "axisAlpha": 0,
+                "gridAlpha": 0,
+                "fontSize":20,
+                "labelRotation": 45,
+                },
+                "exportConfig": {
+                "menuTop": "20px",
+                "menuRight": "20px",
+                "menuItems": [{
+                "icon": '/lib/3/images/export.png',
+                "format": 'png'
+                }]
+                }
+
+                });
+
+
+
+
+
+
+            $('#chart_4_Haemat').closest('.portlet').find('.fullscreen').click(function () {
+                chart.invalidateSize();
+                });
+                }
+
+     var initChartSample7 = function() {
+         var chart = AmCharts.makeChart("chart_7_Haemat", {
+            "type": "pie",
+                "theme": "light",
+                "radius": 130,
+                "labelRadius":80,
+                "fontFamily": 'Arial',
+                "fontSize" :18,
+                "color":    '#000000',
+                "stroke": '#000000',
+                "marginTop": 30,
+                "marginLeft": 100,
+                //"stroke-opacity":"1",
+                "align":"Left",
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
+                "valueField": "Count",
+                "titleField": "Key",
+                "labelText":"[[Key]]:<br>[[Count]]([[percents]]%)",
+                "percentPrecision": 1,
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+                "angle": 0,
+                //"borderAlpha":1,
+                "labelTickAlpha":1,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+            });
+
+
+         jQuery('.chart_7_chart_input').off().on('input change', function() {
+             var property = jQuery(this).data('property');
+             var target = chart;
+             var value = Number(this.value);
+             chart.startDuration = 0;
+
+             if (property == 'innerRadius') {
+                 value += "%";
+             }
+
+             target[property] = value;
+             chart.validateNow();
+         });
+
+         $('#chart_7_Haemat').closest('.portlet').find('.fullscreen').click(function() {
+             chart.invalidateSize();
+         });
+     }
+
+
+        //comabidity
+
+        @*var initChartSamplecomabiditypieHemat = function() {
+            var chart = AmCharts.makeChart("chart_comabiditypieHemat", {
+                "type": "pie",
+                "theme": "light",
+                "radius": 130,
+                "fontFamily": 'Arial',
+                "fontSize":20,
+                "color":    '#000000',
+                "labelRadius":50,
+                "marginBottom":00,
+                "marginRight":00,
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.combability)),
+                "valueField": "Count",
+                "titleField": "Key",
+                "labelText":"[[Key]]:<br>[[Count]] ([[percents]]%)",
+
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+
+
+
+            });
+
+            jQuery('.chart_7_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#chart_comabiditypieHemat').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }*@
+
+
+        //CD Score
+        var initchart_cdscoreallHemat = function() {
+            var timechartchart_cdscoreall = AmCharts.makeChart("chart_cdscoreallHemat", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.total_co)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":18
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                    // "fillColors":"#D91656",
+                    "fillColors":"#009688",
+
+                    //"bold": true,
+                    "fontSize" :"20px" ,
+                    "labelText":"[[Percentage]]%",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    // "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 50,
+                    "valueField": "Percentage"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Label",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":18,
+                    "title": "CD Score",
+                    "titleFontSize": 15,
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+
+            $('#chart_cdscoreallHemat').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+
+
+
+
+        //Diease Status Pie chart
+        var initChartSamplediseaseHemat = function() {
+            var chart = AmCharts.makeChart("chart_diseaseHemat", {
+                "type": "pie",
+                "theme": "light",
+
+                "innerRadius": "50%",
+                "radius": "130",
+
+                "fontFamily": "Arial",
+                "fontSize": 20,
+                "color": "#000000",
+                "outlineAlpha": 0,
+                "pullOutRadius": 0,
+                "marginBottom": 150,
+                "labelRadius": 30,
+
+                "gradientRatio": [-0.4, 0.2, 0.2],
+
+                "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+                "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+                "valueField": "Count",
+                "titleField": "Key",
+                "colorField": "Color",
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
+            });
+
+        }
+
+
+
+
+
+                return {
+
+
+                init: function () {
+
+                    initChartHaematSample4();
+                    initChartSample7();
+                   // initChartSamplecomabiditypieHemat();
+                    initchart_cdscoreallHemat();
+                    initChartSamplediseaseHemat();
+                }
+
+                };
+                }();
+
+
+
+
+
+</script>
+
+
+
+<!-- Resources -->
+
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+
+            var chart = am4core.create("chartdivHaemat", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.objectname));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="20px";
+            series.radius=200;
+            series.dx = 50;
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+
+
+
+});// end am4core.ready()
+
+</script>
+
+
+<!-- Resources -->
+
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes endvar initChartSample7 = function() {
+
+        var chart = am4core.create("chart_comabiditypieHemat", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+           // chart.legend = new am4charts.Legend();
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.combability));
+
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}\n({value.percent.formatNumber('#.0')}%)";
+            series.fontSize="19px";
+            series.radius=100;
+            series.dx = 30;
+        // Pie colors
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+});// end am4core.ready()
+</script>
+
+

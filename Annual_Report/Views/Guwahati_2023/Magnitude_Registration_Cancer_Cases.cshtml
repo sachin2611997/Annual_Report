@@ -1,0 +1,587 @@
+﻿@model List<Annual_Report.Models.MagnitudeRegistration>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Magnitude Registration</title>
+
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="~/assets/global/plugins/jquery.min.js"></script>
+
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <style>
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    background: #fff;
+    margin: 15px;
+}
+
+/*==========================
+        TITLES
+===========================*/
+
+.tmc-title {
+    text-align: center;
+    font-family: "Times New Roman";
+    font-weight: bold;
+    margin: 0;
+}
+
+.chapter-title {
+    font-size: 28px;
+    font-style: italic;
+    text-decoration: underline;
+    margin-bottom: 12px;
+}
+
+.table-title {
+    font-size: 18px;
+    /*text-decoration: underline;*/
+    margin-bottom: 18px;
+}
+
+/*==========================
+        TABLE
+===========================*/
+
+#tblData {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #8FC9E8;
+    font-size: 13px;
+}
+
+/* Header */
+
+#tblData thead tr:first-child th {
+    background: #FFFFFF;
+    color: #000;
+    border: 1px solid #8FC9E8;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#tblData thead tr:nth-child(2) th {
+    background: #D9EEF7;
+    color: #000;
+    border: 1px solid #8FC9E8;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Body */
+
+#tblData tbody td {
+
+    border: 1px solid #8FC9E8;
+    padding: 3px 6px;
+    background: #FFFFFF;
+}
+
+/* Alternate Row */
+
+#tblData tbody tr:nth-child(even) td {
+
+    background: #EAF7FC;
+
+}
+
+/* Hover */
+
+#tblData tbody tr:hover td {
+
+    background: #D8F0FA;
+
+}
+
+/* Footer */
+
+#tblData tfoot td {
+
+    background: #D9EEF7;
+    border: 1px solid #8FC9E8;
+    font-weight: bold;
+    padding: 5px;
+
+}
+
+/* Alignment */
+
+#tblData td {
+
+    text-align: right;
+    vertical-align: middle;
+
+}
+
+#tblData td:first-child {
+
+    text-align: center;
+    font-weight: bold;
+
+}
+
+#tblData th {
+
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+/*==========================
+      INPUT CONTROLS
+===========================*/
+
+#tblData input {
+
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: right;
+    padding: 2px;
+
+}
+
+#tblData input:focus {
+
+    border: 1px solid #4A90E2;
+    background: #FFFFCC;
+    outline: none;
+
+}
+
+.year {
+
+    text-align: center !important;
+
+}
+
+/*==========================
+        BUTTONS
+===========================*/
+
+.btn {
+
+    font-size: 12px;
+    padding: 3px 8px;
+}
+
+.btn-xs {
+
+    padding: 2px 6px;
+
+}
+
+.no-print {
+
+    white-space: nowrap;
+
+}
+
+/*==========================
+      GRAND TOTAL
+===========================*/
+
+#gtPatient,
+#gtCancer,
+#gtCancerPer,
+#gtMale,
+#gtMalePer,
+#gtFemale,
+#gtFemalePer {
+
+    font-weight: bold;
+
+}
+
+/*==========================
+        PRINT
+===========================*/
+
+@@media print {
+
+    @@page {
+        size: A4 portrait;
+        margin: 8mm;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        zoom: 100%;
+        background: #ffffff !important;
+
+        /* Chrome / Edge */
+        -webkit-print-color-adjust: exact !important;
+
+        /* Standard */
+        print-color-adjust: exact !important;
+    }
+
+    /* Hide buttons */
+    .no-print {
+        display: none !important;
+    }
+
+    /* Table */
+    #tblData {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    /* Borders */
+    #tblData,
+    #tblData th,
+    #tblData td {
+        border: 1px solid #8FC9E8 !important;
+    }
+
+    /* First header row */
+    #tblData thead tr:first-child th {
+        background: #FFFFFF !important;
+        color: #000 !important;
+    }
+
+    /* Second header row */
+    #tblData thead tr:nth-child(2) th {
+        background: #D9EEF7 !important;
+        color: #000 !important;
+    }
+
+    /* Alternate rows */
+    #tblData tbody tr:nth-child(even) td {
+        background: #EAF7FC !important;
+    }
+
+    #tblData tbody tr:nth-child(odd) td {
+        background: #FFFFFF !important;
+    }
+
+    /* Grand Total */
+    #tblData tfoot td {
+        background: #D9EEF7 !important;
+        font-weight: bold;
+    }
+
+    #tblData th,
+    #tblData td {
+        padding: 3px 5px !important;
+    }
+
+    /* Preserve colors */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+
+/*==========================
+      COLUMN WIDTHS
+===========================*/
+
+#tblData th:nth-child(1) {
+    width: 80px;
+}
+
+#tblData th:nth-child(2) {
+    width: 170px;
+}
+
+#tblData th:nth-child(3),
+#tblData th:nth-child(4),
+#tblData th:nth-child(5),
+#tblData th:nth-child(6),
+#tblData th:nth-child(7),
+#tblData th:nth-child(8) {
+    width: 90px;
+}
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="tmc-title">
+                    <div class="chapter-title">
+                        Chapter 3. Magnitude of Registration and Cancer Cases
+                    </div>
+
+                    <div class="table-title">
+                        Table 1(a): Registrations and Cancer Cases at Tata Memorial Hospital from 1984 to 2022
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        
+        <div class="row no-print">
+
+            <div class="col-md-6">
+
+                <button id="btnAddRow"
+                        class="btn btn-success">
+
+                    <i class="fa fa-plus"></i>
+
+                    Add New Record
+
+                </button>
+
+            </div>
+
+            <div class="col-md-6 text-right">
+
+                <button onclick="window.print()"
+                        class="btn btn-primary">
+
+                    <i class="fa fa-print"></i>
+
+                    Print
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <br />
+
+        <br />
+        <table id="tblData"
+               class="table table-bordered table-striped">
+
+            <thead>
+
+                <tr>
+
+                    <th rowspan="2">Year</th>
+
+                    <th rowspan="2">Total New Patients Registered</th>
+
+                    <th colspan="2">Cancer Cases</th>
+
+                    <th colspan="2">Male</th>
+
+                    <th colspan="2">Female</th>
+
+                    <th rowspan="2" class="action no-print">
+                        Action
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <th>Nos.</th>
+
+                    <th>%</th>
+
+                    <th>Nos.</th>
+
+                    <th>%</th>
+
+                    <th>Nos.</th>
+
+                    <th>%</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var cancer = 0;
+
+                    int.TryParse(
+                        (item.CancerCases ?? "")
+                        .Replace("#", "")
+                        .Replace(",", ""),
+                        out cancer);
+
+                    decimal cancerPer =
+                        item.TotalNewPatientsRegistered == 0
+                        ? 0
+                        : (decimal)cancer * 100 /
+                          item.TotalNewPatientsRegistered;
+
+                    decimal malePer =
+                        cancer == 0
+                        ? 0
+                        : (decimal)item.MaleCases * 100 /
+                          cancer;
+
+                    decimal femalePer =
+                        cancer == 0
+                        ? 0
+                        : (decimal)item.FemaleCases * 100 /
+                          cancer;
+
+                    <tr data-id="@item.Id">
+
+                        <td>@item.Year</td>
+
+                        <td style="text-align:center">
+                            @item.TotalNewPatientsRegistered.ToString("N0")
+                        </td>
+
+                        <td style="text-align:center">
+                            @item.CancerCases
+                        </td>
+
+                        <td style="text-align:center">
+                            @cancerPer.ToString("0.00")%
+                        </td>
+
+                        <td style="text-align:center">
+                            @item.MaleCases.ToString("N0")
+                        </td>
+
+                        <td style="text-align:center">
+                            @malePer.ToString("0.00")%
+                        </td>
+
+                        <td style="text-align:center">
+                            @item.FemaleCases.ToString("N0")
+                        </td>
+
+                        <td style="text-align:center">
+                            @femalePer.ToString("0.00")%
+                        </td>
+
+                        <td class="text-center no-print" style="text-align:center">
+
+                            <button class="btn btn-xs btn-primary edit"
+                                    title="Edit">
+
+                                <i class="fa fa-pencil"></i>
+
+                            </button>
+
+                            <button class="btn btn-xs btn-success save"
+                                    title="Save">
+
+                                <i class="fa fa-save"></i>
+
+                            </button>
+
+                            <button class="btn btn-xs btn-danger delete"
+                                    title="Delete">
+
+                                <i class="fa fa-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+                }
+
+
+
+          
+
+                <tr>
+
+                    <td colspan="1"
+                        style="text-align:center">
+
+                        Grand Total
+
+                    </td>
+
+                    <td id="gtPatient" style="text-align:center"></td>
+
+                    <td id="gtCancer" style="text-align:center"></td>
+
+                    <td id="gtCancerPer" style="text-align:center"></td>
+
+                    <td id="gtMale" style="text-align:center"></td>
+
+                    <td id="gtMalePer" style="text-align:center"></td>
+
+                    <td id="gtFemale" style="text-align:center"></td>
+
+                    <td id="gtFemalePer" style="text-align:center"></td>
+
+                    <td class="no-print" style="text-align:center"> </td>
+
+                </tr>
+
+          
+            
+           
+        </table>
+        <div class="row" style="margin-top:20px;">
+
+            <div class="col-md-12">
+
+                <div id="noteText"
+                     style="font-size:14px;text-align:justify;line-height:25px;">
+
+                    @Html.Raw(ViewBag.Note)
+
+                </div>
+
+                <textarea id="txtNote"
+                          class="form-control"
+                          rows="5"
+                          style="display:none;">
+                    @ViewBag.Note
+                    </textarea>
+
+                    <br />
+
+                    <button id="btnEditNote"
+                            class="btn btn-primary no-print">
+
+                        <i class="fa fa-pencil"></i>
+                        Edit Text
+
+                    </button>
+
+                    <button id="btnSaveNote"
+                            class="btn btn-success no-print"
+                            style="display:none;">
+
+                        <i class="fa fa-save"></i>
+                        Save Text
+
+                    </button>
+
+                </div>
+
+            </div>
+    </div>
+    <script src="~/Scripts/MagnitudeRegistration.js"></script>
+
+</body>
+
+</html>

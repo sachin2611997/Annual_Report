@@ -1,0 +1,346 @@
+﻿@using Annual_Report.Models
+
+@{
+  
+    ViewBag.Title = "Leading Sites of Cancer";
+
+    var male = ViewBag.Male as List<System3StatsViewModel>;
+    var female = ViewBag.Female as List<System3StatsViewModel>;
+
+    decimal maleTotal = Convert.ToDecimal(ViewBag.MaleTotal);
+    decimal femaleTotal = Convert.ToDecimal(ViewBag.FemaleTotal);
+
+    string[] maleRank = (ViewBag.Malekey ?? "").ToString().Split(',');
+    string[] femaleRank = (ViewBag.Femalekey ?? "").ToString().Split(',');
+}
+
+
+
+    <meta charset="utf-8" />
+
+    <title>Leading Sites of Cancer</title>
+
+    <style>
+        /*body {
+            margin: 0;
+            padding: 20px;
+            font-family: Calibri, Arial, sans-serif;
+            background: #efefef;
+        }*/
+
+        .report-page {
+            width: 1000px;
+            margin: auto;
+            background: #fff;
+            /*border: 1px solid #000;*/
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .title1 {
+            text-align: center;
+        }
+
+            .title1 h2 {
+                font-size: 20px;
+                font-weight: bold;
+                
+                  font-style: italic;
+                margin: 0;
+            }
+
+            .title1 h3 {
+                /*font-size: 26px;*/
+                font-weight: bold;
+                text-decoration: underline;
+                margin-top: 15px;
+                margin-bottom: 20px;
+            }
+
+        .description1 {
+            margin-top: 20px;
+            margin-bottom: 25px;
+            text-align: justify;
+            font-size: 18px;
+            /*line-height: 34px;*/
+        }
+
+       .leadingTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+            .leadingTable th {
+                border: 1px solid #888;
+                background: #ffffff;
+                padding: 8px;
+                text-align: center;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .leadingTable td {
+                border: 1px solid #888;
+                padding: 8px;
+                font-size: 18px;
+                vertical-align: middle;
+                /*word-break: break-word;*/
+            }
+
+            .leadingTable tr:nth-child(even) {
+                background: #eef5e4;
+            }
+
+        .center {
+            text-align: center;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .total {
+            background: #dfe8c9;
+            font-weight: bold;
+        }
+
+        .genderImage {
+            width: 90px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .hide {
+            margin-top: 20px;
+        }
+        .number {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.site {
+    text-align: left;
+    white-space: normal;
+}
+
+.rank {
+    white-space: nowrap;
+    text-align: center;
+}
+
+        @@page {
+            size: A4 portrait;
+            margin: 5mm;
+        }
+
+      @@media print {
+
+  .report-page{
+    padding:12px;
+}
+
+    .leadingTable{
+        width:100%;
+        border-collapse:collapse;
+        table-layout:fixed;
+        margin-top:10px;
+    }
+
+    .leadingTable th{
+    font-size:22px;
+    padding:4px 3px;
+    line-height:18px;
+}
+
+   .leadingTable td{
+    font-size:20px;
+    padding:3px 3px;
+    line-height:17px;
+}
+
+    .leadingTable tr{
+    height:28px;
+    font-size:20px;
+}
+
+    .site{
+        font-size:17px;
+        line-height:20px;
+    }
+
+    .number,
+    .rank{
+        font-size:17px;
+        white-space:nowrap;
+        text-align:center;
+    }
+
+   .title1 h2{
+    margin:0;
+    font-size:25px;
+}
+
+    .title1 h3{
+    margin-top:8px;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+    .description1{
+    margin-top:8px;
+    margin-bottom:10px;
+    font-size:22px;
+    line-height:24px;
+}
+
+    .genderImage img{
+    width:65px;
+    height:200px;
+}
+
+    .hide{
+        display:none;
+    }
+}
+    </style>
+
+
+
+
+
+    <div class="report-page">
+
+        <div class="title1">
+            
+                <h2>Chapter 5. Leading Sites of Cancer</h2>
+            <br />
+
+                <div class="description1">
+                    @ViewBag.Leadingkey
+                </div>
+            <br />
+                <h3>
+                    Table 5: Top ten leading Sites of Cancer in the year: @ViewBag.year
+                </h3>
+
+            </div>
+        <br />
+        <br>
+        <table class="leadingTable">
+
+            <tr>
+
+                <th style="width:6%;">Rank</th>
+                <th style="width:22%;">Male Site</th>
+                <th style="width:9%;">Nos</th>
+                <th style="width:7%;">%</th>
+                <th style="width:11%;">Rank in<br>2001</th>
+
+                <th class="genderImage" @*style="width:8%;"*@ rowspan="12">
+
+                    <img src="~/Models/symbol.png"
+                         style="width:85px;height:270px;" />
+
+                </th>
+
+                <th style="width:6%;">Rank</th>
+                <th style="width:22%;">Female Site</th>
+                <th style="width:9%;">Nos</th>
+                <th style="width:7%;">%</th>
+                <th style="width:11%;">Rank in<br>2001</th>
+
+            </tr>
+            @for (int i = 0; i < 10; i++)
+            {
+                var m = male != null && i < male.Count ? male[i] : null;
+                var f = female != null && i < female.Count ? female[i] : null;
+
+                decimal malePer = 0;
+                decimal femalePer = 0;
+
+                if (m != null && maleTotal > 0)
+                {
+                    malePer = (m.MaleCount * 100M) / maleTotal;
+                }
+
+                if (f != null && femaleTotal > 0)
+                {
+                    femalePer = (f.FemaleCount * 100M) / femaleTotal;
+                }
+
+                <tr>
+
+                    <td class="rank">
+                        @(i + 1)
+                    </td>
+                    <td class="site">
+                        @(m == null ? "" : m.System)
+                    </td>
+                    <td class="number">
+                        @(m == null ? "" : m.MaleCount.ToString())
+                    </td>
+                    <td class="number">
+                        @(m == null ? "" : malePer.ToString("0.0"))
+                    </td>
+
+                    <td class="rank">
+                        @(i < maleRank.Length ? maleRank[i].Trim() : "")
+                    </td>
+
+                    <td class="rank">
+                        @(i + 1)
+                    </td>
+
+                    <td class="site">
+                        @(f == null ? "" : f.System)
+                    </td>
+
+                    <td class="number">
+                        @(f == null ? "" : f.FemaleCount.ToString())
+                    </td>
+
+                    <td class="number">
+                        @(f == null ? "" : femalePer.ToString("0.0"))
+                    </td>
+
+                    <td class="rank">
+                        @(i < femaleRank.Length ? femaleRank[i].Trim() : "")
+                    </td>
+
+                </tr>
+            }
+
+            <tr class="total">
+
+                <td></td>
+
+                <td class="site"><b>ALL SITES</b></td>
+                <td class="number"><b>@maleTotal</b></td>
+                <td class="number"><b>100.0</b></td>
+                <td></td>
+                <td></td>
+                <td class="site"><b>ALL SITES</b></td>
+                <td class="number"><b>@femaleTotal</b></td>
+                <td class="number"><b>100.0</b></td>
+
+                <td></td>
+
+            </tr>
+
+        </table>
+
+        <br />
+
+        @Html.ActionLink(
+    "Edit",
+    "EditLeading_Sites_Cancer",
+    "TMH2022",
+    null,
+    new
+    {
+        @class = "btn btn-primary hide"
+    })
+
+    </div>
+

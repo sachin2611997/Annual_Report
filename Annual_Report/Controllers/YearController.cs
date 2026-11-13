@@ -11,7 +11,8 @@ namespace Annual_Report.Controllers
         // GET: Year
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            ViewBag.year = "2022";
+            ViewBag.year = "2023";
+            ViewBag.Centre = "Guwahati";
             base.OnActionExecuting(filterContext);
         }
 

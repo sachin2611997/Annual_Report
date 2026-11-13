@@ -14,6 +14,8 @@ namespace Annual_Report.Models
 
         }
         public DbSet<final_analysis> fnl_alysis { get; set; }
+        public DbSet<Guwahti_analysis> guwahti { get; set; }
+
         public DbSet<OverviewTmcRegistration> overview_tmc { get; set; }
         public DbSet<PediatricCancer> pediatric_cancer { get;  set; }
 

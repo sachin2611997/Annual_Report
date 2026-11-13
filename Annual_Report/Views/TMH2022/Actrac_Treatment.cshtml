@@ -1,8 +1,10 @@
-﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
+﻿@model  Annual_Report.Models.final_analysis
 
 @{
     Layout = null;
 }
+
+
 
 <!DOCTYPE html>
 <!--
@@ -19,205 +21,96 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en">
+<html lang="en" class="no-js">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Provisional Report | 2024</title>
+    <title>ACTREC | 2022</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN THEME STYLES -->
+    <!-- END GLO~ANDATORY STYLES -->
+    <!-- BEGIN P~EVEL PLUGIN STYLES -->
+    <link href="~/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+    <!-- END PAG~EL PLUGIN STYLES -->
+    <!-- BEGIN P~TYLES -->
+    <link href="~/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css" />
+    <!-- END PAG~LES -->
+    <!-- BEGIN T~STYLES -->
+    <!-- DOC: To~'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
     <link href="~/assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css" />
     <link href="~/assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link id="style_color" href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="~/assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css" />
-    @*
-        <link href="~/assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css" />
-    *@
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="favicon.ico" />
     <style>
-        .col-md-6 {
-            width: 50% !important;
-            float: left !important;
-        }
-
-        .col-lg-4 {
-            width: 33.3%;
-            float: left;
-        }
-
-        .table {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-
-        .total {
-            background-color: #cb5a5e !important;
-        }
-
-        .male {
-            background-color: #c49f47 !important;
-        }
-
-        .female {
-            background-color: #8e5fa2 !important;
-        }
-
-        .ma {
-            background-color: #66bb66 !important;
-        }
-
-        .ta {
-            background-color: #cb5a5e !important;
-            margin: 0 20px 0 0 !important;
-        }
-
-        table tr td .active {
-            background-color: #a6c8e6 !important;
-        }
-
-        .mem {
-            box-shadow: 5px 10px 5px black !important;
-            font-size: 15px;
-        }
-
-        .well {
-            display: none;
-        }
-
-        body {
-            background-color: #e9ecf3 !important;
-        }
-
-        .light {
-            background-color: #fff !important;
-        }
-
-        .portlet-body {
-            background-color: #fff !important;
-            font-size: 25px !important;
-        }
-
-        .portlet-title {
-            /*background: #80C4E9 !important;*/
-            /*background: #F6995C !important;*/
-            /*background:#ff8923 !important;*/
-            /*background:#1066cd !important;*/
-            /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
-            background: #3da9ab !important;
-        }
-
-        .page-title {
-            /*position: fixed !important;*/
-            height: 80px !important;
-        }
-
-        .font-green-haze {
-            color: black !important;
-        }
-
-        .geo {
-            background-color: #26a69a !important;
-            margin: 0 20px 0 0 !important;
-        }
-
-        .tre {
-            margin: 0 10px 0 0 !important;
-        }
-
-        table tr th {
-            font-size: 28px !important;
-        }
-
-
-        table td {
-            font-size: 28px !important;
-        }
-
-        table, tr, td, th {
-            border-top: thin solid !important;
-            border-bottom: thin solid !important;
-        }
-
-        .table-scrollable {
-            /*margin: 20px 0 0 0 !important;*/
-            width: auto !important;
-            /*width: -webkit-fill-available !important;*/
-        }
-
-        .caption {
-            font-size: 32px !important;
-            padding: 25px 0 9px 0 !important;
-        }
-
-        .caption-subject {
-            padding: 25px 0 9px 0 !important;
-        }
-
-        .btn {
-            display: none;
-        }
-
-        .caption-subject {
-            font-size: 28px !important;
-            color: #000000 !important;
-            font-weight: bold;
-        }
-
-        .alert-dismissable {
-            height: 70px !important;
-            font-size: 28px !important;
-            background-color: #d58fdf !important;
-        }
-
-        .head {
-            /*background-color: #0089ff !important;*/
-            /*background-color: #7E60BF !important;*/
-            background-color: #1066cd !important;
-            color: white !important;
+        .arportnd {
             font-weight: bold !important;
-            padding: 10px;
-            font-size: 25px;
+            /*background-color: #EB5B00 !important;*/
+            background-color: #7d1616fa !important;
+            padding: 20px;
+            color: white !important;
+            font-size: xx-large !important;
         }
 
-        .imgb {
-            background-color: white !important;
+        .atrend {
+            /*background-color: #ff9a9a !important;*/
+            background-color: #81d4fa !important;
         }
 
-        table th tr {
-            background-color: #ffe4c4 !important;
+        .aptt {
+            /*background: #FF9A9A !important;*/
+            background-color: #ff9a9a !important;
         }
 
-        table tr .coo {
-            background-color: bisque !important;
+        .acon {
+            padding: 0px 0px 0px 200px !important;
         }
+
+        .acustom-table {
+            width: 100%;
+            border-collapse: collapse !important;
+        }
+
+            .acustom-table,
+            .acustom-table th,
+            .acustom-table td {
+                border: 1.5px solid #000 !important;
+            }
+
+                .acustom-table th,
+                .acustom-table td {
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 12px;
+                }
+                   .acaption-subject {
+                font-size: 28px !important;
+            }
 
         @@media print {
-            table tr .coo {
-                background-color: bisque !important;
-            }
+
 
             .col-md-6 {
-                width: 50% !important;
-                float: left !important;
-            }
-
-            .thead {
-                background: #C4D7FF !important;
+                width: 50%;
+                float: left;
             }
 
             .col-lg-4 {
@@ -225,46 +118,40 @@ License: You must have a valid license purchased only from themeforest(the above
                 float: left;
             }
 
-            .total {
+            .atotal {
                 background-color: #cb5a5e !important;
             }
 
-            .male {
+            .amale {
                 background-color: #c49f47 !important;
             }
 
-            .female {
+            .afemale {
                 background-color: #8e5fa2 !important;
             }
 
-            .ma {
-                background-color: #66bb66 !important;
+            .ama {
+                background-color: #26a69a !important;
             }
 
-            .ta {
+            .ata {
                 background-color: #cb5a5e !important;
-                margin: 0 20px 0 0 !important;
             }
 
             table tr td .active {
                 background-color: #a6c8e6 !important;
             }
 
-
-            .mem {
+            .amem {
                 box-shadow: 5px 10px 5px black !important;
                 font-size: 15px;
             }
 
-            .well {
-                display: none;
-            }
-
             body {
-                background-color: #fff !important;
+                background-color: #e9ecf3 !important;
             }
 
-            .light {
+            .alight {
                 background-color: #fff !important;
             }
 
@@ -273,30 +160,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 font-size: 25px !important;
             }
 
-            .portlet-title {
-                /*background: #F6995C !important;*/
-                /*background:#ff8923 !important;*/
-                /*background:#1066cd !important;*/
-                /*background:  linear-gradient(to right, #66ffff 0%, #ffff99 100%) !important;*/
-                background: #3da9ab !important;
-            }
-
             .page-title {
-                /*position: fixed !important;*/
-                height: 80px !important;
+                position: fixed !important;
             }
 
-            .font-green-haze {
-                color: black !important;
-            }
-
-            .geo {
-                background-color: #26a69a !important;
-                margin: 0 20px 0 0 !important;
-            }
-
-            .tre {
-                margin: 0 10px 0 0 !important;
+            .portlet {
             }
 
             table tr th {
@@ -307,295 +175,533 @@ License: You must have a valid license purchased only from themeforest(the above
                 font-size: 28px !important;
             }
 
-            table, tr, td, th {
-                border-top: thin solid !important;
-                border-bottom: thin solid !important;
-            }
-
-            .table-scrollable {
-                /*margin: 20px 30px !important;*/
-                /*width: 800px !important;*/
-                /*width: -webkit-fill-available !important;*/
-            }
-
             .caption {
-                font-size: 32px !important;
-                padding: 25px 0 9px 0 !important;
+                font-size: 30px !important;
             }
 
-            .caption-subject {
-                padding: 25px 0 9px 0 !important;
-                font-weight: bold !important;
+            .acaption-subject {
+                font-size: 28px !important;
             }
 
-            .btn {
+            .well {
                 display: none;
             }
 
-            .caption-subject {
-                font-size: 28px !important;
-                color: #000000 !important;
-            }
-
-            .alert-dismissable {
-                height: 70px !important;
-                font-size: 28px !important;
-                background-color: #d58fdf !important;
-            }
-
-            .head {
-                /*background-color: #001A6E !important;*/
-                /*background-color:#0089ff !important;*/
-                /*background-color: #7E60BF !important;*/
-                background-color: #1066cd !important;
-                color: white !important;
+            .arportnd {
                 font-weight: bold !important;
+                /*background-color: #EB5B00 !important;*/
+                background-color: #7d1616fa !important;
                 padding: 20px;
-                /*font-size: 45px;*/
-                font-size: xx-large !important;
-            }
-
-            h3 {
-                font-size: xx-large !important;
-                color:white !important;
-            }
-            h1{
-                font-size: 30px !important;
-            }
-            u{
-                 color:white !important;
-            }
-
-            .t {
-                padding: 30px !important;
-            }
-
-            .d {
-                padding: 30px !important;
-            }
-
-            .panel {
-                background-color: #428bca !important;
-                
-            }
-
-            .texthead {
                 color: white !important;
+                font-size: xx-large !important;
             }
 
-            table tr .co {
-                background-color: aqua !important;
+            .atrend {
+                /*background-color: #ff9a9a !important;*/
+                background-color: #81d4fa !important;
             }
-            .headtr{
-                font-size:60px !important;
-            }
-            html{
-                 height: 100%;  /* Make sure the html element takes up the full viewport height */
-  margin: 0;     /* Remove default margin */
-  padding: 0;    /* Remove default padding */
-  border: 2px solid black; /* Add border around the entire page */
-            }
-        }
 
-        @@page {
-            /*margin-top: 10mm;
-                 margin-right: 10mm;
-                 margin-bottom: 10mm;
-                 margin-left: 10mm;*/
+            .acon {
+                padding: 0px 500px 0px 500px !important;
+            }
+
+            .aptt {
+                /*background: #FF9A9A !important;*/
+                background-color: #ff9a9a !important;
+            }
         }
     </style>
-
-
-
-
-
 </head>
 
 <body>
-
-    <div class="panel panel-primary" style="text-align: center;  color:white;background-color:#428bca">
-
-        <h1>
-            <b><u class="headtr"> TREATMENT</u> </b><br /><br />
-            
-        </h1>
-
-        <h3> <b><u>Table 17: Distribution of Treatment for cases registered in ACTREC  YEAR: @ViewBag.year </u></b></h3>
-
+    <div style="text-align: center;  color:white;">
+        <p class="uppercase arportnd">
+            All Sites  &nbsp;&nbsp;&nbsp;&nbsp; TOTAL CASES : @ViewBag.total  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   MALE : @ViewBag.malecount  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  FEMALE : @ViewBag.femalecount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACTREC &nbsp;&nbsp;&nbsp; YEAR: @ViewBag.year
+        </p>
     </div>
-    <br />
-    <br />
 
 
-    
-    <div class="row">
+    <div @*class="page-container"*@>
+
+        <div class="page-content-wrapper">
+            <div>
 
 
 
-        <div class="col-md-12">
-            <div class="portlet box blue">
 
-                <div class="portlet-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
 
-                                    </th>
-                                    <th>
-                                        Nos.
-                                    </th>
-                                    <th>
-                                        %
-                                    </th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        New Cases Treated in TMC-Mumbai from ACTREC registratons
-                                    </td>
-                                    <td>
-                                        @ViewBag.newactrigs
-                                    </td>
-                                    <td>
-                                        @ViewBag.newactrigsper
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Prior treated Cases treated in TMC-Mumbai from ACTREC registratons
-                                    </td>
-                                    <td>@ViewBag.prioractrigs</td>
-                                    <td>@ViewBag.prioractrigsper</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        ACTREC-Registered -Total Treated cases in TMC Mumbai
-                                    </td>
-                                    <td>@ViewBag.nos</td>
-                                    <td>100.0</td>
-                                </tr>
+                <!--age catogy And Risk factor-->
 
-                            </tbody>
+                <div class="row">
 
-                        </table>
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Age Category</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:500px;">
+                                    <div id="achart_All" class="chart" style="height: 500px;width:830px">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Type of Cases</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:500px;">
+                                    <div>
+                                        <table class="table" border="1" style="table-layout:fixed">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Type of Case
+                                                    </th>
+                                                    <th>
+                                                        New Cases
+                                                    </th>
+                                                    <th>
+                                                        Old Cases
+                                                    </th>
+                                                    <th>
+                                                        Total Cases
+                                                    </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+
+                                                    <td>
+                                                        Total
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.newcase (@ViewBag.newcaseper%)
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.oldcase (@ViewBag.oldcaseper%)
+
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.total (@(ViewBag.newcaseper + ViewBag.oldcaseper)%)
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td>
+                                                        <b>    Treated</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>    @ViewBag.NewTretedTmh (@ViewBag.NewTretedTmhper%)</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>  @ViewBag.oldtreatedtmh (@ViewBag.oldtreatedtmhper%)</b>
+                                                    </td>
+                                                    <td>
+                                                        <b>  @(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) (@Math.Round(((double)(ViewBag.NewTretedTmh + ViewBag.oldtreatedtmh) / ViewBag.total) * 100, 1)%)</b>
+
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    @if (@ViewBag.unkcase != 0)
+                                                    {
+                                                        <td>
+                                                            Unknown Cases
+                                                        </td>
+
+                                                        <td>
+                                                            @ViewBag.unkcase (@ViewBag.unkcaseper%)
+                                                        </td>
+
+
+                                                        <td>
+                                                            @ViewBag.untreatedtmh (@ViewBag.untreatedtmhper%)
+                                                        </td>
+
+                                                    }
+                                                </tr>
+
+
+                                                <tr>
+
+                                                    <td>
+                                                        Treatment Advice but Not Taken
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.advicenotakennew (@ViewBag.advicenotakennewper)
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.advicenotakenold (@ViewBag.advicenotakenoldper)
+                                                    </td>
+                                                    <td>
+                                                        @(ViewBag.advicenotakennew + ViewBag.advicenotakenold) (@Math.Round(((double)(ViewBag.advicenotakennew + ViewBag.advicenotakenold) / ViewBag.total) * 100, 1)%)
+
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td>
+                                                        No Treatment
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.norxnnew (@ViewBag.norxnnewper)
+                                                    </td>
+                                                    <td>
+                                                        @ViewBag.norxnold (@ViewBag.norxnoldper)
+                                                    </td>
+                                                    <td>
+                                                        @(ViewBag.norxnnew + ViewBag.norxnold) (@Math.Round(((double)(ViewBag.norxnnew + ViewBag.norxnold) / ViewBag.total) * 100, 1)%)
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                            <tfoot>
+
+
+
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+
+
+
+
+
+
                     </div>
+
+
+                    <!-- END REGIONAL STATS PORTLET-->
+
+
                 </div>
+
+
+
+
+
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Risk Factor</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div>
+                                        <table class="table" border="1">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="padding: 50px;border-bottom: thin solid; text-align: center;" rowspan="2">Factors</th>
+
+                                                    <th scope="col" colspan="2">Male</th>
+                                                    <th scope="col" colspan="2">Female</th>
+                                                    <th scope="col" colspan="2">Total</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                    <th scope="col">Nos</th>
+                                                    <th scope="col">%</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+
+                                                <tr>
+                                                    <td> Smoking Tobacco</td>
+                                                    <td>@ViewBag.RiskSmokefactorMale</td>
+                                                    <td>@ViewBag.RiskSmokefactorMaleper</td>
+                                                    <td>@ViewBag.RiskSmokefactorFemale</td>
+                                                    <td>@ViewBag.RiskSmokefactorFemaleper</td>
+                                                    <td>@ViewBag.TotalSmokeRiskfactor</td>
+                                                    <td>@ViewBag.TotalSmokeRiskfactorper</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Smokless Tobacco </td>
+                                                    <td>@ViewBag.RiskChewfactorMale</td>
+                                                    <td>@ViewBag.RiskChewfactorMaleper</td>
+                                                    <td>@ViewBag.RiskChewfactorFemale</td>
+                                                    <td>@ViewBag.RiskChewfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalChewRiskfactor</td>
+                                                    <td>@ViewBag.TotalChewRiskfactorper</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Alcohol</td>
+                                                    <td>@ViewBag.RiskDrinkfactorMale</td>
+                                                    <td>@ViewBag.RiskDrinkfactorMaleper</td>
+                                                    <td>@ViewBag.RiskDrinkfactorFemale</td>
+                                                    <td>@ViewBag.RiskDrinkfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalDrinkRiskfactor</td>
+                                                    <td>@ViewBag.TotalDrinkRiskfactorper</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> Family History </td>
+                                                    <td>@ViewBag.RiskFamHistfactorMale</td>
+                                                    <td>@ViewBag.RiskFamHistfactorMaleper</td>
+                                                    <td>@ViewBag.RiskFamHistfactorFemale</td>
+                                                    <td>@ViewBag.RiskFamHistfactorFemaleper</td>
+                                                    <td>@ViewBag.TotalFamHistRiskfactor</td>
+                                                    <td>@ViewBag.TotalFamHistRiskfactorper</td>
+                                                </tr>
+
+                                            </tbody>
+
+                                            @*<tfoot>
+                                                    <tr>
+                                                        <td style="text-align:center" colspan="2"><b>Total Cancers Cases</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tMcount</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>@ViewBag.tFcount</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>@ViewBag.TotalGUSCount</b></td>
+                                                        <td style="background-color:#edacac;text-align:center"><b>100.0</b></td>
+                                                    </tr>
+                                                </tfoot>*@
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <!-- BEGIN BORDERED TABLE PORTLET-->
+                            <div class="portlet light">
+
+                                <!-- Main Heading -->
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">COMORBIDITY </p>
+                                    </div>
+                                </div>
+
+                                <div class="portlet-body" style="height:400px;">
+
+                                    <div class="row">
+
+                                        <!-- PIE CHART -->
+                                        <div class="col-md-6">
+                                            <h4 style="text-align:center; font-weight:bold; margin-top:5px;">Presence of Comorbidity </h4>
+
+                                            <div id="achart_comabiditypie" style="height:330px; width:100%;"> </div>
+
+                                        </div>
+
+
+                                        <!-- BAR CHART -->
+                                        <div class="col-md-6">
+
+                                            <h4 style="text-align:center; font-weight:bold;margin-top:5px;"> No. of Comorbidity </h4>
+
+                                            <div id="achart_cdscoreall" style="height:330px; width:100%;"> </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- END BORDERED TABLE PORTLET-->
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- END REGIONAL STATS PORTLET-->
+
+
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Clinical Extent of Disease</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="achart_5" class="chart" style="height: 600px;">
+                                    </div>
+                                    <div class="well margin-top-20">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label class="text-left">Top Radius:</label>
+                                                <input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-left">Angle:</label>
+                                                <input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-left">Depth:</label>
+                                                <input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Treatment Modality of Treated Cases  (@ViewBag.Totalobjectname)</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="achart_7all" class="chart" style="height: 600px; width:900px">
+                                    </div>
+                                    <div class="well margin-top-20">
+                                        <div class="row">
+                                            @*<div class="col-sm-3">
+                                                    <label class="text-left">Top Radius:</label>
+                                                    <input class="chart_7_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01" />
+                                                </div>*@
+                                            <div class="col-sm-3">
+                                                <label class="text-left">Angle:</label>
+                                                <input class="chart_7_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1" />
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label class="text-left">Depth:</label>
+                                                <input class="chart_7_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!--co-morbidity And tti-->
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <!-- BEGIN REGIONAL STATS PORTLET-->
+
+
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Time to treatment Initiation (In days)</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height:500px;">
+                                    <div id="aTimechartAll" class="chart" style="height: 400px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- BEGIN CHART PORTLET-->
+                            <div class="portlet light">
+                                <div class="aptt" style="height:80px">
+                                    <div>
+                                        <p class="caption-subject uppercase" style="text-align:center">Disease Status of Treated Cases (@ViewBag.Totalobjectname)</p>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" style="height: 500px;">
+                                    <div id="achart_diseaseAll" class="chart" style="height: 610px; width:950px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END CHART PORTLET-->
+                        </div>
+
+                    </div>
+
+
+                    <!-- END REGIONAL STATS PORTLET-->
+
+
+                </div>
+
+
+
+
             </div>
-
         </div>
-
+        <!-- END CONTENT -->
     </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="page-footer">
 
-    <div class="row">
-
-
-        <div class="col-md-6">
-            <div class="portlet box blue">
-
-                <div class="portlet-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Treatment Modalities
-                                    </th>
-                                    <th>
-                                        Nos.
-                                    </th>
-                                    <th>
-                                        %
-                                    </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.State)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Statecount)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Percentage) %
-                                        </td>
-                                    </tr>
-                                }
-
-
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td><b>Total Treated ACTREC registered cases</b></td>
-                                    <td><b>@ViewBag.nos</b></td>
-                                    <td><b>100 % </b></td>
-                                </tr>
-
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
         </div>
     </div>
-    
-    <div class="row">
 
-
-        <div class="col-md-12">
-            <!-- BEGIN CHART PORTLET-->
-            <div class="portlet light">
-                <div class="portlet-title">
-                    <div>
-                        @*<i class="icon-bar-chart font-green-haze"></i>*@
-                        <p class="caption-subject  uppercase font-green-haze" style="text-align:center"> Fig 4: Distribution of Treatment Modalities of ACTREC registered cases for the YEAR: 2021</p>
-                        @*<span class="caption-helper">@ViewBag.System4</span>*@
-                    </div>
-
-                </div>
-                <div class="portlet-body" style="border:solid 0.5px">
-                    <div id="chart_treatment" class="chart" style="height: 1000px; width:100%">
-                    </div>
-
-                </div>
-            </div>
-            <!-- END CHART PORTLET-->
-        </div>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- END FOOTER -->
+    <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+    <!-- BEGIN CORE PLUGINS -->
+    <!--[if lt IE 9]>
+    <script src="../../assets/global/plugins/respond.min.js"></script>
+    <script src="../../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
     <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
     <!-- IMPORTAN~ad jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
@@ -607,7 +713,9 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!-- END CORE PLUGINS -->
+    <!-- END CORE~INS -->
+    <!-- BEGIN PA~VEL PLUGINS -->
+
     <script src="~/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -619,7 +727,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <!-- END PAGE LEVEL PLUGINS -->
     <script src="~/assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
@@ -630,111 +738,592 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="~/assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
     <script src="~/assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
-    <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     <script src="~/assets/global/scripts/metronic.js" type="text/javascript"></script>
     <script src="~/assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+    <script src="~/assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>
     <script src="~/assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
+    <script src="~/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
     <script src="~/assets/admin/pages/scripts/charts-amcharts.js"></script>
-    <script>
-        jQuery(document).ready(function () {
-            // initiate layout and plugins
-            Metronic.init(); // init metronic core components
-            Layout.init(); // init current layout
-            Demo.init(); // init demo features
-            ChartsActreccharts.init();
-            //  ChartsAgecharts.init();
-            // ChartsTimecharts.init();
-        });
-    </script>
+    <script src="https://cdn.amcharts.com/lib/5/plugins/exporting.js"></script>
+
 
     <!-- END PAGE LEVEL SCRIPTS -->
+    <script>
+        jQuery(document).ready(function () {
+            Metronic.init(); // init metronic core componets
+            Layout.init(); // init layout
+            Demo.init(); // init demo features
+            aChartsAmallcharts.init();
+            QuickSidebar.init(); // init quick sidebar
+            Index.init(); // init index page
+            Tasks.initDashboardWidget(); // init tash dashboard widget
+
+        });
+    </script>
+    <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->
 </html>
 
 
+
+
 <script>
-    var ChartsActreccharts = function () {
-    var initChartSample7 = function() {
-        var chart = AmCharts.makeChart("chart_treatment", {
-            "type": "pie",
-            "theme": "light",
-            "radius": 360,
-            "labelRadius":100,
-            "fontFamily": 'Arial',
-            "fontSize" :25,
-            "color":    '#000000',
-            "stroke": '#000000',
+    var aChartsAmallcharts = function () {
+        var ainitChartSample5 = function() {
+            var chart = AmCharts.makeChart("achart_5", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
 
-            //"stroke-opacity":"1",
-            "align":"Left",
-            "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
-            "valueField": "Count",
-            "titleField": "Key",
-            "labelText":"[[Key]]:<br>[[Count]],[[percents]]%",
-            "outlineAlpha": 0.4,
-            "depth3D": 50,
-            "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
-            "angle": 30,
-            //"borderAlpha":1,
-            "labelTickAlpha":1,
-            "exportConfig": {
-                menuItems: [{
-                    icon: '/lib/3/images/export.png',
-                    format: 'png'
-                }]
-            }
-        });
+                "fontFamily": 'Arial',
 
 
-        jQuery('.chart_7_chart_input').off().on('input change', function() {
-            var property = jQuery(this).data('property');
-            var target = chart;
-            var value = Number(this.value);
-            chart.startDuration = 0;
+                "color":    '#000000',
 
-            if (property == 'innerRadius') {
-                value += "%";
-            }
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.data)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":20,
 
-            target[property] = value;
-            chart.validateNow();
-        });
-
-        $('#chart_treatment').closest('.portlet').find('.fullscreen').click(function() {
-            chart.invalidateSize();
-        });
-    }
+                }],
 
 
 
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                    "fillColors":"#FF6600",
+
+                    //"bold": true,
+                    "fontSize" :"23px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "valueField": "Count",
+
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 20,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":20,
+                    "labelRotation": 45,
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+            jQuery('.chart_5_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                chart.startDuration = 0;
+
+                if (property == 'topRadius') {
+                    target = chart.graphs[0];
+                }
+
+                target[property] = this.value;
+                chart.validateNow();
+            });
+
+            $('#achart_5').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }
+
+
+        var ainitChartSample7 = function() {
+            var chart = AmCharts.makeChart("achart_7all", {
+                "type": "pie",
+                "theme": "light",
+                "radius": 190,
+                "fontFamily": 'Arial',
+                "fontSize":20,
+                "color":    '#000000',
+                "labelRadius":50,
+                "marginTop":20,
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.objectname)),
+                "valueField": "Count",
+                "titleField": "Key",
+                "labelText":"[[Key]]:<br>[[Count]] ([[percents]])%",
+
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
 
 
 
+            });
 
-    return {
+            jQuery('.chart_7_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#achart_7all').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }
+
+       
 
 
-        init: function () {
+            //Age Category
 
-     
-            initChartSample7();
+        var ainitAllChart = function() {
+            var ageAllchart = AmCharts.makeChart("achart_All", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.agedata)),
+
+
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+
+                    "fontSize":23
+
+                }],
+                "graphs": [{
+
+                    "fillColors":"#6A42C2",
+                    "offset":0,
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 1,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count",
+
+
+                }
+
+                ],
+                "depth3D": 40,
+                "angle": 20,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+
+            }, 0);
+            jQuery('.chart_age_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                chart.startDuration = 0;
+
+                if (property == 'topRadius') {
+                    target = chart.graphs[0];
+                }
+
+                target[property] = this.value;
+                chart.validateNow();
+            });
+
+            $('#achart_All').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+
+
+        var ainitTimeChartAll = function() {
+            var timechartAll = AmCharts.makeChart("aTimechartAll", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.timedata)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "dataPoints": "Count",
+                    "fontSize":23
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                    "fillColors":"#D91656",
+                    //"fillColors":"#700B97",
+
+                    //"bold": true,
+                    "fontSize" :"25px" ,
+                    "labelText":"[[Count]]",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 90,
+                    "valueField": "Count"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Key",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":22
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+
+            $('#aTimechartAll').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+
+        //Diease Status Pie chart
+        var ainitChartSamplediseaseAll = function() {
+            var chart = AmCharts.makeChart("achart_diseaseAll", {
+                "type": "pie",
+                "theme": "light",
+
+                "innerRadius": "50%",
+                "radius": "160",
+
+                "fontFamily": "Arial",
+                "fontSize": 20,
+                "color": "#000000",
+                "outlineAlpha": 0,
+                "pullOutRadius": 0,
+                "marginBottom": 50,
+                "labelRadius": 50,
+
+                "gradientRatio": [-0.4, 0.2, 0.2],
+
+                "balloonText": "[[Key]]<br><b>[[Count]]</b>",
+                "labelText": "[[Key]]\n[[Count]] ([[percents]]%)",
+                "valueField": "Count",
+                "titleField": "Key",
+                "colorField": "Color",
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.discharge)),
+            });
 
         }
 
-    };
+        //comabidity
+
+        @*var initChartSamplecomabiditypie = function() {
+            var chart = AmCharts.makeChart("chart_comabiditypie", {
+                "type": "pie",
+                "theme": "light",
+                "radius": 100,
+                "fontFamily": 'Arial',
+                "fontSize":17,
+                "color":    '#000000',
+                "labelRadius":50,
+                "marginBottom":00,
+                "marginRight":00,
+                "dataProvider": @Html.Raw(Json.Encode(ViewBag.combability)),
+                "valueField": "Count",
+                "titleField": "Key",
+                "labelText":"[[Key]]:<br>[[Count]]<br>([[percents]]%)",
+
+                "outlineAlpha": 0.4,
+                "depth3D": 15,
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[Count]]</b> </span>",
+
+                "angle": 30,
+                "exportConfig": {
+                    menuItems: [{
+                        icon: '/lib/3/images/export.png',
+                        format: 'png'
+                    }]
+                }
+
+
+
+            });
+
+            jQuery('.chart_7_chart_input').off().on('input change', function() {
+                var property = jQuery(this).data('property');
+                var target = chart;
+                var value = Number(this.value);
+                chart.startDuration = 0;
+
+                if (property == 'innerRadius') {
+                    value += "%";
+                }
+
+                target[property] = value;
+                chart.validateNow();
+            });
+
+            $('#chart_comabiditypie').closest('.portlet').find('.fullscreen').click(function() {
+                chart.invalidateSize();
+            });
+        }*@
+
+
+        //CD Score
+        var ainitchart_cdscoreall = function() {
+            var timechartchart_cdscoreall = AmCharts.makeChart("achart_cdscoreall", {
+                "theme": "light",
+                "type": "serial",
+                "startDuration": 1.5,
+
+                "fontFamily": 'Open Sans',
+
+                "color":    '#000000',
+
+
+                "dataProvider": @Html.Raw(Json.Encode(@ViewBag.total_co)),
+                //"color":["#FF0F00","#FF6600","#FF9E01","#FCD202","#F8FF01","#B0DE09"],
+                "valueAxes": [{
+                    "position": "left",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                  //  "dataPoints": "Count",
+                    "fontSize":18
+
+
+                }],
+
+
+
+                "graphs": [{
+                    //"balloonColor":"#FF0F00",
+                   // "fillColors":"#D91656",
+                    "fillColors":"#009688",
+
+                    //"bold": true,
+                    "fontSize" :"20px" ,
+                    "labelText":"[[Percentage]]%",
+                    "labelColorField": "#FF0F00",
+                    "color": "#000000",
+                    //"labelPosition":"inside",
+                   // "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "colorField": "color",
+                    "fillAlphas": 0.85,
+                    "lineAlpha": 0.1,
+                    "type": "column",
+                    "topRadius": 1,
+                    "fixedColumnWidth": 50,
+                    "valueField": "Percentage"
+                }
+
+                ],
+
+
+                "depth3D": 40,
+                "angle": 30,
+                "chartCursor": {
+                    "categoryBalloonEnabled": false,
+                    "cursorAlpha": 0,
+                    "zoomable": false
+                },
+
+                "categoryField": "Label",
+                "categoryAxis": {
+                    "gridPosition": "start",
+                    "axisAlpha": 0,
+                    "gridAlpha": 0,
+                    "fontSize":18,
+                    "title": "CD Score",
+                    "titleFontSize": 15,
+                },
+                "exportConfig": {
+                    "menuTop": "20px",
+                    "menuRight": "20px",
+                    "menuItems": [{
+                        "icon": '/lib/3/images/export.png',
+                        "format": 'png'
+                    }]
+                }
+            }, 0);
+
+
+            $('#achart_cdscoreall').closest('.portlet').find('.fullscreen').click(function() {
+                agechart.invalidateSize();
+            });
+        }
+
+
+
+
+
+
+
+
+
+        return {
+
+
+            init: function () {
+
+                //initChartSample3();
+                ainitChartSample5();
+                ainitChartSample7();
+                ainitAllChart();
+                ainitTimeChartAll();
+                ainitChartSamplediseaseAll();
+              //  initChartSamplecomabiditypie();
+                ainitchart_cdscoreall();
+            }
+
+        };
     }();
+
+
+
+
+
 </script>
 
+<!-- Resources -->
+
+<script src="~/assets/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+<script>
+    am4core.ready(function() {
 
 
+        am4core.useTheme(am4themes_animated);
 
 
+        var chart = am4core.create("achart_comabiditypie", am4charts.PieChart3D);
+
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
 
+            chart.data = @Html.Raw(Json.Encode(@ViewBag.combability));
 
+            var series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "Count";
+            series.dataFields.category = "Key";
+            series.labels.template.text ="{category}:\n{value}\n({value.percent.formatNumber('#.0')}%)";
+            series.fontSize=20;
+            series.radius=100;
+            series.dx = 30;
 
+            series.colors.list = [
+                am4core.color("#FFF200"),
+                am4core.color("#9CD66B"),
+                am4core.color("#FF4C4C"),
+                am4core.color("#E78AC3"),
+                am4core.color("#2F3E75"),
+                am4core.color("#4FC3F7")
+            ];
+});
+</script>
 
 
 

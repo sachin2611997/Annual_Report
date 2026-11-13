@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse !important;
+        }
+
+            .table,
+            .table th,
+            .table td {
+                border: 1.5px solid #000 !important;
+            }
+
+                .table th,
+                .table td {
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 12px;
+                }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    @RenderBody()
+
+</body>
+</html>

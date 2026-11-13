@@ -125,9 +125,9 @@
                         </th>
                        
                         <th width="10%" class="agb">Site</th>
-                        <th class="active">0-4</th>
-                        <th class="active">05_09</th>
-                        <th class="active">10_14</th>
+                        <th class="active">0-04</th>
+                        <th class="active">05-09</th>
+                        <th class="active">10-14</th>
                         <th class="active">15-19</th>
                         <th class="active">20-24</th>
                         <th class="active">25-29</th>
@@ -157,9 +157,9 @@
         // Initialize the sums for each age group
         var ageGroupSums = new Dictionary<string, int>
         {
-            { "0-4", 0 },
-            { "05_09", 0 },
-            { "10_14", 0 },
+            { "0-04", 0 },
+            { "05-09", 0 },
+            { "10-14", 0 },
             { "15-19", 0 },
             { "20-24", 0 },
             { "25-29", 0 },
@@ -185,9 +185,9 @@
             <tr>
                 <td class="active sys">@row["SysValue"]</td>
                 <td class="active">@row["SiteName"]</td>
-                <td>@(ageGroups.ContainsKey("0-4") ? ageGroups["0-4"] : 0)</td>
-                <td>@(ageGroups.ContainsKey("05_09") ? ageGroups["05_09"] : 0)</td>
-                <td>@(ageGroups.ContainsKey("10_14") ? ageGroups["10_14"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("0-04") ? ageGroups["0-04"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("05-09") ? ageGroups["05-09"] : 0)</td>
+                <td>@(ageGroups.ContainsKey("10-14") ? ageGroups["10-14"] : 0)</td>
                 <td>@(ageGroups.ContainsKey("15-19") ? ageGroups["15-19"] : 0)</td>
                 <td>@(ageGroups.ContainsKey("20-24") ? ageGroups["20-24"] : 0)</td>
                 <td>@(ageGroups.ContainsKey("25-29") ? ageGroups["25-29"] : 0)</td>
@@ -207,9 +207,9 @@
                 </td>
             </tr>
             // Update the sum for each age group
-            ageGroupSums["0-4"] += ageGroups.ContainsKey("0-4") ? (int)ageGroups["0-4"] : 0;
-            ageGroupSums["05_09"] += ageGroups.ContainsKey("05_09") ? (int)ageGroups["05_09"] : 0;
-            ageGroupSums["10_14"] += ageGroups.ContainsKey("10_14") ? (int)ageGroups["10_14"] : 0;
+            ageGroupSums["0-04"] += ageGroups.ContainsKey("0-04") ? (int)ageGroups["0-04"] : 0;
+            ageGroupSums["05-09"] += ageGroups.ContainsKey("05-09") ? (int)ageGroups["05-09"] : 0;
+            ageGroupSums["10-14"] += ageGroups.ContainsKey("10-14") ? (int)ageGroups["10-14"] : 0;
             ageGroupSums["15-19"] += ageGroups.ContainsKey("15-19") ? (int)ageGroups["15-19"] : 0;
             ageGroupSums["20-24"] += ageGroups.ContainsKey("20-24") ? (int)ageGroups["20-24"] : 0;
             ageGroupSums["25-29"] += ageGroups.ContainsKey("25-29") ? (int)ageGroups["25-29"] : 0;
@@ -230,9 +230,9 @@
         <tr class="agb">
             <td colspan="2"><strong>Total</strong></td>
              <!-- Empty cell for SiteName -->
-            <td>@ageGroupSums["0-4"]</td>
-            <td>@ageGroupSums["05_09"]</td>
-            <td>@ageGroupSums["10_14"]</td>
+            <td>@ageGroupSums["0-04"]</td>
+            <td>@ageGroupSums["05-09"]</td>
+            <td>@ageGroupSums["10-14"]</td>
             <td>@ageGroupSums["15-19"]</td>
             <td>@ageGroupSums["20-24"]</td>
             <td>@ageGroupSums["25-29"]</td>
@@ -256,9 +256,9 @@
         <!-- Second Row for Percentages -->
         <tr class="agb">
             <td colspan="2"><strong>%</strong></td>
-            <td>@(totalCount > 0 ? ((double)ageGroupSums["0-4"] / totalCount * 100).ToString("F1") : "0.0")%</td>
-            <td>@(totalCount > 0 ? ((double)ageGroupSums["05_09"] / totalCount * 100).ToString("F1") : "0.0")%</td>
-            <td>@(totalCount > 0 ? ((double)ageGroupSums["10_14"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["0-04"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["05-09"] / totalCount * 100).ToString("F1") : "0.0")%</td>
+            <td>@(totalCount > 0 ? ((double)ageGroupSums["10-14"] / totalCount * 100).ToString("F1") : "0.0")%</td>
             <td>@(totalCount > 0 ? ((double)ageGroupSums["15-19"] / totalCount * 100).ToString("F1") : "0.0")%</td>
             <td>@(totalCount > 0 ? ((double)ageGroupSums["20-24"] / totalCount * 100).ToString("F1") : "0.0")%</td>
             <td>@(totalCount > 0 ? ((double)ageGroupSums["25-29"] / totalCount * 100).ToString("F1") : "0.0")%</td>

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Annual_Report.Models.final_analysisViewModel>
-
+@using System.Collections
 @{
     Layout = "~/Views/SharedTMH22/_PrintLayout.cshtml";
 }
@@ -557,13 +557,16 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                                 <!-- BAR CHART -->
-                                <div class="col-md-6">
-
-                                    <h4 style="text-align:center; font-weight:bold;margin-top:5px;"> No. of Comorbidity </h4>
-                                    <br />
-                                    <div id="chart_cdscoreallBone" style="height:430px; width:100%;"> </div>
-
-                                </div>
+                            
+                           <div class="col-md-6">
+                               @if (ViewBag.total_co != null && ((IEnumerable)ViewBag.total_co).GetEnumerator().MoveNext())
+                               {
+                                 <h4 style="text-align:center; font-weight:bold;margin-top:5px;"> No. of Comorbidity </h4>
+                                 <br />
+                                 <div id="chart_cdscoreallBone" style="height:430px; width:100%;"> </div>
+                               }
+                          </div>
+                                                            
 
                             </div>
 
@@ -1366,7 +1369,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     "type": "column",
                     "topRadius": 1,
                     "fixedColumnWidth": 50,
-                    "valueField": "Count"
+                    "valueField": "Percentage"
                 }
 
                 ],
