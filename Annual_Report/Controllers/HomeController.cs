@@ -31,8 +31,6 @@ namespace Annual_Report.Controllers
         }
         
 
-
-
         // GET: Home
         [HttpGet]
         public ActionResult map()

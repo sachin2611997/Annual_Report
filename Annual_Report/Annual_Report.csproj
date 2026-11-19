@@ -2716,7 +2716,6 @@
     <Compile Include="Controllers\GuwahtriTestController.cs" />
     <Compile Include="Controllers\HBCR2025Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProvisionalReportController.cs" />
     <Compile Include="Controllers\Report2024Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TMH2022Controller.cs" />
@@ -2797,29 +2796,10 @@
     <Content Include="Views\Home\Gastrointestinal_Table.cshtml" />
     <Content Include="Views\Home\Head_Neck_Table.cshtml" />
     <Content Include="Views\Home\TreatmentReceivedBeforeRegisFemale.cshtml" />
-    <Content Include="Views\ProvisionalReport\AllCenter.cshtml" />
-    <Content Include="Views\ProvisionalReport\HeadnNeck.cshtml" />
-    <Content Include="Views\ProvisionalReport\Index.cshtml" />
-    <Content Include="Views\ProvisionalReport\Lung.cshtml" />
-    <Content Include="Views\ProvisionalReport\Breast.cshtml" />
-    <Content Include="Views\ProvisionalReport\Gastrointestinal_ProTable.cshtml" />
-    <Content Include="Views\ProvisionalReport\Gastrointestinal.cshtml" />
-    <Content Include="Views\ProvisionalReport\Bone.cshtml" />
-    <Content Include="Views\ProvisionalReport\Peripheral_Nerves.cshtml" />
-    <Content Include="Views\ProvisionalReport\Female_Gynae.cshtml" />
-    <Content Include="Views\ProvisionalReport\Male_Reproductive.cshtml" />
-    <Content Include="Views\ProvisionalReport\Haemat.cshtml" />
-    <Content Include="Views\ProvisionalReport\LeadSite2045.cshtml" />
-    <Content Include="Views\ProvisionalReport\LeadSite4659.cshtml" />
-    <Content Include="Views\ProvisionalReport\LeadSiteCancers.cshtml" />
-    <Content Include="Views\ProvisionalReport\TopLeadSites.cshtml" />
     <Content Include="Views\Home\Actrac_Treatment.cshtml" />
-    <Content Include="Views\ProvisionalReport\Age_Sys_regis_actrec.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\ICD_10Page.cshtml" />
-    <Content Include="Views\ProvisionalReport\barchart.cshtml" />
-    <Content Include="Views\ProvisionalReport\LeadSite60above.cshtml" />
     <Content Include="Views\map\postmap.cshtml" />
     <Content Include="Views\Home\All_sites.cshtml" />
     <Content Include="Views\map\map.cshtml" />
@@ -3021,6 +3001,7 @@
     <Content Include="Views\GuwahtriTest\Head_NeckTest.cshtml" />
     <Content Include="Views\GuwahtriTest\Indextest.cshtml" />
     <Content Include="Views\GuwahtriTest\Buccal_MucosaTest.cshtml" />
+    <Content Include="Views\Guwahati_2023\GuwahatiConsolated.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

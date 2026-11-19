@@ -16,6 +16,11 @@ namespace Annual_Report.Controllers
             return View();
         }
 
+        public ActionResult GuwahatiConsolated()
+        {
+            return View();
+        }
+
         public ActionResult All_sites()
         {
             var System4 = db.fnl_alysis.Select(x => x.System4).Distinct().ToList();
